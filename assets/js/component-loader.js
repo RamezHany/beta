@@ -152,7 +152,10 @@ const FALLBACK_FOOTER = `
                      <a class="logo-2" href="index.html"><img src="assets/img/logo/logo-white.png" alt=""></a>
                   </div>
                   <div class="tp-footer-2-widget-text">
-                     <p>Helal - Where Brands Come Alive <br> Digital Marketing & Branding Agency <br> Alexandria, Egypt</p>                         
+                     <p>Helal - Where Brands Come Alive <br> Digital Marketing & Branding Agency <br> Alexandria, Egypt</p>
+                     <div class="tp-footer-2-contact-item mt-3">
+                        <span><a href="tel:+201220117832" style="color: #FFD700; text-decoration: none;">📞 +20 122 011 7832</a></span>
+                     </div>                        
                   </div>
                </div>
             </div>
