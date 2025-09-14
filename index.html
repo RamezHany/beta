@@ -28,6 +28,107 @@
    <link rel="stylesheet" href="assets/css/spacing.css">
    <link rel="stylesheet" href="assets/css/custom-animation.css">
    <link rel="stylesheet" href="assets/css/main.css">
+   
+   <!-- Gallery Video Optimization -->
+   <style>
+   .tp-gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+   }
+   
+   .gallery-video-container {
+      position: relative;
+      width: 100%;
+      height: 400px;
+      cursor: pointer;
+   }
+   
+   .gallery-video-thumbnail {
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      border-radius: 8px;
+   }
+   
+   .gallery-video-play-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 70px;
+      height: 70px;
+      background: rgba(255, 215, 0, 0.9);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 10;
+   }
+   
+   .gallery-video-play-btn:hover {
+      background: rgba(255, 215, 0, 1);
+      transform: translate(-50%, -50%) scale(1.1);
+   }
+   
+   .gallery-video-play-btn::before {
+      content: '';
+      width: 0;
+      height: 0;
+      border-left: 18px solid #000;
+      border-top: 11px solid transparent;
+      border-bottom: 11px solid transparent;
+      margin-left: 3px;
+   }
+   
+   .gallery-video-iframe {
+      display: none;
+      width: 100%;
+      height: 100%;
+      border: 0;
+   }
+   
+   .gallery-video-iframe.loaded {
+      display: block;
+   }
+   
+   .gallery-video-loading {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #FFD700;
+      font-size: 16px;
+      display: none;
+      text-align: center;
+      z-index: 15;
+   }
+   
+   .gallery-video-loading .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid rgba(255, 215, 0, 0.3);
+      border-top: 4px solid #FFD700;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 10px;
+   }
+   
+   @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+   }
+   
+   .gallery-video-loading p {
+      margin: 0;
+      font-weight: 500;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+   }
+   </style>
 </head>
 
 <body id="body" class="tp-smooth-scroll">
@@ -134,67 +235,145 @@
                               <div class="swiper-wrapper tp-gallery-titming">
                                  <div class="swiper-slide">
                                     <div class="tp-gallery-item">
-                                       <iframe src="https://www.youtube.com/embed/RxjUwY-X4Rs" width="100%" height="400" frameborder="0" allowfullscreen></iframe>
+                                       <div class="gallery-video-container" data-video-id="RxjUwY-X4Rs">
+                                          <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/RxjUwY-X4Rs/maxresdefault.jpg');">
+                                             <div class="gallery-video-play-btn"></div>
+                                             <div class="gallery-video-loading">Loading...</div>
+                                          </div>
+                                          <iframe class="gallery-video-iframe" data-src="https://www.youtube.com/embed/RxjUwY-X4Rs?rel=0&autoplay=1&mute=0" allowfullscreen></iframe>
+                                       </div>
                                     </div>
                                  </div>
                                  <div class="swiper-slide">
                                     <div class="tp-gallery-item">
-                                       <iframe src="https://www.youtube.com/embed/wTAInzwUL18" width="100%" height="400" frameborder="0" allowfullscreen></iframe>
+                                       <div class="gallery-video-container" data-video-id="wTAInzwUL18">
+                                          <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/wTAInzwUL18/maxresdefault.jpg');">
+                                             <div class="gallery-video-play-btn"></div>
+                                             <div class="gallery-video-loading">Loading...</div>
+                                          </div>
+                                          <iframe class="gallery-video-iframe" data-src="https://www.youtube.com/embed/wTAInzwUL18?rel=0&autoplay=1&mute=0" allowfullscreen></iframe>
+                                       </div>
                                     </div>
                                  </div>
                                  <div class="swiper-slide">
                                     <div class="tp-gallery-item">
-                                       <iframe src="https://www.youtube.com/embed/qmUtOpno6UA" width="100%" height="400" frameborder="0" allowfullscreen></iframe>
+                                       <div class="gallery-video-container" data-video-id="qmUtOpno6UA">
+                                          <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/qmUtOpno6UA/maxresdefault.jpg');">
+                                             <div class="gallery-video-play-btn"></div>
+                                             <div class="gallery-video-loading">Loading...</div>
+                                          </div>
+                                          <iframe class="gallery-video-iframe" data-src="https://www.youtube.com/embed/qmUtOpno6UA?rel=0&autoplay=1&mute=0" allowfullscreen></iframe>
+                                       </div>
                                     </div>
                                  </div>
                                  <div class="swiper-slide">
                                     <div class="tp-gallery-item">
-                                       <iframe src="https://www.youtube.com/embed/CwZ4WRhsgBo" width="100%" height="400" frameborder="0" allowfullscreen></iframe>
+                                       <div class="gallery-video-container" data-video-id="CwZ4WRhsgBo">
+                                          <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/CwZ4WRhsgBo/maxresdefault.jpg');">
+                                             <div class="gallery-video-play-btn"></div>
+                                             <div class="gallery-video-loading">Loading...</div>
+                                          </div>
+                                          <iframe class="gallery-video-iframe" data-src="https://www.youtube.com/embed/CwZ4WRhsgBo?rel=0&autoplay=1&mute=0" allowfullscreen></iframe>
+                                       </div>
                                     </div>
                                  </div>
                                  <div class="swiper-slide">
                                     <div class="tp-gallery-item">
-                                       <iframe src="https://www.youtube.com/embed/RxjUwY-X4Rs" width="100%" height="400" frameborder="0" allowfullscreen></iframe>
+                                       <div class="gallery-video-container" data-video-id="RxjUwY-X4Rs">
+                                          <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/RxjUwY-X4Rs/maxresdefault.jpg');">
+                                             <div class="gallery-video-play-btn"></div>
+                                             <div class="gallery-video-loading">Loading...</div>
+                                          </div>
+                                          <iframe class="gallery-video-iframe" data-src="https://www.youtube.com/embed/RxjUwY-X4Rs?rel=0&autoplay=1&mute=0" allowfullscreen></iframe>
+                                       </div>
                                     </div>
                                  </div>
                                  <div class="swiper-slide">
                                     <div class="tp-gallery-item">
-                                       <iframe src="https://www.youtube.com/embed/wTAInzwUL18" width="100%" height="400" frameborder="0" allowfullscreen></iframe>
+                                       <div class="gallery-video-container" data-video-id="wTAInzwUL18">
+                                          <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/wTAInzwUL18/maxresdefault.jpg');">
+                                             <div class="gallery-video-play-btn"></div>
+                                             <div class="gallery-video-loading">Loading...</div>
+                                          </div>
+                                          <iframe class="gallery-video-iframe" data-src="https://www.youtube.com/embed/wTAInzwUL18?rel=0&autoplay=1&mute=0" allowfullscreen></iframe>
+                                       </div>
                                     </div>
                                  </div>
                                  <div class="swiper-slide">
                                     <div class="tp-gallery-item">
-                                       <iframe src="https://www.youtube.com/embed/qmUtOpno6UA" width="100%" height="400" frameborder="0" allowfullscreen></iframe>
+                                       <div class="gallery-video-container" data-video-id="qmUtOpno6UA">
+                                          <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/qmUtOpno6UA/maxresdefault.jpg');">
+                                             <div class="gallery-video-play-btn"></div>
+                                             <div class="gallery-video-loading">Loading...</div>
+                                          </div>
+                                          <iframe class="gallery-video-iframe" data-src="https://www.youtube.com/embed/qmUtOpno6UA?rel=0&autoplay=1&mute=0" allowfullscreen></iframe>
+                                       </div>
                                     </div>
                                  </div>
                                  <div class="swiper-slide">
                                     <div class="tp-gallery-item">
-                                       <iframe src="https://www.youtube.com/embed/CwZ4WRhsgBo" width="100%" height="400" frameborder="0" allowfullscreen></iframe>
+                                       <div class="gallery-video-container" data-video-id="CwZ4WRhsgBo">
+                                          <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/CwZ4WRhsgBo/maxresdefault.jpg');">
+                                             <div class="gallery-video-play-btn"></div>
+                                             <div class="gallery-video-loading">Loading...</div>
+                                          </div>
+                                          <iframe class="gallery-video-iframe" data-src="https://www.youtube.com/embed/CwZ4WRhsgBo?rel=0&autoplay=1&mute=0" allowfullscreen></iframe>
+                                       </div>
                                     </div>
                                  </div>
                                  <div class="swiper-slide">
                                     <div class="tp-gallery-item">
-                                       <iframe src="https://www.youtube.com/embed/RxjUwY-X4Rs" width="100%" height="400" frameborder="0" allowfullscreen></iframe>
+                                       <div class="gallery-video-container" data-video-id="RxjUwY-X4Rs">
+                                          <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/RxjUwY-X4Rs/maxresdefault.jpg');">
+                                             <div class="gallery-video-play-btn"></div>
+                                             <div class="gallery-video-loading">Loading...</div>
+                                          </div>
+                                          <iframe class="gallery-video-iframe" data-src="https://www.youtube.com/embed/RxjUwY-X4Rs?rel=0&autoplay=1&mute=0" allowfullscreen></iframe>
+                                       </div>
                                     </div>
                                  </div>
                                  <div class="swiper-slide">
                                     <div class="tp-gallery-item">
-                                       <iframe src="https://www.youtube.com/embed/wTAInzwUL18" width="100%" height="400" frameborder="0" allowfullscreen></iframe>
+                                       <div class="gallery-video-container" data-video-id="wTAInzwUL18">
+                                          <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/wTAInzwUL18/maxresdefault.jpg');">
+                                             <div class="gallery-video-play-btn"></div>
+                                             <div class="gallery-video-loading">Loading...</div>
+                                          </div>
+                                          <iframe class="gallery-video-iframe" data-src="https://www.youtube.com/embed/wTAInzwUL18?rel=0&autoplay=1&mute=0" allowfullscreen></iframe>
+                                       </div>
                                     </div>
                                  </div>
                                  <div class="swiper-slide">
                                     <div class="tp-gallery-item">
-                                       <iframe src="https://www.youtube.com/embed/qmUtOpno6UA" width="100%" height="400" frameborder="0" allowfullscreen></iframe>
+                                       <div class="gallery-video-container" data-video-id="qmUtOpno6UA">
+                                          <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/qmUtOpno6UA/maxresdefault.jpg');">
+                                             <div class="gallery-video-play-btn"></div>
+                                             <div class="gallery-video-loading">Loading...</div>
+                                          </div>
+                                          <iframe class="gallery-video-iframe" data-src="https://www.youtube.com/embed/qmUtOpno6UA?rel=0&autoplay=1&mute=0" allowfullscreen></iframe>
+                                       </div>
                                     </div>
                                  </div>
                                  <div class="swiper-slide">
                                     <div class="tp-gallery-item">
-                                       <iframe src="https://www.youtube.com/embed/CwZ4WRhsgBo" width="100%" height="400" frameborder="0" allowfullscreen></iframe>
+                                       <div class="gallery-video-container" data-video-id="CwZ4WRhsgBo">
+                                          <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/CwZ4WRhsgBo/maxresdefault.jpg');">
+                                             <div class="gallery-video-play-btn"></div>
+                                             <div class="gallery-video-loading">Loading...</div>
+                                          </div>
+                                          <iframe class="gallery-video-iframe" data-src="https://www.youtube.com/embed/CwZ4WRhsgBo?rel=0&autoplay=1&mute=0" allowfullscreen></iframe>
+                                       </div>
                                     </div>
                                  </div>
                                  <div class="swiper-slide">
                                     <div class="tp-gallery-item">
-                                       <iframe src="https://www.youtube.com/embed/3951tS1OmZY" width="100%" height="400" frameborder="0" allowfullscreen></iframe>
+                                       <div class="gallery-video-container" data-video-id="3951tS1OmZY">
+                                          <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/3951tS1OmZY/maxresdefault.jpg');">
+                                             <div class="gallery-video-play-btn"></div>
+                                             <div class="gallery-video-loading">Loading...</div>
+                                          </div>
+                                          <iframe class="gallery-video-iframe" data-src="https://www.youtube.com/embed/3951tS1OmZY?rel=0&autoplay=1&mute=0" allowfullscreen></iframe>
+                                       </div>
                                     </div>
                                  </div>
                               </div>
@@ -369,13 +548,13 @@
                            <div class="row">
                               <div class="col-xl-4 col-lg-4 col-md-6">
                                  <div class="tp-project-3-thumb pro-img-1" style="overflow: hidden; border-radius: 10px; position: relative; padding-top: 177.78%;">
-                                   <iframe 
-                                     src="https://www.youtube.com/embed/3951tS1OmZY?rel=0&autoplay=0&mute=1" 
-                                     frameborder="0" 
-                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                     allowfullscreen
-                                     style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-                                   </iframe>
+                                   <div class="gallery-video-container" data-video-id="3951tS1OmZY" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+                                      <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/3951tS1OmZY/maxresdefault.jpg');">
+                                         <div class="gallery-video-play-btn"></div>
+                                         <div class="gallery-video-loading">Loading...</div>
+                                      </div>
+                                      <iframe class="gallery-video-iframe" data-src="https://www.youtube.com/embed/3951tS1OmZY?rel=0&autoplay=1&mute=0" allowfullscreen></iframe>
+                                   </div>
                                  </div>
                               </div>
                               <div class="col-xl-4 col-lg-4 col-md-12 order-1 order-lg-0">
@@ -389,13 +568,13 @@
                               </div>
                               <div class="col-xl-4 col-lg-4 col-md-6 order-0 order-lg-0">
                                  <div class="tp-project-3-thumb pro-img-2" style="overflow: hidden; border-radius: 10px; position: relative; padding-top: 177.78%;">
-                                   <iframe 
-                                     src="https://www.youtube.com/embed/DRhzFPIER6U?rel=0&autoplay=0&mute=1" 
-                                     frameborder="0" 
-                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                     allowfullscreen
-                                     style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-                                   </iframe>
+                                   <div class="gallery-video-container" data-video-id="DRhzFPIER6U" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+                                      <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/DRhzFPIER6U/maxresdefault.jpg');">
+                                         <div class="gallery-video-play-btn"></div>
+                                         <div class="gallery-video-loading">Loading...</div>
+                                      </div>
+                                      <iframe class="gallery-video-iframe" data-src="https://www.youtube.com/embed/DRhzFPIER6U?rel=0&autoplay=1&mute=0" allowfullscreen></iframe>
+                                   </div>
                                  </div>
                               </div>
                            </div>
@@ -404,13 +583,13 @@
                            <div class="row">
                               <div class="col-xl-4 col-lg-4 col-md-6">
                                  <div class="tp-project-3-thumb pro-img-1" style="overflow: hidden; border-radius: 10px; position: relative; padding-top: 177.78%;">
-                                   <iframe 
-                                     src="https://www.youtube.com/embed/7RqDY1Z9kBc?rel=0&autoplay=0&mute=1" 
-                                     frameborder="0" 
-                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                     allowfullscreen
-                                     style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-                                   </iframe>
+                                   <div class="gallery-video-container" data-video-id="7RqDY1Z9kBc" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+                                      <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/7RqDY1Z9kBc/maxresdefault.jpg');">
+                                         <div class="gallery-video-play-btn"></div>
+                                         <div class="gallery-video-loading">Loading...</div>
+                                      </div>
+                                      <iframe class="gallery-video-iframe" data-src="https://www.youtube.com/embed/7RqDY1Z9kBc?rel=0&autoplay=1&mute=0" allowfullscreen></iframe>
+                                   </div>
                                  </div>
                               </div>
                               <div class="col-xl-4 col-lg-4 col-md-12 order-1 order-lg-0">
@@ -425,13 +604,13 @@
                               </div>
                               <div class="col-xl-4 col-lg-4 col-md-6 order-0 order-lg-0">
                                  <div class="tp-project-3-thumb pro-img-2" style="overflow: hidden; border-radius: 10px; position: relative; padding-top: 177.78%;">
-                                   <iframe 
-                                     src="https://www.youtube.com/embed/BU0MZMGDzWw?rel=0&autoplay=0&mute=1" 
-                                     frameborder="0" 
-                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                     allowfullscreen
-                                     style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-                                   </iframe>
+                                   <div class="gallery-video-container" data-video-id="BU0MZMGDzWw" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+                                      <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/BU0MZMGDzWw/maxresdefault.jpg');">
+                                         <div class="gallery-video-play-btn"></div>
+                                         <div class="gallery-video-loading">Loading...</div>
+                                      </div>
+                                      <iframe class="gallery-video-iframe" data-src="https://www.youtube.com/embed/BU0MZMGDzWw?rel=0&autoplay=1&mute=0" allowfullscreen></iframe>
+                                   </div>
                                  </div>
                               </div>
                            </div>
@@ -485,13 +664,13 @@
                              <!-- الفيديو الأول -->
                               <div class="col-xl-4 col-lg-4 col-md-6">
                                <div class="tp-project-3-thumb pro-img-1" style="overflow: hidden; border-radius: 10px; position: relative; padding-top: 177.78%;">
-                                 <iframe 
-                                   src="https://www.youtube.com/embed/ZMJqmKrkAEE?rel=0&?rel=0&autoplay=0&mute=1" 
-                                   frameborder="0" 
-                                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                   allowfullscreen
-                                   style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-                                 </iframe>
+                                 <div class="gallery-video-container" data-video-id="ZMJqmKrkAEE" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+                                    <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/ZMJqmKrkAEE/maxresdefault.jpg');">
+                                       <div class="gallery-video-play-btn"></div>
+                                       <div class="gallery-video-loading">Loading...</div>
+                                    </div>
+                                    <iframe class="gallery-video-iframe" data-src="https://www.youtube.com/embed/ZMJqmKrkAEE?rel=0&autoplay=1&mute=0" allowfullscreen></iframe>
+                                 </div>
                                  </div>
                               </div>
                          
@@ -507,13 +686,13 @@
                              <!-- الفيديو الثاني -->
                               <div class="col-xl-4 col-lg-4 col-md-6 order-0 order-lg-0">
                                <div class="tp-project-3-thumb pro-img-2" style="overflow: hidden; border-radius: 10px; position: relative; padding-top: 177.78%;">
-                                 <iframe 
-                                   src="https://www.youtube.com/embed/MDN-0rEV4jc?rel=0&?rel=0&autoplay=0&mute=1" 
-                                   frameborder="0" 
-                                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                   allowfullscreen
-                                   style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-                                 </iframe>
+                                 <div class="gallery-video-container" data-video-id="MDN-0rEV4jc" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+                                    <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/MDN-0rEV4jc/maxresdefault.jpg');">
+                                       <div class="gallery-video-play-btn"></div>
+                                       <div class="gallery-video-loading">Loading...</div>
+                                    </div>
+                                    <iframe class="gallery-video-iframe" data-src="https://www.youtube.com/embed/MDN-0rEV4jc?rel=0&autoplay=1&mute=0" allowfullscreen></iframe>
+                                 </div>
                                  </div>
                               </div>
                          
@@ -764,6 +943,56 @@
    <script src="assets/js/main.js"></script>
    <script src="assets/js/tp-cursor.js"></script>
    <script src="assets/js/component-loader.js"></script>
+
+   <!-- Gallery Video Lazy Loading Script -->
+   <script>
+   document.addEventListener('DOMContentLoaded', function() {
+       const galleryVideoContainers = document.querySelectorAll('.gallery-video-container');
+       
+       galleryVideoContainers.forEach(container => {
+           const playBtn = container.querySelector('.gallery-video-play-btn');
+           const loading = container.querySelector('.gallery-video-loading');
+           const thumbnail = container.querySelector('.gallery-video-thumbnail');
+           const iframe = container.querySelector('.gallery-video-iframe');
+           
+           playBtn.addEventListener('click', function() {
+               // Hide thumbnail and play button immediately
+               thumbnail.style.display = 'none';
+               
+               // Show loading spinner
+               loading.style.display = 'block';
+               loading.innerHTML = '<div class="spinner"></div><p>Loading Video...</p>';
+               
+               // Load iframe
+               const videoSrc = iframe.getAttribute('data-src');
+               iframe.src = videoSrc;
+               
+               // Set timeout fallback in case onload doesn't fire
+               let timeoutId = setTimeout(function() {
+                   loading.style.display = 'none';
+                   iframe.classList.add('loaded');
+                   iframe.style.display = 'block';
+               }, 3000); // 3 seconds fallback
+               
+               // Show iframe when loaded
+               iframe.onload = function() {
+                   clearTimeout(timeoutId);
+                   loading.style.display = 'none';
+                   iframe.classList.add('loaded');
+                   iframe.style.display = 'block';
+               };
+               
+               // Additional check for iframe ready state
+               iframe.addEventListener('load', function() {
+                   clearTimeout(timeoutId);
+                   loading.style.display = 'none';
+                   iframe.classList.add('loaded');
+                   iframe.style.display = 'block';
+               });
+           });
+       });
+   });
+   </script>
 
 </body>
 

@@ -26,6 +26,8 @@
       border-radius: 8px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.1);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      cursor: pointer;
    }
    .video-container:hover {
       transform: translateY(-5px);
@@ -34,6 +36,95 @@
    .tp-project-5-2-thumb {
       border-radius: 8px;
       overflow: hidden;
+   }
+   
+   /* Lazy Loading Styles */
+   .video-thumbnail {
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      border-radius: 8px;
+   }
+   
+   .video-play-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80px;
+      height: 80px;
+      background: rgba(255, 215, 0, 0.9);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 10;
+   }
+   
+   .video-play-btn:hover {
+      background: rgba(255, 215, 0, 1);
+      transform: translate(-50%, -50%) scale(1.1);
+   }
+   
+   .video-play-btn::before {
+      content: '';
+      width: 0;
+      height: 0;
+      border-left: 20px solid #000;
+      border-top: 12px solid transparent;
+      border-bottom: 12px solid transparent;
+      margin-left: 4px;
+   }
+   
+   .video-iframe {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+   }
+   
+   .video-iframe.loaded {
+      display: block;
+   }
+   
+   .video-loading {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #FFD700;
+      font-size: 18px;
+      display: none;
+      text-align: center;
+      z-index: 15;
+   }
+   
+   .video-loading .spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid rgba(255, 215, 0, 0.3);
+      border-top: 5px solid #FFD700;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 15px;
+   }
+   
+   @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+   }
+   
+   .video-loading p {
+      margin: 0;
+      font-weight: 600;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
    }
    </style>
 </head>
@@ -100,97 +191,89 @@
                   <div class="row">
                      <div class="col-xl-3 col-lg-6 col-md-6">
                         <div class="tp-project-5-2-thumb mb-30 p-relative not-hide-cursor">
-                           <div class="video-container" style="position: relative; width: 100%; height: 400px; overflow: hidden; border-radius: 8px;">
-                              <iframe 
-                                 src="https://www.youtube.com/embed/MDN-0rEV4jc?rel=0&autoplay=0&mute=1" 
-                                 style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" 
-                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                                 allowfullscreen>
-                              </iframe>
+                           <div class="video-container" style="width: 100%; height: 400px;" data-video-id="MDN-0rEV4jc">
+                              <div class="video-thumbnail" style="background-image: url('https://img.youtube.com/vi/MDN-0rEV4jc/maxresdefault.jpg');">
+                                 <div class="video-play-btn"></div>
+                                 <div class="video-loading">Loading...</div>
+                              </div>
+                              <iframe class="video-iframe" data-src="https://www.youtube.com/embed/MDN-0rEV4jc?rel=0&autoplay=1&mute=0" allowfullscreen></iframe>
                            </div>
                         </div>
                      </div>
                      <div class="col-xl-3 col-lg-6 col-md-6">
                         <div class="tp-project-5-2-thumb mb-30 p-relative not-hide-cursor">
-                           <div class="video-container" style="position: relative; width: 100%; height: 400px; overflow: hidden; border-radius: 8px;">
-                              <iframe 
-                                 src="https://www.youtube.com/embed/ZMJqmKrkAEE?rel=0&autoplay=0&mute=1" 
-                                 style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" 
-                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                                 allowfullscreen>
-                              </iframe>
+                           <div class="video-container" style="width: 100%; height: 400px;" data-video-id="ZMJqmKrkAEE">
+                              <div class="video-thumbnail" style="background-image: url('https://img.youtube.com/vi/ZMJqmKrkAEE/maxresdefault.jpg');">
+                                 <div class="video-play-btn"></div>
+                                 <div class="video-loading">Loading...</div>
+                              </div>
+                              <iframe class="video-iframe" data-src="https://www.youtube.com/embed/ZMJqmKrkAEE?rel=0&autoplay=1&mute=0" allowfullscreen></iframe>
                            </div>
                         </div>
                      </div>
                      <div class="col-xl-3 col-lg-6 col-md-6">
                         <div class="tp-project-5-2-thumb mb-30 p-relative not-hide-cursor">
-                           <div class="video-container" style="position: relative; width: 100%; height: 400px; overflow: hidden; border-radius: 8px;">
-                              <iframe 
-                                 src="https://www.youtube.com/embed/BU0MZMGDzWw?rel=0&autoplay=0&mute=1" 
-                                 style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" 
-                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                                 allowfullscreen>
-                              </iframe>
+                           <div class="video-container" style="width: 100%; height: 400px;" data-video-id="BU0MZMGDzWw">
+                              <div class="video-thumbnail" style="background-image: url('https://img.youtube.com/vi/BU0MZMGDzWw/maxresdefault.jpg');">
+                                 <div class="video-play-btn"></div>
+                                 <div class="video-loading">Loading...</div>
+                              </div>
+                              <iframe class="video-iframe" data-src="https://www.youtube.com/embed/BU0MZMGDzWw?rel=0&autoplay=1&mute=0" allowfullscreen></iframe>
                            </div>
                         </div>
                      </div>
                      <div class="col-xl-3 col-lg-6 col-md-6">
                         <div class="tp-project-5-2-thumb mb-30 p-relative not-hide-cursor">
-                           <div class="video-container" style="position: relative; width: 100%; height: 400px; overflow: hidden; border-radius: 8px;">
-                              <iframe 
-                                 src="https://www.youtube.com/embed/7RqDY1Z9kBc?rel=0&autoplay=0&mute=1" 
-                                 style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" 
-                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                                 allowfullscreen>
-                              </iframe>
+                           <div class="video-container" style="width: 100%; height: 400px;" data-video-id="7RqDY1Z9kBc">
+                              <div class="video-thumbnail" style="background-image: url('https://img.youtube.com/vi/7RqDY1Z9kBc/maxresdefault.jpg');">
+                                 <div class="video-play-btn"></div>
+                                 <div class="video-loading">Loading...</div>
+                              </div>
+                              <iframe class="video-iframe" data-src="https://www.youtube.com/embed/7RqDY1Z9kBc?rel=0&autoplay=1&mute=0" allowfullscreen></iframe>
                            </div>
                         </div>
                      </div>
                      <div class="col-xl-3 col-lg-6 col-md-6">
                         <div class="tp-project-5-2-thumb mb-30 p-relative not-hide-cursor">
-                           <div class="video-container" style="position: relative; width: 100%; height: 400px; overflow: hidden; border-radius: 8px;">
-                              <iframe 
-                                 src="https://www.youtube.com/embed/DRhzFPIER6U?rel=0&autoplay=0&mute=1" 
-                                 style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" 
-                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                                 allowfullscreen>
-                              </iframe>
+                           <div class="video-container" style="width: 100%; height: 400px;" data-video-id="DRhzFPIER6U">
+                              <div class="video-thumbnail" style="background-image: url('https://img.youtube.com/vi/DRhzFPIER6U/maxresdefault.jpg');">
+                                 <div class="video-play-btn"></div>
+                                 <div class="video-loading">Loading...</div>
+                              </div>
+                              <iframe class="video-iframe" data-src="https://www.youtube.com/embed/DRhzFPIER6U?rel=0&autoplay=1&mute=0" allowfullscreen></iframe>
                            </div>
                         </div>
                      </div>
                      <div class="col-xl-3 col-lg-6 col-md-6">
                         <div class="tp-project-5-2-thumb mb-30 p-relative not-hide-cursor">
-                           <div class="video-container" style="position: relative; width: 100%; height: 400px; overflow: hidden; border-radius: 8px;">
-                              <iframe 
-                                 src="https://www.youtube.com/embed/3951tS1OmZY?rel=0&autoplay=0&mute=1" 
-                                 style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" 
-                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                                 allowfullscreen>
-                              </iframe>
+                           <div class="video-container" style="width: 100%; height: 400px;" data-video-id="3951tS1OmZY">
+                              <div class="video-thumbnail" style="background-image: url('https://img.youtube.com/vi/3951tS1OmZY/maxresdefault.jpg');">
+                                 <div class="video-play-btn"></div>
+                                 <div class="video-loading">Loading...</div>
+                              </div>
+                              <iframe class="video-iframe" data-src="https://www.youtube.com/embed/3951tS1OmZY?rel=0&autoplay=1&mute=0" allowfullscreen></iframe>
                            </div>
                         </div>
                      </div>
                      <div class="col-xl-3 col-lg-6 col-md-6">
                         <div class="tp-project-5-2-thumb mb-30 p-relative not-hide-cursor">
-                           <div class="video-container" style="position: relative; width: 100%; height: 400px; overflow: hidden; border-radius: 8px;">
-                              <iframe 
-                                 src="https://www.youtube.com/embed/wTAInzwUL18?rel=0&autoplay=0&mute=1" 
-                                 style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" 
-                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                                 allowfullscreen>
-                              </iframe>
+                           <div class="video-container" style="width: 100%; height: 400px;" data-video-id="wTAInzwUL18">
+                              <div class="video-thumbnail" style="background-image: url('https://img.youtube.com/vi/wTAInzwUL18/maxresdefault.jpg');">
+                                 <div class="video-play-btn"></div>
+                                 <div class="video-loading">Loading...</div>
+                              </div>
+                              <iframe class="video-iframe" data-src="https://www.youtube.com/embed/wTAInzwUL18?rel=0&autoplay=1&mute=0" allowfullscreen></iframe>
                            </div>
                         </div>
                      </div>
                      <div class="col-xl-3 col-lg-6 col-md-6">
                         <div class="tp-project-5-2-thumb mb-30 p-relative not-hide-cursor">
-                           <div class="video-container" style="position: relative; width: 100%; height: 400px; overflow: hidden; border-radius: 8px;">
-                              <iframe 
-                                 src="https://www.youtube.com/embed/RxjUwY-X4Rs?rel=0&autoplay=0&mute=1" 
-                                 style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" 
-                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                                 allowfullscreen>
-                              </iframe>
+                           <div class="video-container" style="width: 100%; height: 400px;" data-video-id="RxjUwY-X4Rs">
+                              <div class="video-thumbnail" style="background-image: url('https://img.youtube.com/vi/RxjUwY-X4Rs/maxresdefault.jpg');">
+                                 <div class="video-play-btn"></div>
+                                 <div class="video-loading">Loading...</div>
+                              </div>
+                              <iframe class="video-iframe" data-src="https://www.youtube.com/embed/RxjUwY-X4Rs?rel=0&autoplay=1&mute=0" allowfullscreen></iframe>
                            </div>
                         </div>
                      </div>
@@ -255,6 +338,56 @@
    <script src="assets/js/tp-cursor.js"></script>
 
    <script src="assets/js/component-loader.js"></script>
+
+   <!-- Lazy Loading Video Script -->
+   <script>
+   document.addEventListener('DOMContentLoaded', function() {
+       const videoContainers = document.querySelectorAll('.video-container');
+       
+       videoContainers.forEach(container => {
+           const playBtn = container.querySelector('.video-play-btn');
+           const loading = container.querySelector('.video-loading');
+           const thumbnail = container.querySelector('.video-thumbnail');
+           const iframe = container.querySelector('.video-iframe');
+           
+           playBtn.addEventListener('click', function() {
+               // Hide thumbnail and play button immediately
+               thumbnail.style.display = 'none';
+               
+               // Show loading spinner with animation
+               loading.style.display = 'block';
+               loading.innerHTML = '<div class="spinner"></div><p>Loading Video...</p>';
+               
+               // Load iframe
+               const videoSrc = iframe.getAttribute('data-src');
+               iframe.src = videoSrc;
+               
+               // Set timeout fallback in case onload doesn't fire
+               let timeoutId = setTimeout(function() {
+                   loading.style.display = 'none';
+                   iframe.classList.add('loaded');
+                   iframe.style.display = 'block';
+               }, 4000); // 4 seconds fallback for portfolio videos
+               
+               // Show iframe when loaded
+               iframe.onload = function() {
+                   clearTimeout(timeoutId);
+                   loading.style.display = 'none';
+                   iframe.classList.add('loaded');
+                   iframe.style.display = 'block';
+               };
+               
+               // Additional check for iframe ready state
+               iframe.addEventListener('load', function() {
+                   clearTimeout(timeoutId);
+                   loading.style.display = 'none';
+                   iframe.classList.add('loaded');
+                   iframe.style.display = 'block';
+               });
+           });
+       });
+   });
+   </script>
 </body>
 
 </html>
