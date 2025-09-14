@@ -33,7 +33,7 @@ const FALLBACK_NAVBAR = `
                   <li><a href="index.html#about">About</a></li>
                   <li><a href="portfolio-grid-col-4.html">Portfolio</a></li>
                   <li><a href="index.html#services">Services</a></li>
-                 
+                  <li><a href="team.html">Team</a></li>
                   <li><a href="contact.html">Contact</a></li>
                </ul>
             </nav>
@@ -62,6 +62,7 @@ const FALLBACK_NAVBAR = `
                            <li class="has-dropdown" style="white-space: nowrap;"><a href="index.html#about" style="padding: 8px 10px; font-size: 14px;">About</a></li>
                            <li class="has-dropdown" style="white-space: nowrap;"><a href="portfolio-grid-col-4.html" style="padding: 8px 10px; font-size: 14px;">Portfolio</a></li>
                            <li class="has-dropdown" style="white-space: nowrap;"><a href="index.html#services" style="padding: 8px 10px; font-size: 14px;">Services</a></li>
+                           <li class="has-dropdown" style="white-space: nowrap;"><a href="team.html" style="padding: 8px 10px; font-size: 14px;">Team</a></li>
                         </ul>
                      </nav>
                   </div>
@@ -144,32 +145,18 @@ const FALLBACK_FOOTER = `
    <div class="tp-footer-2-area pt-100 pb-20 tp-footer-white">
       <div class="container container-1480">
          <div class="row">
-            <div class="col-xl-3 col-lg-4 col-md-6 mb-50">
+            <div class="col-xl-6 col-lg-6 col-md-6 mb-50">
                <div class="tp-footer-2-widget footer-col-2-1">
                   <div class="tp-footer-2-widget-logo tp-footer-dark">
                      <a class="logo-1" href="index.html"><img src="assets/img/logo/logo.png" alt=""></a>
                      <a class="logo-2" href="index.html"><img src="assets/img/logo/logo-white.png" alt=""></a>
                   </div>
                   <div class="tp-footer-2-widget-text">
-                     <p>Helal - Where Brands Come Alive <br> Digital Marketing & Branding Agency</p>                         
+                     <p>Helal - Where Brands Come Alive <br> Digital Marketing & Branding Agency <br> Alexandria, Egypt</p>                         
                   </div>
                </div>
             </div>
-            <div class="col-xl-3 col-lg-5 col-md-6 mb-50">
-               <div class="tp-footer-2-widget footer-col-2-3">
-                  <h4 class="tp-footer-2-widget-title">Office</h4>
-                  <div class="tp-footer-2-contact-item">
-                     <span><a href="https://maps.app.goo.gl/rMnxdAky6jssza4w6" target="_blank">1 Mahmoud Salama, Kom El Dekka West, El Attarin, Alexandria Governorate</a></span>
-                  </div>
-                  <div class="tp-footer-2-contact-item">
-                     <span><a href="tel:+201220117832">P: +20 122 011 7832</a></span>
-                  </div>
-                  <div class="tp-footer-2-contact-item">
-                     <span><a href="mailto:business@helal-marketing.com">E: business@helal-marketing.com</a></span>
-                  </div>
-               </div>
-            </div>
-            <div class="col-xl-4 col-lg-5 col-md-6 mb-50">
+            <div class="col-xl-6 col-lg-6 col-md-6 mb-50">
                <div class="tp-footer-2-widget footer-col-2-4">
                   <div class="tp-footer-2-widget-newslatter">
                      <h4 class="tp-footer-2-widget-title">Subscribe to our newsletter</h4>
