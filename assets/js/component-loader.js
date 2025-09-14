@@ -328,6 +328,13 @@ class ComponentLoader {
                return;
             }
             
+            // Validate email format
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+               messageDiv.text('Please enter a valid email address.').css('color', '#ff6b6b');
+               return;
+            }
+            
             // Disable button and show loading
             submitBtn.prop('disabled', true);
             messageDiv.text('Subscribing...').css('color', '#FFD700');
@@ -350,7 +357,7 @@ class ComponentLoader {
                   messageDiv.text(result.error || 'An error occurred. Please try again.').css('color', '#ff6b6b');
                }
             } catch (error) {
-               messageDiv.text('Network error. Please check your connection and try again.').css('color', '#ff6b6b');
+               messageDiv.text('CORS Error: Please contact the website administrator to fix API configuration.').css('color', '#ff6b6b');
                console.error('Newsletter subscription error:', error);
             } finally {
                submitBtn.prop('disabled', false);
@@ -388,3 +395,4 @@ class ComponentLoader {
 
 // Initialize the component loader
 new ComponentLoader();
+

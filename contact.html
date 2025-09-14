@@ -439,7 +439,7 @@
                showMessage(result.error || 'An error occurred. Please try again.', 'error');
             }
          } catch (error) {
-            showMessage('Network error. Please check your connection and try again.', 'error');
+            showMessage('CORS Error: Please contact the website administrator to fix API configuration.', 'error');
             console.error('Contact form error:', error);
          } finally {
             submitBtn.disabled = false;
