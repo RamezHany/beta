@@ -5,7 +5,7 @@
    <meta charset="utf-8">
    <meta http-equiv="x-ua-compatible" content="ie=edge">
    <title>Contact Helal | Get in Touch - Digital Marketing Agency Alexandria</title>
-   <meta name="description" content="Contact Helal Digital Marketing Agency in Alexandria, Egypt. Get started with our media production, digital marketing, and branding services. Located near Misr Station.">
+   <meta name="description" content="Contact Helal Digital Marketing Agency in Alexandria, Egypt. Get started with our media production, digital marketing, and branding services.">
    <meta name="keywords" content="contact Helal agency, digital marketing agency Alexandria, contact info Alexandria Egypt, media production contact, branding services contact">
    <meta name="author" content="Helal Digital Marketing Agency">
    <meta property="og:title" content="Contact Helal - Digital Marketing Agency Alexandria">
@@ -26,10 +26,249 @@
    <link rel="stylesheet" href="assets/css/spacing.css">
    <link rel="stylesheet" href="assets/css/custom-animation.css">
    <link rel="stylesheet" href="assets/css/main.css">
+   
+   <!-- Font Awesome for social icons -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+   <style>
+      /* Custom styles for contact page */
+      .contact-container {
+         min-height: 100vh;
+         background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #2d2d2d 100%);
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         padding: 40px 20px;
+         position: relative;
+         overflow: hidden;
+      }
+
+      .contact-container::before {
+         content: '';
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         background-image: radial-gradient(circle at 25% 25%, #FFD700 0%, transparent 50%),
+                          radial-gradient(circle at 75% 75%, #FFA500 0%, transparent 50%);
+         opacity: 0.1;
+         z-index: 1;
+      }
+
+      .contact-card {
+         background: rgba(255, 255, 255, 0.05);
+         backdrop-filter: blur(15px);
+         border: 1px solid rgba(255, 215, 0, 0.2);
+         border-radius: 20px;
+         padding: 50px;
+         max-width: 600px;
+         width: 100%;
+         text-align: center;
+         position: relative;
+         z-index: 2;
+         box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      }
+
+      .contact-logo {
+         width: 120px;
+         height: 120px;
+         background: #000;
+         border: 3px solid #FFD700;
+         border-radius: 50%;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         margin: 0 auto 30px;
+         box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+         transition: all 0.3s ease;
+      }
+
+      .contact-logo:hover {
+         transform: translateY(-5px);
+         box-shadow: 0 15px 40px rgba(255, 215, 0, 0.5);
+      }
+
+      .contact-logo img {
+         width: 80px;
+         height: auto;
+      }
+
+      .contact-title {
+         color: #fff;
+         font-size: 2.5rem;
+         font-weight: 700;
+         margin-bottom: 15px;
+         background: linear-gradient(135deg, #FFD700, #FFA500);
+         -webkit-background-clip: text;
+         -webkit-text-fill-color: transparent;
+         background-clip: text;
+      }
+
+      .contact-subtitle {
+         color: #ccc;
+         font-size: 1.1rem;
+         margin-bottom: 40px;
+         line-height: 1.6;
+      }
+
+      .contact-form {
+         margin-bottom: 40px;
+      }
+
+      .form-group {
+         margin-bottom: 25px;
+         text-align: left;
+      }
+
+      .form-group label {
+         color: #FFD700;
+         font-weight: 600;
+         margin-bottom: 8px;
+         display: block;
+         font-size: 14px;
+      }
+
+      .form-control {
+         width: 100%;
+         padding: 15px 20px;
+         background: rgba(255, 255, 255, 0.1);
+         border: 1px solid rgba(255, 215, 0, 0.3);
+         border-radius: 10px;
+         color: #fff;
+         font-size: 16px;
+         transition: all 0.3s ease;
+         backdrop-filter: blur(10px);
+      }
+
+      .form-control:focus {
+         outline: none;
+         border-color: #FFD700;
+         box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+         background: rgba(255, 255, 255, 0.15);
+      }
+
+      .form-control::placeholder {
+         color: #999;
+      }
+
+      textarea.form-control {
+         min-height: 120px;
+         resize: vertical;
+      }
+
+      .contact-btn {
+         background: linear-gradient(135deg, #FFD700, #FFA500);
+         color: #000;
+         border: none;
+         padding: 15px 40px;
+         border-radius: 50px;
+         font-weight: 700;
+         font-size: 16px;
+         cursor: pointer;
+         transition: all 0.3s ease;
+         width: 100%;
+         position: relative;
+         overflow: hidden;
+      }
+
+      .contact-btn:hover {
+         transform: translateY(-2px);
+         box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
+      }
+
+      .contact-btn:disabled {
+         opacity: 0.7;
+         cursor: not-allowed;
+         transform: none;
+      }
+
+      .contact-info {
+         display: flex;
+         flex-wrap: wrap;
+         justify-content: center;
+         gap: 30px;
+         margin-top: 40px;
+      }
+
+      .contact-item {
+         color: #FFD700;
+         text-decoration: none;
+         display: flex;
+         align-items: center;
+         gap: 10px;
+         font-size: 16px;
+         transition: all 0.3s ease;
+      }
+
+      .contact-item:hover {
+         color: #FFA500;
+         transform: translateY(-2px);
+      }
+
+      .contact-item i {
+         font-size: 18px;
+         width: 20px;
+         text-align: center;
+      }
+
+      .message-display {
+         margin-top: 20px;
+         padding: 15px;
+         border-radius: 10px;
+         font-weight: 600;
+         display: none;
+      }
+
+      .message-success {
+         background: rgba(76, 175, 80, 0.2);
+         color: #4CAF50;
+         border: 1px solid rgba(76, 175, 80, 0.3);
+      }
+
+      .message-error {
+         background: rgba(255, 107, 107, 0.2);
+         color: #ff6b6b;
+         border: 1px solid rgba(255, 107, 107, 0.3);
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+         .contact-card {
+            padding: 30px 20px;
+            margin: 20px;
+         }
+         
+         .contact-title {
+            font-size: 2rem;
+         }
+         
+         .contact-info {
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+         }
+      }
+
+      /* Loading spinner */
+      .spinner {
+         display: inline-block;
+         width: 20px;
+         height: 20px;
+         border: 2px solid rgba(0, 0, 0, 0.3);
+         border-radius: 50%;
+         border-top-color: #000;
+         animation: spin 1s ease-in-out infinite;
+         margin-right: 10px;
+      }
+
+      @keyframes spin {
+         to { transform: rotate(360deg); }
+      }
+   </style>
 </head>
 
 <body>
-
    <!--[if lte IE 9]>
       <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
       <![endif]-->
@@ -37,10 +276,7 @@
    <!-- pre loader area start -->
    <div id="loading" class="preloader-wrap">
       <div class="preloader-2 text-center">
-        <!-- Logo instead of the shape image -->
         <img class="line line-5"src="assets/img/home-03/about/ab-shape-img.png" alt="Logo" style="width: 120px; height: auto; margin-bottom: 20px;" />
-   
-    
         <div class="loader-text">Loading ...</div>
       </div>
     </div>
@@ -50,287 +286,94 @@
    <div class="back-to-top-wrapper">
       <button id="back_to_top" type="button" class="back-to-top-btn">
          <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M11 6L6 1L1 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-               stroke-linejoin="round" />
+            <path d="M11 6L6 1L1 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
          </svg>
       </button>
    </div>
    <!-- back to top end -->
 
-   <!-- tp-offcanvus-area-end -->
-   <div class="tp-offcanvas-area">
-      <div class="tp-offcanvas-wrapper">
-         <div class="tp-offcanvas-top d-flex align-items-center justify-content-between">
-            <div class="tp-offcanvas-logo">
-               <a href="index.html">
-                  <img class="logo-1" src="assets/img/logo/logo.png" alt="">
-                  <img class="logo-2" src="assets/img/logo/logo-white.png" alt="">
-               </a>
-            </div>
-            <div class="tp-offcanvas-close">
-               <button class="tp-offcanvas-close-btn">
-                  <svg width="37" height="38" viewBox="0 0 37 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-                     <path d="M9.19141 9.80762L27.5762 28.1924" stroke="currentColor" stroke-width="1.5"
-                        stroke-linecap="round" stroke-linejoin="round" />
-                     <path d="M9.19141 28.1924L27.5762 9.80761" stroke="currentColor" stroke-width="1.5"
-                        stroke-linecap="round" stroke-linejoin="round" />
-                  </svg>
-               </button>
-            </div>
-         </div>
-         <div class="tp-offcanvas-main">
-            <div class="tp-offcanvas-content">
-               <h3 class="tp-offcanvas-title">Hello There!</h3>
-               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, </p>
-            </div>
-            <div class="tp-main-menu-mobile d-xl-none"></div>
-            <div class="tp-offcanvas-gallery">
-               <div class="row gx-2">
-                  <div class="col-md-3 col-3">
-                     <div class="tp-offcanvas-gallery-img fix">
-                        <a href="#"><img src="assets/img/menu/offcanvas/offcanvas-1.jpg" alt=""></a>
-                     </div>
-                  </div>
-                  <div class="col-md-3 col-3">
-                     <div class="tp-offcanvas-gallery-img fix">
-                        <a href="#"><img src="assets/img/menu/offcanvas/offcanvas-2.jpg" alt=""></a>
-                     </div>
-                  </div>
-                  <div class="col-md-3 col-3">
-                     <div class="tp-offcanvas-gallery-img fix">
-                        <a href="#"><img src="assets/img/menu/offcanvas/offcanvas-3.jpg" alt=""></a>
-                     </div>
-                  </div>
-                  <div class="col-md-3 col-3">
-                     <div class="tp-offcanvas-gallery-img fix">
-                        <a href="#"><img src="assets/img/menu/offcanvas/offcanvas-4.jpg" alt=""></a>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div class="tp-offcanvas-contact">
-               <h3 class="tp-offcanvas-title sm">Information</h3>
-
-               <ul>
-                  <li><a href="tel:1245654">+ 4 20 7700 1007</a></li>
-                  <li><a href="mailto:hello@diego.com">hello@diego.com</a></li>
-                  <li><a href="#">Avenue de Roma 158b, Lisboa</a></li>
-               </ul>
-            </div>
-            <div class="tp-offcanvas-social">
-               <h3 class="tp-offcanvas-title sm">Follow Us</h3>
-               <ul>
-                  <li>
-                     <a href="#">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                           <path
-                              d="M11.25 1.5H4.75C2.95507 1.5 1.5 2.95507 1.5 4.75V11.25C1.5 13.0449 2.95507 14.5 4.75 14.5H11.25C13.0449 14.5 14.5 13.0449 14.5 11.25V4.75C14.5 2.95507 13.0449 1.5 11.25 1.5Z"
-                              stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                           <path
-                              d="M10.6016 7.5907C10.6818 8.13166 10.5894 8.68414 10.3375 9.16955C10.0856 9.65497 9.68711 10.0486 9.19862 10.2945C8.71014 10.5404 8.15656 10.6259 7.61663 10.5391C7.0767 10.4522 6.57791 10.1972 6.19121 9.81055C5.80451 9.42385 5.54959 8.92506 5.46271 8.38513C5.37583 7.8452 5.46141 7.29163 5.70728 6.80314C5.95315 6.31465 6.34679 5.91613 6.83221 5.66425C7.31763 5.41238 7.87011 5.31998 8.41107 5.4002C8.96287 5.48202 9.47372 5.73915 9.86817 6.1336C10.2626 6.52804 10.5197 7.0389 10.6016 7.5907Z"
-                              stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                           <path d="M11.5742 4.42578H11.5842" stroke="currentColor" stroke-width="1.5"
-                              stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                     </a>
-                  </li>
-                  <li>
-                     <a href="#">
-                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                           <path
-                              d="M2.50589 12.7494C4.57662 16.336 9.16278 17.5648 12.7494 15.4941C14.2113 14.65 15.2816 13.388 15.8962 11.9461C16.7895 9.85066 16.7208 7.37526 15.4941 5.25063C14.2674 3.12599 12.1581 1.82872 9.89669 1.55462C8.34063 1.366 6.71259 1.66183 5.25063 2.50589C1.66403 4.57662 0.435172 9.16278 2.50589 12.7494Z"
-                              stroke="currentColor" stroke-width="1.5" />
-                           <path
-                              d="M12.7127 15.4292C12.7127 15.4292 12.0086 10.4867 10.5011 7.87559C8.99362 5.26451 5.28935 2.57155 5.28935 2.57155M5.68449 15.6124C6.79553 12.2606 12.34 8.54524 16.3975 9.43537M12.311 2.4082C11.1953 5.72344 5.75732 9.38453 1.71875 8.58915"
-                              stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-                        </svg>
-                     </a>
-                  </li>
-                  <li>
-                     <a href="#">
-                        <svg width="18" height="11" viewBox="0 0 18 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                           <path
-                              d="M1 5.5715H6.33342C7.62867 5.5715 8.61917 6.56199 8.61917 7.85725C8.61917 9.15251 7.62867 10.143 6.33342 10.143H1.76192C1.30477 10.143 1 9.83823 1 9.38108V1.76192C1 1.30477 1.30477 1 1.76192 1H5.5715C6.86676 1 7.85725 1.99049 7.85725 3.28575C7.85725 4.58101 6.86676 5.5715 5.5715 5.5715H1Z"
-                              stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" />
-                           <path
-                              d="M10.9062 7.09454H17.0016C17.0016 5.41832 15.6301 4.04688 13.9539 4.04688C12.2777 4.04688 10.9062 5.41832 10.9062 7.09454ZM10.9062 7.09454C10.9062 8.77076 12.2777 10.1422 13.9539 10.1422H15.2492"
-                              stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
-                              stroke-linejoin="round" />
-                           <path d="M16.1125 1.44434H11.668" stroke="currentColor" stroke-width="1.2"
-                              stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                     </a>
-                  </li>
-                  <li>
-                     <a href="#">
-                        <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                           <path
-                              d="M12.75 13H5.25C3 13 1.5 11.5 1.5 9.25V4.75C1.5 2.5 3 1 5.25 1H12.75C15 1 16.5 2.5 16.5 4.75V9.25C16.5 11.5 15 13 12.75 13Z"
-                              stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
-                              stroke-linejoin="round" />
-                           <path
-                              d="M8.70676 5.14837L10.8006 6.40465C11.5543 6.90716 11.5543 7.66093 10.8006 8.16344L8.70676 9.41972C7.86923 9.92224 7.19922 9.50348 7.19922 8.5822V6.06964C7.19922 4.98086 7.86923 4.64585 8.70676 5.14837Z"
-                              fill="currentColor" />
-                        </svg>
-                     </a>
-                  </li>
-               </ul>
-            </div>
-         </div>
-      </div>
-   </div>
-   <div class="body-overlay"></div>
-   <!-- tp-offcanvus-area-end -->
-
-   
-   <!-- cart mini area start -->
-   <div class="cartmini__area">
-      <div class="cartmini__wrapper d-flex justify-content-between flex-column">
-            <div class="cartmini__top-wrapper">
-               <div class="cartmini__top p-relative">
-                  <div class="cartmini__top-title">
-                        <h4>Shopping cart</h4>
-                  </div>
-                  <div class="cartmini__close">
-                        <button type="button" class="cartmini__close-btn cartmini-close-btn"><i class="fal fa-times"></i></button>
-                  </div>
-               </div>
-               <div class="cartmini__shipping">
-               <p> Free Shipping for all orders over <span>$50</span></p>
-               <div class="progress">
-                  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" data-width="70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>                   
-               </div>
-               <div class="cartmini__widget">
-                  <div class="cartmini__widget-item">
-                        <div class="cartmini__thumb">
-                        <a href="shop-details.html">
-                           <img src="assets/img/inner-blog/blog-sidebar/rc-post/rc-1.jpg" alt="">
-                        </a>
-                        </div>
-                        <div class="cartmini__content">
-                        <h5 class="cartmini__title"><a href="shop-details.html">Level Bolt Smart Lock</a></h5>
-                        <div class="cartmini__price-wrapper">
-                           <span class="cartmini__price">$46.00</span>
-                           <span class="cartmini__quantity">x2</span>
-                        </div>
-                        </div>
-                        <a href="#" class="cartmini__del"><i class="fa-regular fa-xmark"></i></a>
-                  </div>
-               </div>
-            </div>
-            <div class="cartmini__checkout">
-               <div class="cartmini__checkout-title mb-30">
-                  <h4>Subtotal:</h4>
-                  <span>$113.00</span>
-               </div>
-               <div class="cartmini__checkout-btn">
-                  <a href="cart.html" class="tp-btn-black-2 text-center mb-10 w-100"> view cart</a>
-                  <a href="checkout.html" class="tp-btn-black-2 text-center w-100"> checkout</a>
-               </div>
-            </div>
-      </div>
-   </div>
-   <!-- cart mini area end -->
-
-<!-- Navbar Placeholder -->
-<div id="navbar-placeholder"></div>
+   <!-- Navbar Placeholder -->
+   <div id="navbar-placeholder"></div>
    
    <div id="smooth-wrapper">
       <div id="smooth-content">
+         <main>
+            <div class="contact-container">
+               <div class="contact-card">
+                  <!-- Logo -->
+                  <div class="contact-logo">
+                     <img src="assets/img/logo/logo-white.png" alt="Helal Logo">
+                  </div>
 
-         <div class="inner-bg" data-background="assets/img/home-01/team/team-details-bg.png">
-            
-            <main>
-   
-               <!-- hero area start -->
-               <div class="tm-hero-area tm-hero-ptb p-relative">
-                  <div class="container">
-                     <div class="row">
-                        <div class="col-xl-12">
-                           <div class="tm-hero-content">
-                              <span class="tm-hero-subtitle">Helal Content Marketing</span>
-                              <h4 class="tm-hero-title-big tp-char-animation">Get <br> in touch</h4>
-                           </div>
-                        </div>
+                  <!-- Title -->
+                  <h1 class="contact-title">Get In Touch</h1>
+                  <p class="contact-subtitle">Ready to make your brand shine? Let's discuss how we can help your business grow with our integrated marketing solutions.</p>
+
+                  <!-- Contact Form -->
+                  <form id="contact-form" class="contact-form">
+                     <div class="form-group">
+                        <label for="contact-name">Full Name</label>
+                        <input type="text" id="contact-name" name="name" class="form-control" placeholder="Enter your full name" required>
+                     </div>
+
+                     <div class="form-group">
+                        <label for="contact-email">Email Address</label>
+                        <input type="email" id="contact-email" name="email" class="form-control" placeholder="Enter your email address" required>
+                     </div>
+
+                     <div class="form-group">
+                        <label for="contact-phone">Phone Number</label>
+                        <input type="tel" id="contact-phone" name="phone" class="form-control" placeholder="Enter your phone number" required>
+                     </div>
+
+                     <div class="form-group">
+                        <label for="contact-message">Message</label>
+                        <textarea id="contact-message" name="message" class="form-control" placeholder="Tell us about your project or how we can help you..." required></textarea>
+                     </div>
+
+                     <button type="submit" id="contact-btn" class="contact-btn">
+                        <span id="btn-text">Send Message</span>
+                     </button>
+
+                     <div id="form-message" class="message-display"></div>
+                  </form>
+
+                  <!-- Contact Info -->
+                  <div class="contact-info">
+                     <a href="tel:+201220117832" class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+20 122 011 7832</span>
+                     </a>
+                     <a href="mailto:info@helal-agency.com" class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>info@helal-agency.com</span>
+                     </a>
+                     <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Alexandria, Egypt</span>
                      </div>
                   </div>
                </div>
-               <!-- hero area end -->
-   
-               <!-- contact area start -->
-               <div class="cn-contactform-area cn-contactform-style p-relative pb-100">
-                  <div class="container container-1840">
-                     <div class="cn-contactform-2-bg black-bg">
-                        <div class="row">
-                           <div class="col-xl-6">
-                              <div class="cn-contactform-2-map">
-                                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3412.8537234554946!2d29.88949431515147!3d31.199008081441855!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14f5c38b5c5e8b1d%3A0x1c3b4c8e8c8e8c8e!2sEl%20Attarin%2C%20Alexandria%20Governorate%2C%20Egypt!5e0!3m2!1sen!2s!4v1703000000000!5m2!1sen!2s" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                              </div>
-                           </div>
-                           <div class="col-xl-6">
-                              <div class="cn-contactform-wrap">
-                                 <h1 class="cn-contactform-2-title">Ready to Make Your Brand Shine?</h1>
-                                 <p style="color: white; margin-bottom: 20px;">Contact Helal today and let's discuss how we can help your business grow with our integrated marketing solutions.</p>
-                                 <form id="contact-form" action="assets/mail.php" method="post">
-                                    <div class="cn-contactform-input mb-25">
-                                       <label>Name</label>
-                                       <input name="name" type="text" placeholder="John Doe">
-                                    </div>
-                                    <div class="cn-contactform-input mb-25">
-                                       <label>Email</label>
-                                       <input name="email" type="text" placeholder="Your@email.com">
-                                    </div>
-                                    <div class="cn-contactform-input mb-25">
-                                       <label>Message</label>
-                                       <textarea name="message" placeholder="Tell Us About Your Project"></textarea>
-                                    </div>
-                                    <div class="cn-contactform-btn">
-                                       <button class="tp-btn-black-md white-bg w-100" type="submit">Send Message</button>
-                                       <p class="ajax-response mt-5"></p>
-                                    </div>
-                                 </form>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <!-- contact area end -->
+            </div>
+         </main>
 
-               <!-- about area start -->
-              
-               <!-- about area end -->
-
-               <!-- contact area start -->
-            
-               <!-- contact area end -->
-   
-   
-            </main>
-   <!-- Footer Placeholder -->
-<div id="footer-placeholder"></div>
-         </div>
+         <!-- Footer Placeholder -->
+         <div id="footer-placeholder"></div>
       </div>
    </div>
-   
-
 
    <!-- JS here -->
    <script src="assets/js/vendor/jquery.js"></script>
    <script src="assets/js/bootstrap-bundle.js"></script>
-
    <script src="assets/js/gsap.js"></script>
    <script src="assets/js/gsap-scroll-to-plugin.js"></script>
    <script src="assets/js/gsap-scroll-smoother.js"></script>
    <script src="assets/js/gsap-scroll-trigger.js"></script>
    <script src="assets/js/gsap-split-text.js"></script>
    <script src="assets/js/chroma.min.js"></script>
-
    <script src='assets/js/three.js'></script>
    <script src='assets/js/tween-max.js'></script>
    <script src='assets/js/scroll-magic.js'></script>
-
    <script src="assets/js/range-slider.js"></script>
    <script src="assets/js/swiper-bundle.js"></script>
    <script src="assets/js/slick.js"></script>
@@ -340,12 +383,82 @@
    <script src="assets/js/beforeafter.js"></script>
    <script src="assets/js/isotope-pkgd.js"></script>
    <script src="assets/js/imagesloaded-pkgd.js"></script>
-   <script src="assets/js/ajax-form.js"></script>
    <script src="assets/js/webgl.js"></script>
    <script src="assets/js/main.js"></script>
    <script src="assets/js/tp-cursor.js"></script>
-
    <script src="assets/js/component-loader.js"></script>
+
+   <script>
+      // Contact Form Handler
+      document.getElementById('contact-form').addEventListener('submit', async function(e) {
+         e.preventDefault();
+         
+         const formData = {
+            name: document.getElementById('contact-name').value.trim(),
+            email: document.getElementById('contact-email').value.trim(),
+            phone: document.getElementById('contact-phone').value.trim(),
+            message: document.getElementById('contact-message').value.trim()
+         };
+         
+         const messageDiv = document.getElementById('form-message');
+         const submitBtn = document.getElementById('contact-btn');
+         const btnText = document.getElementById('btn-text');
+         
+         // Validate required fields
+         if (!formData.name || !formData.email || !formData.phone || !formData.message) {
+            showMessage('Please fill in all fields.', 'error');
+            return;
+         }
+         
+         // Validate email format
+         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+         if (!emailRegex.test(formData.email)) {
+            showMessage('Please enter a valid email address.', 'error');
+            return;
+         }
+         
+         // Disable button and show loading
+         submitBtn.disabled = true;
+         btnText.innerHTML = '<span class="spinner"></span>Sending...';
+         
+         try {
+            const response = await fetch('https://helal-back.vercel.app/api/contact', {
+               method: 'POST',
+               headers: {
+                  'Content-Type': 'application/json',
+               },
+               body: JSON.stringify(formData)
+            });
+            
+            const result = await response.json();
+            
+            if (response.ok) {
+               showMessage('Message sent successfully! We\'ll get back to you soon.', 'success');
+               document.getElementById('contact-form').reset();
+            } else {
+               showMessage(result.error || 'An error occurred. Please try again.', 'error');
+            }
+         } catch (error) {
+            showMessage('Network error. Please check your connection and try again.', 'error');
+            console.error('Contact form error:', error);
+         } finally {
+            submitBtn.disabled = false;
+            btnText.textContent = 'Send Message';
+         }
+      });
+      
+      function showMessage(message, type) {
+         const messageDiv = document.getElementById('form-message');
+         messageDiv.textContent = message;
+         messageDiv.className = `message-display message-${type}`;
+         messageDiv.style.display = 'block';
+         
+         // Clear message after 5 seconds
+         setTimeout(() => {
+            messageDiv.style.display = 'none';
+         }, 5000);
+      }
+   </script>
 </body>
 
 </html>
