@@ -354,11 +354,17 @@
                // Hide thumbnail and play button immediately
                thumbnail.style.display = 'none';
                
-               // Show loading spinner with animation
+               // Show loading spinner with better animation
                loading.style.display = 'block';
                loading.innerHTML = '<div class="spinner"></div><p>Loading Video...</p>';
                
-               // Load iframe
+               // Add a subtle background to make loader more visible
+               loading.style.background = 'rgba(0, 0, 0, 0.8)';
+               loading.style.borderRadius = '20px';
+               loading.style.padding = '25px';
+               loading.style.backdropFilter = 'blur(8px)';
+               
+               // Load iframe with autoplay
                const videoSrc = iframe.getAttribute('data-src');
                iframe.src = videoSrc;
                
@@ -367,25 +373,44 @@
                    loading.style.display = 'none';
                    iframe.classList.add('loaded');
                    iframe.style.display = 'block';
+                   // Try to play video if possible
+                   tryPlayVideo(iframe);
                }, 4000); // 4 seconds fallback for portfolio videos
                
                // Show iframe when loaded
                iframe.onload = function() {
                    clearTimeout(timeoutId);
-                   loading.style.display = 'none';
-                   iframe.classList.add('loaded');
-                   iframe.style.display = 'block';
+                   // Wait a bit for the video to be ready
+                   setTimeout(function() {
+                       loading.style.display = 'none';
+                       iframe.classList.add('loaded');
+                       iframe.style.display = 'block';
+                       // Video should autoplay due to autoplay=1 in URL
+                   }, 600);
                };
                
                // Additional check for iframe ready state
                iframe.addEventListener('load', function() {
                    clearTimeout(timeoutId);
-                   loading.style.display = 'none';
-                   iframe.classList.add('loaded');
-                   iframe.style.display = 'block';
+                   setTimeout(function() {
+                       loading.style.display = 'none';
+                       iframe.classList.add('loaded');
+                       iframe.style.display = 'block';
+                   }, 600);
                });
            });
        });
+       
+       
+       // Helper function to try playing video
+       function tryPlayVideo(iframe) {
+           try {
+               // Send message to iframe to play video (YouTube API)
+               iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+           } catch(e) {
+               console.log('Video autoplay attempted');
+           }
+       }
    });
    </script>
 </body>
