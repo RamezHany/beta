@@ -33,7 +33,7 @@ const FALLBACK_NAVBAR = `
                   <li><a href="index.html#about">About</a></li>
                   <li><a href="portfolio-grid-col-4.html">Portfolio</a></li>
                   <li><a href="index.html#services">Services</a></li>
-                  <li><a href="team.html">Team</a></li>
+                 
                   <li><a href="contact.html">Contact</a></li>
                </ul>
             </nav>
@@ -57,12 +57,12 @@ const FALLBACK_NAVBAR = `
                <div class="tp-inner-header-right-wrap text-center">
                   <div class="tp-inner-header-menu header-main-menu">
                      <nav class="tp-main-menu-content">
-                        <ul>
-                           <li class="has-dropdown"><a href="index.html">Home</a></li>
-                           <li class="has-dropdown"><a href="index.html#about">About</a></li>
-                           <li class="has-dropdown"><a href="portfolio-grid-col-4.html">Portfolio</a></li>
-                           <li class="has-dropdown"><a href="index.html#services">Services</a></li>
-                           <li class="has-dropdown"><a href="team.html">Team</a></li>
+                        <ul style="display: flex; flex-wrap: nowrap; justify-content: center; align-items: center; gap: 12px;">
+                           <li class="has-dropdown" style="white-space: nowrap;"><a href="index.html" style="padding: 8px 10px; font-size: 14px;">Home</a></li>
+                           <li class="has-dropdown" style="white-space: nowrap;"><a href="index.html#about" style="padding: 8px 10px; font-size: 14px;">About</a></li>
+                           <li class="has-dropdown" style="white-space: nowrap;"><a href="portfolio-grid-col-4.html" style="padding: 8px 10px; font-size: 14px;">Portfolio</a></li>
+                           <li class="has-dropdown" style="white-space: nowrap;"><a href="index.html#services" style="padding: 8px 10px; font-size: 14px;">Services</a></li>
+                           <li class="has-dropdown" style="white-space: nowrap;"><a href="links.html" style="padding: 8px 10px; font-size: 14px;">Links</a></li>
                         </ul>
                      </nav>
                   </div>
@@ -72,7 +72,7 @@ const FALLBACK_NAVBAR = `
                <div class="tp-inner-header-right-action text-end">
                   <ul>
                      <li>
-                        <a href="contact.html" class="btn px-4 py-2" style="background-color: #FFD700; color: #000; border: none; font-weight: 500; border-radius: 0;">Contact</a>
+                        <a href="contact.html" class="btn px-3 py-2" style="background-color: #FFD700; color: #000; border: none; font-weight: 500; border-radius: 0; font-size: 13px; white-space: nowrap;">Contact</a>
                      </li>
                   </ul>
                </div>
@@ -98,7 +98,47 @@ const FALLBACK_NAVBAR = `
          </div>
       </div>
    </div>
-</header>`;
+</header>
+
+<style>
+/* Tablet Navigation Fixes */
+@media (min-width: 992px) and (max-width: 1199px) {
+   .tp-inner-header-area .container {
+      max-width: 100% !important;
+      padding: 0 15px !important;
+   }
+   
+   .tp-inner-header-menu ul {
+      gap: 8px !important;
+   }
+   
+   .tp-inner-header-menu ul li a {
+      padding: 6px 8px !important;
+      font-size: 13px !important;
+   }
+   
+   .tp-inner-header-right-action .btn {
+      padding: 6px 12px !important;
+      font-size: 12px !important;
+   }
+   
+   .tp-inner-header-logo img {
+      height: 60px !important;
+      width: 35px !important;
+   }
+}
+
+/* Small Tablet Fixes */
+@media (min-width: 768px) and (max-width: 991px) {
+   .tp-inner-header-area .d-lg-block {
+      display: none !important;
+   }
+   
+   .tp-inner-header-area .d-lg-none {
+      display: block !important;
+   }
+}
+</style>`;
 
 const FALLBACK_FOOTER = `
 <footer>
