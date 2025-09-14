@@ -310,7 +310,7 @@
                   <p class="contact-subtitle">Ready to make your brand shine? Let's discuss how we can help your business grow with our integrated marketing solutions.</p>
 
                   <!-- Contact Form -->
-                  <form id="contact-form" method="post" class="contact-form">
+                  <form id="contact-form" class="contact-form">
                      <div class="form-group">
                         <label for="contact-name">Full Name</label>
                         <input type="text" id="contact-name" name="name" class="form-control" placeholder="Enter your full name" required>
@@ -391,8 +391,11 @@
    <script>
       // Contact Form Handler
       $(document).ready(function() {
+         console.log('Contact form jQuery handler registered');
+         
          $('#contact-form').on('submit', async function(e) {
             e.preventDefault();
+            console.log('Form submission prevented, using AJAX instead');
          
          const formData = {
             name: $('#contact-name').val().trim(),
@@ -446,6 +449,14 @@
             submitBtn.prop('disabled', false);
             btnText.text('Send Message');
          }
+         });
+         
+         // Alternative: Direct button click handler as backup
+         $('#contact-btn').on('click', function(e) {
+            e.preventDefault();
+            console.log('Button click handler triggered');
+            $('#contact-form').trigger('submit');
+         });
       });
       
       function showMessage(message, type) {
