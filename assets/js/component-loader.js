@@ -62,7 +62,6 @@ const FALLBACK_NAVBAR = `
                            <li class="has-dropdown" style="white-space: nowrap;"><a href="index.html#about" style="padding: 8px 10px; font-size: 14px;">About</a></li>
                            <li class="has-dropdown" style="white-space: nowrap;"><a href="portfolio-grid-col-4.html" style="padding: 8px 10px; font-size: 14px;">Portfolio</a></li>
                            <li class="has-dropdown" style="white-space: nowrap;"><a href="index.html#services" style="padding: 8px 10px; font-size: 14px;">Services</a></li>
-                           <li class="has-dropdown" style="white-space: nowrap;"><a href="links.html" style="padding: 8px 10px; font-size: 14px;">Links</a></li>
                         </ul>
                      </nav>
                   </div>
