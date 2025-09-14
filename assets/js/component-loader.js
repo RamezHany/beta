@@ -318,8 +318,6 @@ class ComponentLoader {
         // Newsletter Form Handler
         $(document).on('submit', '#newsletter-form', async function(e) {
             e.preventDefault();
-            console.log('Newsletter form handler triggered');
-            console.log('Event prevented default:', e.defaultPrevented);
             
             const email = $('#newsletter-email').val().trim();
             const messageDiv = $('#newsletter-message');
@@ -341,9 +339,6 @@ class ComponentLoader {
             submitBtn.prop('disabled', true);
             messageDiv.text('Subscribing...').css('color', '#FFD700');
             
-            console.log('About to send POST request to:', 'https://helal-back.vercel.app/api/newsletter');
-            console.log('Email being sent:', email);
-            
             try {
                const response = await fetch('https://helal-back.vercel.app/api/newsletter', {
                   method: 'POST',
@@ -353,10 +348,7 @@ class ComponentLoader {
                   body: JSON.stringify({ email: email })
                });
                
-               console.log('Response received:', response.status, response.statusText);
-               
                const result = await response.json();
-               console.log('Response data:', result);
                
                if (response.ok) {
                   messageDiv.text('Successfully subscribed to newsletter!').css('color', '#4CAF50');
@@ -365,8 +357,8 @@ class ComponentLoader {
                   messageDiv.text(result.error || 'An error occurred. Please try again.').css('color', '#ff6b6b');
                }
             } catch (error) {
-               console.error('Fetch error:', error);
-               messageDiv.text('CORS Error: Please contact the website administrator to fix API configuration.').css('color', '#ff6b6b');
+               messageDiv.text('Network error. Please check your connection and try again.').css('color', '#ff6b6b');
+               console.error('Newsletter subscription error:', error);
             } finally {
                submitBtn.prop('disabled', false);
                

@@ -309,12 +309,6 @@
                   <h1 class="contact-title">Get In Touch</h1>
                   <p class="contact-subtitle">Ready to make your brand shine? Let's discuss how we can help your business grow with our integrated marketing solutions.</p>
 
-                  <!-- API Test Buttons -->
-                  <div style="margin-bottom: 20px; text-align: center;">
-                     <button type="button" onclick="testContactAPI()" style="background: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 5px; margin: 5px; cursor: pointer;">Test Contact API</button>
-                     <button type="button" onclick="testNewsletterAPI()" style="background: #28a745; color: white; padding: 10px 20px; border: none; border-radius: 5px; margin: 5px; cursor: pointer;">Test Newsletter API</button>
-                  </div>
-
                   <!-- Contact Form -->
                   <form id="contact-form" method="post" class="contact-form">
                      <div class="form-group">
@@ -395,80 +389,21 @@
    <script src="assets/js/component-loader.js"></script>
 
    <script>
-      // API Test Functions
-      async function testContactAPI() {
-         console.log('Testing Contact API...');
-         
-         try {
-            const response = await fetch('https://helal-back.vercel.app/api/contact', {
-               method: 'POST',
-               headers: {
-                  'Content-Type': 'application/json',
-               },
-               body: JSON.stringify({
-                  name: 'Test User',
-                  email: 'test@example.com',
-                  phone: '+1234567890',
-                  message: 'Test message from frontend'
-               })
-            });
-            
-            console.log('Contact API Response Status:', response.status, response.statusText);
-            
-            const result = await response.json();
-            console.log('Contact API Response:', result);
-            alert('Contact API Response: ' + JSON.stringify(result, null, 2));
-         } catch (error) {
-            console.error('Contact API Error:', error);
-            alert('Contact API Error: ' + error.message);
-         }
-      }
-
-      async function testNewsletterAPI() {
-         console.log('Testing Newsletter API...');
-         
-         try {
-            const response = await fetch('https://helal-back.vercel.app/api/newsletter', {
-               method: 'POST',
-               headers: {
-                  'Content-Type': 'application/json',
-               },
-               body: JSON.stringify({
-                  email: 'test@example.com'
-               })
-            });
-            
-            console.log('Newsletter API Response Status:', response.status, response.statusText);
-            
-            const result = await response.json();
-            console.log('Newsletter API Response:', result);
-            alert('Newsletter API Response: ' + JSON.stringify(result, null, 2));
-         } catch (error) {
-            console.error('Newsletter API Error:', error);
-            alert('Newsletter API Error: ' + error.message);
-         }
-      }
-
-      // Wait for DOM to be fully loaded
-      document.addEventListener('DOMContentLoaded', function() {
-         console.log('DOM Content Loaded - Registering form handlers');
-         
-         // Contact Form Handler
-         document.getElementById('contact-form').addEventListener('submit', async function(e) {
+      // Contact Form Handler
+      $(document).ready(function() {
+         $('#contact-form').on('submit', async function(e) {
             e.preventDefault();
-            console.log('Contact form handler triggered');
-            console.log('Event prevented default:', e.defaultPrevented);
          
          const formData = {
-            name: document.getElementById('contact-name').value.trim(),
-            email: document.getElementById('contact-email').value.trim(),
-            phone: document.getElementById('contact-phone').value.trim(),
-            message: document.getElementById('contact-message').value.trim()
+            name: $('#contact-name').val().trim(),
+            email: $('#contact-email').val().trim(),
+            phone: $('#contact-phone').val().trim(),
+            message: $('#contact-message').val().trim()
          };
          
-         const messageDiv = document.getElementById('form-message');
-         const submitBtn = document.getElementById('contact-btn');
-         const btnText = document.getElementById('btn-text');
+         const messageDiv = $('#form-message');
+         const submitBtn = $('#contact-btn');
+         const btnText = $('#btn-text');
          
          // Validate required fields
          if (!formData.name || !formData.email || !formData.phone || !formData.message) {
@@ -484,11 +419,8 @@
          }
          
          // Disable button and show loading
-         submitBtn.disabled = true;
-         btnText.innerHTML = '<span class="spinner"></span>Sending...';
-         
-         console.log('About to send POST request to:', 'https://helal-back.vercel.app/api/contact');
-         console.log('Form data being sent:', formData);
+         submitBtn.prop('disabled', true);
+         btnText.html('<span class="spinner"></span>Sending...');
          
          try {
             const response = await fetch('https://helal-back.vercel.app/api/contact', {
@@ -499,35 +431,32 @@
                body: JSON.stringify(formData)
             });
             
-            console.log('Response received:', response.status, response.statusText);
-            
             const result = await response.json();
-            console.log('Response data:', result);
             
             if (response.ok) {
                showMessage('Message sent successfully! We\'ll get back to you soon.', 'success');
-               document.getElementById('contact-form').reset();
+               $('#contact-form')[0].reset();
             } else {
                showMessage(result.error || 'An error occurred. Please try again.', 'error');
             }
          } catch (error) {
-            console.error('Fetch error:', error);
-            showMessage('CORS Error: Please contact the website administrator to fix API configuration.', 'error');
+            showMessage('Network error. Please check your connection and try again.', 'error');
+            console.error('Contact form error:', error);
          } finally {
-            submitBtn.disabled = false;
-            btnText.textContent = 'Send Message';
-         });
+            submitBtn.prop('disabled', false);
+            btnText.text('Send Message');
+         }
       });
       
       function showMessage(message, type) {
-         const messageDiv = document.getElementById('form-message');
-         messageDiv.textContent = message;
-         messageDiv.className = `message-display message-${type}`;
-         messageDiv.style.display = 'block';
+         const messageDiv = $('#form-message');
+         messageDiv.text(message);
+         messageDiv.attr('class', `message-display message-${type}`);
+         messageDiv.show();
          
          // Clear message after 5 seconds
          setTimeout(() => {
-            messageDiv.style.display = 'none';
+            messageDiv.hide();
          }, 5000);
       }
    </script>
