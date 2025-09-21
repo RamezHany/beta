@@ -185,6 +185,59 @@
             height: calc(var(--vh, 1vh) * 100);
         }
         
+        /* Fixed chat container */
+        .chat-fixed-container {
+            height: 100vh;
+            height: calc(var(--vh, 1vh) * 100);
+            max-height: 100vh;
+            max-height: calc(var(--vh, 1vh) * 100);
+            overflow: hidden;
+        }
+        
+        @media (min-width: 768px) {
+            .chat-fixed-container {
+                height: 90vh;
+                max-height: 90vh;
+            }
+        }
+        
+        .chat-messages-area {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 1rem 1.5rem;
+            scrollbar-width: thin;
+            scrollbar-color: var(--helal-gold) rgba(0, 0, 0, 0.3);
+        }
+        
+        .chat-messages-area::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .chat-messages-area::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 3px;
+        }
+        
+        .chat-messages-area::-webkit-scrollbar-thumb {
+            background: var(--helal-gold);
+            border-radius: 3px;
+        }
+        
+        .chat-messages-area::-webkit-scrollbar-thumb:hover {
+            background: var(--helal-gold-dark);
+        }
+        
+        @media (max-width: 768px) {
+            .chat-messages-area {
+                padding: 0.75rem 1rem;
+            }
+            
+            .chat-messages-area::-webkit-scrollbar {
+                width: 4px;
+            }
+        }
+        
         /* Improve readability on mobile */
         @media (max-width: 768px) {
             .text-mobile-readable {
@@ -196,7 +249,7 @@
 </head>
 <body class="bg-pattern relative min-h-screen flex items-center justify-center p-2 sm:p-4">
 
-    <div class="flex flex-col w-full max-w-2xl h-full max-h-screen sm:max-h-[95vh] md:h-[90vh] helal-card rounded-2xl sm:rounded-3xl helal-glow relative overflow-hidden z-10 container-mobile">
+    <div class="flex flex-col w-full max-w-2xl helal-card rounded-2xl sm:rounded-3xl helal-glow relative z-10 container-mobile chat-fixed-container">
         <!-- Header -->
         <header class="helal-gradient text-black p-4 sm:p-6 rounded-t-2xl sm:rounded-t-3xl shadow-lg flex-shrink-0 relative mobile-header">
             <div class="flex items-center gap-3 sm:gap-4 logo-section">
@@ -216,7 +269,7 @@
         </header>
 
         <!-- Chat Container -->
-        <main id="chat-container" class="flex-1 p-3 sm:p-6 overflow-y-auto relative" style="background: rgba(0, 0, 0, 0.4);">
+        <main class="chat-messages-area relative" style="background: rgba(0, 0, 0, 0.4);" id="chat-container">
             <div id="placeholder" class="absolute inset-0 flex items-center justify-center p-4">
                 <div class="text-center text-gray-300 max-w-sm">
                     <div class="helal-gradient w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
@@ -367,7 +420,11 @@ Your goal is to help businesses and individuals with their marketing challenges 
             }];
 
             function scrollToBottom() {
-                chatContainer.scrollTop = chatContainer.scrollHeight;
+                // Smooth scroll to bottom of chat container
+                chatContainer.scrollTo({
+                    top: chatContainer.scrollHeight,
+                    behavior: 'smooth'
+                });
             }
 
             function displayMessage(sender, message, fileInfo = null) {
@@ -421,7 +478,14 @@ Your goal is to help businesses and individuals with their marketing challenges 
                 }
                 // FIX: Insert the new message BEFORE the typing indicator element
                 typingIndicator.insertAdjacentHTML('beforebegin', messageHtml);
-                scrollToBottom();
+                
+                // Add bottom padding to last message for better scroll experience
+                const lastMessage = typingIndicator.previousElementSibling;
+                if (lastMessage) {
+                    lastMessage.style.marginBottom = '2rem';
+                }
+                
+                setTimeout(scrollToBottom, 100);
             }
             
             async function getBotResponse(prompt, file = null) {
@@ -550,9 +614,12 @@ Your goal is to help businesses and individuals with their marketing challenges 
                 displayMessage('user', message, uploadedFile.name ? uploadedFile : null);
                 messageInput.value = '';
                 
+                // Scroll to show user message
+                setTimeout(scrollToBottom, 50);
+                
                 // Show typing indicator
                 typingIndicator.classList.remove('hidden');
-                scrollToBottom();
+                setTimeout(scrollToBottom, 100);
 
                 // Get bot response
                 const botResponse = await getBotResponse(message, uploadedFile.name ? uploadedFile : null);
