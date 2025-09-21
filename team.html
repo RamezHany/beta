@@ -16,16 +16,385 @@
    <!-- Place favicon.ico in the root directory -->
    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
 
-   <!-- CSS here -->
-   <link rel="stylesheet" href="assets/css/bootstrap.css">
-   <link rel="stylesheet" href="assets/css/animate.css">
-   <link rel="stylesheet" href="assets/css/swiper-bundle.css">
-   <link rel="stylesheet" href="assets/css/slick.css">
-   <link rel="stylesheet" href="assets/css/magnific-popup.css">
-   <link rel="stylesheet" href="assets/css/font-awesome-pro.css">
-   <link rel="stylesheet" href="assets/css/spacing.css">
-   <link rel="stylesheet" href="assets/css/custom-animation.css">
+   <!-- Preload critical resources -->
+   <link rel="preload" href="assets/css/main.css" as="style">
+   <link rel="preload" href="assets/js/vendor/jquery.js" as="script">
+   <link rel="preload" href="assets/v3.svg" as="image">
+   
+   <!-- DNS prefetch for external resources -->
+   <link rel="dns-prefetch" href="//res.cloudinary.com">
+   <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+   <link rel="dns-prefetch" href="//www.linkedin.com">
+   
+   <!-- Preconnect to critical third-party domains -->
+   <link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
+   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+
+   <!-- CSS here - optimized loading -->
    <link rel="stylesheet" href="assets/css/main.css">
+   <link rel="stylesheet" href="assets/css/bootstrap.css" media="print" onload="this.media='all'">
+   <link rel="stylesheet" href="assets/css/spacing.css" media="print" onload="this.media='all'">
+   <!-- Font Awesome CDN for social icons -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+   
+   <!-- Deferred non-critical CSS -->
+   <noscript>
+      <link rel="stylesheet" href="assets/css/bootstrap.css">
+      <link rel="stylesheet" href="assets/css/spacing.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   </noscript>
+
+   <!-- Custom Team Page Style -->
+   <style>
+      .team-container {
+         max-width: 1400px;
+         margin: 0 auto;
+         padding: 0 20px;
+      }
+
+      .page-bg {
+         background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+         min-height: 100vh;
+         position: relative;
+      }
+
+      .page-bg::before {
+         content: '';
+         position: absolute;
+         top: 0;
+         left: 0;
+         right: 0;
+         bottom: 0;
+         background: url('assets/v3.svg') center/cover;
+         opacity: 0.1;
+         pointer-events: none;
+      }
+
+      .hero-section {
+         text-align: center;
+         padding: 150px 0 80px;
+         position: relative;
+         z-index: 2;
+      }
+
+      .hero-subtitle {
+         font-size: 16px;
+         color: #FFD700;
+         font-weight: 500;
+         margin-bottom: 15px;
+         text-transform: uppercase;
+         letter-spacing: 2px;
+         font-family: 'Poppins', sans-serif;
+      }
+
+      .hero-title {
+         font-size: 48px;
+         font-weight: 700;
+         color: #fff;
+         margin-bottom: 25px;
+         font-family: 'Poppins', sans-serif;
+      }
+
+      .hero-description {
+         font-size: 18px;
+         color: #ccc;
+         max-width: 600px;
+         margin: 0 auto;
+         line-height: 1.6;
+         font-family: 'Poppins', sans-serif;
+      }
+
+      .team-grid {
+         display: grid;
+         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+         gap: 30px;
+         padding: 0 0 100px;
+      }
+
+      .team-card {
+         background: rgba(255, 255, 255, 0.05);
+         border: 2px solid rgba(255, 215, 0, 0.2);
+         border-radius: 25px;
+         padding: 0;
+         overflow: hidden;
+         transition: all 0.4s ease;
+         backdrop-filter: blur(15px);
+         position: relative;
+      }
+
+      .team-card:hover {
+         background: rgba(255, 255, 255, 0.1);
+         border-color: #FFD700;
+         transform: translateY(-10px);
+         box-shadow: 0 20px 50px rgba(255, 215, 0, 0.4);
+      }
+
+      .team-card::before {
+         content: '';
+         position: absolute;
+         top: 0;
+         left: -100%;
+         width: 100%;
+         height: 100%;
+         background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+         transition: left 0.6s ease;
+      }
+
+      .team-card:hover::before {
+         left: 100%;
+      }
+
+      .team-image {
+         width: 100%;
+         height: 300px;
+         overflow: hidden;
+         position: relative;
+      }
+
+      .team-image img {
+         width: 100%;
+         height: 100%;
+         object-fit: cover;
+         transition: transform 0.4s ease;
+      }
+
+      .team-card:hover .team-image img {
+         transform: scale(1.1);
+      }
+
+      .team-overlay {
+         position: absolute;
+         top: 0;
+         left: 0;
+         right: 0;
+         bottom: 0;
+         background: linear-gradient(transparent 0%, rgba(0, 0, 0, 0.8) 100%);
+         opacity: 0;
+         transition: opacity 0.4s ease;
+      }
+
+      .team-card:hover .team-overlay {
+         opacity: 1;
+      }
+
+      .team-info {
+         padding: 25px;
+         position: relative;
+         z-index: 2;
+      }
+
+      .team-role {
+         font-size: 14px;
+         color: #FFD700;
+         font-weight: 500;
+         margin-bottom: 8px;
+         text-transform: uppercase;
+         letter-spacing: 1px;
+         font-family: 'Poppins', sans-serif;
+      }
+
+      .team-name {
+         font-size: 20px;
+         font-weight: 600;
+         color: #fff;
+         margin-bottom: 15px;
+         font-family: 'Poppins', sans-serif;
+         line-height: 1.2;
+      }
+
+      .team-linkedin {
+         display: inline-flex;
+         align-items: center;
+         gap: 8px;
+         padding: 10px 20px;
+         background: rgba(255, 215, 0, 0.1);
+         border: 2px solid rgba(255, 215, 0, 0.3);
+         border-radius: 25px;
+         color: #FFD700;
+         text-decoration: none;
+         font-family: 'Poppins', sans-serif;
+         font-weight: 500;
+         font-size: 14px;
+         transition: all 0.3s ease;
+      }
+
+      .team-linkedin:hover {
+         background: #FFD700;
+         color: #000;
+         border-color: #FFD700;
+         transform: translateY(-2px);
+         box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+      }
+
+      .team-linkedin i {
+         font-size: 16px;
+         transition: transform 0.3s ease;
+      }
+
+      .team-linkedin:hover i {
+         transform: scale(1.2);
+      }
+
+      .stats-section {
+         background: rgba(0, 0, 0, 0.8);
+         border-top: 2px solid rgba(255, 215, 0, 0.3);
+         padding: 80px 0;
+         margin: 60px 0 0;
+         backdrop-filter: blur(15px);
+      }
+
+      .stats-grid {
+         display: grid;
+         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+         gap: 40px;
+         text-align: center;
+      }
+
+      .stat-item {
+         position: relative;
+      }
+
+      .stat-number {
+         font-size: 48px;
+         font-weight: 700;
+         color: #FFD700;
+         margin-bottom: 10px;
+         font-family: 'Poppins', sans-serif;
+      }
+
+      .stat-label {
+         font-size: 16px;
+         color: #ccc;
+         font-weight: 500;
+         text-transform: uppercase;
+         letter-spacing: 1px;
+         font-family: 'Poppins', sans-serif;
+      }
+
+      .section-title {
+         text-align: center;
+         font-size: 36px;
+         font-weight: 700;
+         color: #FFD700;
+         margin-bottom: 60px;
+         font-family: 'Poppins', sans-serif;
+         position: relative;
+      }
+
+      .section-title::after {
+         content: '';
+         position: absolute;
+         bottom: -15px;
+         left: 50%;
+         transform: translateX(-50%);
+         width: 80px;
+         height: 3px;
+         background: linear-gradient(90deg, #FFD700, #FFA500);
+         border-radius: 2px;
+      }
+
+      @media (max-width: 768px) {
+         .hero-title {
+            font-size: 36px;
+         }
+         
+         .team-grid {
+            grid-template-columns: 1fr;
+            gap: 20px;
+         }
+         
+         .team-card {
+            margin: 0 10px;
+         }
+         
+         .stats-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+         }
+         
+         .stat-number {
+            font-size: 36px;
+         }
+      }
+
+      /* Animation classes */
+      .fade-in-up {
+         opacity: 0;
+         transform: translateY(30px);
+         transition: all 0.6s ease;
+      }
+
+      .fade-in-up.animate {
+         opacity: 1;
+         transform: translateY(0);
+      }
+
+      .team-card {
+         opacity: 0;
+         transform: translateY(50px);
+         transition: all 0.6s ease;
+      }
+
+      .team-card.animate {
+         opacity: 1;
+         transform: translateY(0);
+      }
+
+      /* Lazy Loading Styles */
+      .lazy-image {
+         transition: opacity 0.3s ease;
+         background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+         background-size: 200% 100%;
+         animation: loading 1.5s infinite;
+      }
+
+      .lazy-image.loaded {
+         animation: none;
+         background: none;
+      }
+
+      @keyframes loading {
+         0% {
+            background-position: 200% 0;
+         }
+         100% {
+            background-position: -200% 0;
+         }
+      }
+
+      /* Performance optimizations */
+      .team-card {
+         contain: layout style paint;
+         will-change: transform, opacity;
+      }
+
+      .team-image {
+         contain: layout style paint;
+      }
+
+      .team-image img {
+         contain: layout style paint;
+      }
+
+      /* Reduce paint operations */
+      .team-card:hover {
+         contain: layout style paint;
+      }
+
+      /* Critical path optimization */
+      .hero-section {
+         contain: layout style paint;
+      }
+
+      /* GPU acceleration for smooth animations */
+      .team-card,
+      .team-image img,
+      .team-overlay {
+         transform: translateZ(0);
+         backface-visibility: hidden;
+         perspective: 1000px;
+      }
+   </style>
 </head>
 
 <body>
@@ -78,158 +447,14 @@
                </button>
             </div>
          </div>
-         <div class="tp-offcanvas-main">
-            <div class="tp-offcanvas-content">
-               <h3 class="tp-offcanvas-title">Hello There!</h3>
-               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, </p>
-            </div>
-            <div class="tp-main-menu-mobile d-xl-none"></div>
-            <div class="tp-offcanvas-gallery">
-               <div class="row gx-2">
-                  <div class="col-md-3 col-3">
-                     <div class="tp-offcanvas-gallery-img fix">
-                        <a href="#"><img src="assets/img/menu/offcanvas/offcanvas-1.jpg" alt=""></a>
-                     </div>
-                  </div>
-                  <div class="col-md-3 col-3">
-                     <div class="tp-offcanvas-gallery-img fix">
-                        <a href="#"><img src="assets/img/menu/offcanvas/offcanvas-2.jpg" alt=""></a>
-                     </div>
-                  </div>
-                  <div class="col-md-3 col-3">
-                     <div class="tp-offcanvas-gallery-img fix">
-                        <a href="#"><img src="assets/img/menu/offcanvas/offcanvas-3.jpg" alt=""></a>
-                     </div>
-                  </div>
-                  <div class="col-md-3 col-3">
-                     <div class="tp-offcanvas-gallery-img fix">
-                        <a href="#"><img src="assets/img/menu/offcanvas/offcanvas-4.jpg" alt=""></a>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div class="tp-offcanvas-contact">
-               <h3 class="tp-offcanvas-title sm">Information</h3>
-
-               <ul>
-                  <li><a href="tel:1245654">+ 4 20 7700 1007</a></li>
-                  <li><a href="mailto:hello@diego.com">hello@diego.com</a></li>
-                  <li><a href="#">Avenue de Roma 158b, Lisboa</a></li>
-               </ul>
-            </div>
-            <div class="tp-offcanvas-social">
-               <h3 class="tp-offcanvas-title sm">Follow Us</h3>
-               <ul>
-                  <li>
-                     <a href="#">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                           <path
-                              d="M11.25 1.5H4.75C2.95507 1.5 1.5 2.95507 1.5 4.75V11.25C1.5 13.0449 2.95507 14.5 4.75 14.5H11.25C13.0449 14.5 14.5 13.0449 14.5 11.25V4.75C14.5 2.95507 13.0449 1.5 11.25 1.5Z"
-                              stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                           <path
-                              d="M10.6016 7.5907C10.6818 8.13166 10.5894 8.68414 10.3375 9.16955C10.0856 9.65497 9.68711 10.0486 9.19862 10.2945C8.71014 10.5404 8.15656 10.6259 7.61663 10.5391C7.0767 10.4522 6.57791 10.1972 6.19121 9.81055C5.80451 9.42385 5.54959 8.92506 5.46271 8.38513C5.37583 7.8452 5.46141 7.29163 5.70728 6.80314C5.95315 6.31465 6.34679 5.91613 6.83221 5.66425C7.31763 5.41238 7.87011 5.31998 8.41107 5.4002C8.96287 5.48202 9.47372 5.73915 9.86817 6.1336C10.2626 6.52804 10.5197 7.0389 10.6016 7.5907Z"
-                              stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                           <path d="M11.5742 4.42578H11.5842" stroke="currentColor" stroke-width="1.5"
-                              stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                     </a>
-                  </li>
-                  <li>
-                     <a href="#">
-                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                           <path
-                              d="M2.50589 12.7494C4.57662 16.336 9.16278 17.5648 12.7494 15.4941C14.2113 14.65 15.2816 13.388 15.8962 11.9461C16.7895 9.85066 16.7208 7.37526 15.4941 5.25063C14.2674 3.12599 12.1581 1.82872 9.89669 1.55462C8.34063 1.366 6.71259 1.66183 5.25063 2.50589C1.66403 4.57662 0.435172 9.16278 2.50589 12.7494Z"
-                              stroke="currentColor" stroke-width="1.5" />
-                           <path
-                              d="M12.7127 15.4292C12.7127 15.4292 12.0086 10.4867 10.5011 7.87559C8.99362 5.26451 5.28935 2.57155 5.28935 2.57155M5.68449 15.6124C6.79553 12.2606 12.34 8.54524 16.3975 9.43537M12.311 2.4082C11.1953 5.72344 5.75732 9.38453 1.71875 8.58915"
-                              stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-                        </svg>
-                     </a>
-                  </li>
-                  <li>
-                     <a href="#">
-                        <svg width="18" height="11" viewBox="0 0 18 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                           <path
-                              d="M1 5.5715H6.33342C7.62867 5.5715 8.61917 6.56199 8.61917 7.85725C8.61917 9.15251 7.62867 10.143 6.33342 10.143H1.76192C1.30477 10.143 1 9.83823 1 9.38108V1.76192C1 1.30477 1.30477 1 1.76192 1H5.5715C6.86676 1 7.85725 1.99049 7.85725 3.28575C7.85725 4.58101 6.86676 5.5715 5.5715 5.5715H1Z"
-                              stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" />
-                           <path
-                              d="M10.9062 7.09454H17.0016C17.0016 5.41832 15.6301 4.04688 13.9539 4.04688C12.2777 4.04688 10.9062 5.41832 10.9062 7.09454ZM10.9062 7.09454C10.9062 8.77076 12.2777 10.1422 13.9539 10.1422H15.2492"
-                              stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
-                              stroke-linejoin="round" />
-                           <path d="M16.1125 1.44434H11.668" stroke="currentColor" stroke-width="1.2"
-                              stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                     </a>
-                  </li>
-                  <li>
-                     <a href="#">
-                        <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                           <path
-                              d="M12.75 13H5.25C3 13 1.5 11.5 1.5 9.25V4.75C1.5 2.5 3 1 5.25 1H12.75C15 1 16.5 2.5 16.5 4.75V9.25C16.5 11.5 15 13 12.75 13Z"
-                              stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
-                              stroke-linejoin="round" />
-                           <path
-                              d="M8.70676 5.14837L10.8006 6.40465C11.5543 6.90716 11.5543 7.66093 10.8006 8.16344L8.70676 9.41972C7.86923 9.92224 7.19922 9.50348 7.19922 8.5822V6.06964C7.19922 4.98086 7.86923 4.64585 8.70676 5.14837Z"
-                              fill="currentColor" />
-                        </svg>
-                     </a>
-                  </li>
-               </ul>
-            </div>
-         </div>
+        
       </div>
    </div>
    <div class="body-overlay"></div>
    <!-- tp-offcanvus-area-end -->
 
    <!-- cart mini area start -->
-   <div class="cartmini__area">
-      <div class="cartmini__wrapper d-flex justify-content-between flex-column">
-            <div class="cartmini__top-wrapper">
-               <div class="cartmini__top p-relative">
-                  <div class="cartmini__top-title">
-                        <h4>Shopping cart</h4>
-                  </div>
-                  <div class="cartmini__close">
-                        <button type="button" class="cartmini__close-btn cartmini-close-btn"><i class="fal fa-times"></i></button>
-                  </div>
-               </div>
-               <div class="cartmini__shipping">
-               <p> Free Shipping for all orders over <span>$50</span></p>
-               <div class="progress">
-                  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" data-width="70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>                   
-               </div>
-               <div class="cartmini__widget">
-                  <div class="cartmini__widget-item">
-                        <div class="cartmini__thumb">
-                        <a href="shop-details.html">
-                           <img src="assets/img/inner-blog/blog-sidebar/rc-post/rc-1.jpg" alt="">
-                        </a>
-                        </div>
-                        <div class="cartmini__content">
-                        <h5 class="cartmini__title"><a href="shop-details.html">Level Bolt Smart Lock</a></h5>
-                        <div class="cartmini__price-wrapper">
-                           <span class="cartmini__price">$46.00</span>
-                           <span class="cartmini__quantity">x2</span>
-                        </div>
-                        </div>
-                        <a href="#" class="cartmini__del"><i class="fa-regular fa-xmark"></i></a>
-                  </div>
-               </div>
-            </div>
-            <div class="cartmini__checkout">
-               <div class="cartmini__checkout-title mb-30">
-                  <h4>Subtotal:</h4>
-                  <span>$113.00</span>
-               </div>
-               <div class="cartmini__checkout-btn">
-                  <a href="cart.html" class="tp-btn-black-2 text-center mb-10 w-100"> view cart</a>
-                  <a href="checkout.html" class="tp-btn-black-2 text-center w-100"> checkout</a>
-               </div>
-            </div>
-      </div>
-   </div>
+  
    <!-- cart mini area end -->
 
  <!-- Navbar Placeholder -->
@@ -241,190 +466,259 @@
    <div id="smooth-wrapper">
       <div id="smooth-content">
 
-         <main>
+         <div class="page-bg">
+            <main>
 
-            <!-- hero area start -->
-            <div class="tm-hero-area tm-hero-ptb">
-               <div class="container">
-                  <div class="row">
-                     <div class="col-xl-12">
-                        <div class="tm-hero-content">
-                           <span class="tm-hero-subtitle">Helal Content Marketing</span>
-                           <h4 class="tm-hero-title tp-char-animation">Talented team</h4>
-                        </div>
-                        <div class="tm-hero-text tp_title_anim">
-                           <p>
-                              We are a diverse team that values attention to detail, gathers on Wednesdays for Fun Day, and strives to make a meaningful impact in the world.
-                           </p>
-                        </div>
+               <!-- hero area start -->
+               <div class="hero-section">
+                  <div class="team-container">
+                     <div class="fade-in-up">
+                        <span class="hero-subtitle">Helal Content Marketing</span>
+                        <h1 class="hero-title">Our Talented Team</h1>
+                        <p class="hero-description">
+                           We are a diverse team that values attention to detail, gathers on Wednesdays for Fun Day, and strives to make a meaningful impact in the world.
+                        </p>
                      </div>
                   </div>
                </div>
-            </div>
-            <!-- hero area end -->
+               <!-- hero area end -->
 
             <!-- team area start -->
-            <div class="tp-team-area pb-120 fix" style="background-image: url('assets/v3.svg'); background-position: center; background-repeat: no-repeat; background-size: cover;">
-               <div class="container container-1530">
-                  <div class="row">
-                     <div class="col-xl-3 col-lg-4 col-md-6">
-                        <div class="tp-team-item tp-hover-btn-wrapper fix mb-30">
-                           <div class="tp-hover-btn-item">
-                              <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/v1757752387/dspr2vptm1gv3wiov43x.jpg" alt="">
-                           </div>
-                           <div class="tp-team-content">
-                              <span>script writer</span>
-                              <h4 class="tp-team-title-sm">
-                                 <a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; gap: 8px; text-decoration: none;">
-                                    Farah walid
-                                    <i class="fab fa-linkedin-in" style="color: #0077b5; font-size: 16px;"></i>
-                                 </a>
-                              </h4>
-                           </div>
+            <div class="team-section">
+               <div class="team-container">
+                  <h2 class="section-title fade-in-up">Meet Our Team</h2>
+                  <div class="team-grid">
+                     <!-- 1. مؤمن - CEO -->
+                     <div class="team-card">
+                        <div class="team-image">
+                           <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect width='100%25' height='100%25' fill='%23f0f0f0'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23999'%3ELoading...%3C/text%3E%3C/svg%3E" 
+                                data-src="https://res.cloudinary.com/dtd8dx59o/image/upload/c_fill,w_300,h_300,q_auto,f_auto/v1757752378/b8oxb6jykwu5t7gzv28p.jpg" 
+                                alt="Moamen Helal" class="lazy-image">
+                           <div class="team-overlay"></div>
+                        </div>
+                        <div class="team-info">
+                           <div class="team-role">CEO & Founder</div>
+                           <div class="team-name">Moamen Helal</div>
+                           <a href="https://www.linkedin.com/in/moamenhelal/" target="_blank" rel="noopener noreferrer" class="team-linkedin">
+                              <span>Connect</span>
+                              <i class="fab fa-linkedin-in"></i>
+                           </a>
                         </div>
                      </div>
-                     <div class="col-xl-3 col-lg-4 col-md-6">
-                        <div class="tp-team-item tp-hover-btn-wrapper fix mb-30">
-                           <div class="tp-hover-btn-item">
-                              <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/v1757752387/foramfzg6dsajq8bzqls.jpg" alt="">
-                           </div>
-                           <div class="tp-team-content">
-                              <span>Photographer</span>
-                              <h4 class="tp-team-title-sm">
-                                 <a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; gap: 8px; text-decoration: none;">
-                                    Anas Radwan
-                                    <i class="fab fa-linkedin-in" style="color: #0077b5; font-size: 16px;"></i>
-                                 </a>
-                              </h4>
-                           </div>
+                     
+                     <!-- 2. عمرو - Social Media Lead -->
+                     <div class="team-card">
+                        <div class="team-image">
+                           <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect width='100%25' height='100%25' fill='%23f0f0f0'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23999'%3ELoading...%3C/text%3E%3C/svg%3E" 
+                                data-src="https://res.cloudinary.com/dtd8dx59o/image/upload/c_fill,w_300,h_300,q_auto,f_auto/v1758439704/raww1sdchmryowyhchzp.jpg" 
+                                alt="Amr Ibrahem" class="lazy-image">
+                           <div class="team-overlay"></div>
+                        </div>
+                        <div class="team-info">
+                           <div class="team-role">Social Media Lead</div>
+                           <div class="team-name">Amr Ibrahem</div>
+                           <a href="https://www.linkedin.com/in/alaa-fawzy-684aa2345/" target="_blank" rel="noopener noreferrer" class="team-linkedin">
+                              <span>Connect</span>
+                              <i class="fab fa-linkedin-in"></i>
+                           </a>
                         </div>
                      </div>
-                     <div class="col-xl-3 col-lg-4 col-md-6">
-                        <div class="tp-team-item tp-hover-btn-wrapper fix mb-30">
-                           <div class="tp-hover-btn-item">
-                              <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/v1757752387/uscvzfwv9btart05afes.jpg" alt="">
-                           </div>
-                           <div class="tp-team-content">
-                              <span>HR</span>
-                              <h4 class="tp-team-title-sm">
-                                 <a href="https://www.linkedin.com/in/tasneem-elmohamady" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; gap: 8px; text-decoration: none;">
-                                    Tasnem Elmohamady
-                                    <i class="fab fa-linkedin-in" style="color: #0077b5; font-size: 16px;"></i>
-                                 </a>
-                              </h4>
-                           </div>
+                     
+                     <!-- 3. هاجر - Operations Manager -->
+                     <div class="team-card">
+                        <div class="team-image">
+                           <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect width='100%25' height='100%25' fill='%23f0f0f0'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23999'%3ELoading...%3C/text%3E%3C/svg%3E" 
+                                data-src="https://res.cloudinary.com/dtd8dx59o/image/upload/c_fill,w_300,h_300,q_auto,f_auto/v1758439574/dkerkkxmuk8iwwetxuat.jpg" 
+                                alt="Hagar Abd-Elsalam" class="lazy-image">
+                           <div class="team-overlay"></div>
+                        </div>
+                        <div class="team-info">
+                           <div class="team-role">Operations Manager</div>
+                           <div class="team-name">Hagar Abd-Elsalam</div>
+                           <a href="https://www.linkedin.com/in/alaa-fawzy-684aa2345/" target="_blank" rel="noopener noreferrer" class="team-linkedin">
+                              <span>Connect</span>
+                              <i class="fab fa-linkedin-in"></i>
+                           </a>
                         </div>
                      </div>
-                     <div class="col-xl-3 col-lg-4 col-md-6">
-                        <div class="tp-team-item tp-hover-btn-wrapper fix mb-30">
-                           <div class="tp-hover-btn-item">
-                              <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/v1757752388/nrha6fxppvgur03vf2lm.jpg" alt="">
-                           </div>
-                           <div class="tp-team-content">
-                              <span>graphic designer</span>
-                              <h4 class="tp-team-title-sm">
-                                 <a href="https://www.linkedin.com/in/alaa-fawzy-684aa2345/" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; gap: 8px; text-decoration: none;">
-                                    Alaa Fawzy
-                                    <i class="fab fa-linkedin-in" style="color: #0077b5; font-size: 16px;"></i>
-                                 </a>
-                              </h4>
-                           </div>
+                     
+                     <!-- 4. مصطفى - Video Editor -->
+                     <div class="team-card">
+                        <div class="team-image">
+                           <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect width='100%25' height='100%25' fill='%23f0f0f0'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23999'%3ELoading...%3C/text%3E%3C/svg%3E" 
+                                data-src="https://res.cloudinary.com/dtd8dx59o/image/upload/c_fill,w_300,h_300,q_auto,f_auto/v1757752379/sfppj2637abiwjofloge.jpg" 
+                                alt="Mostafa Magdy" class="lazy-image">
+                           <div class="team-overlay"></div>
+                        </div>
+                        <div class="team-info">
+                           <div class="team-role">Video Editor</div>
+                           <div class="team-name">Mostafa Magdy</div>
+                           <a href="https://www.linkedin.com/in/mostafa-magdy-41a41632b/" target="_blank" rel="noopener noreferrer" class="team-linkedin">
+                              <span>Connect</span>
+                              <i class="fab fa-linkedin-in"></i>
+                           </a>
                         </div>
                      </div>
-                     <div class="col-xl-3 col-lg-4 col-md-6">
-                        <div class="tp-team-item tp-hover-btn-wrapper fix mb-30">
-                           <div class="tp-hover-btn-item">
-                              <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/v1757752379/sfppj2637abiwjofloge.jpg" alt="">
-                           </div>
-                           <div class="tp-team-content">
-                              <span>Video Editor</span>
-                              <h4 class="tp-team-title-sm">
-                                 <a href="https://www.linkedin.com/in/mostafa-magdy-41a41632b/" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; gap: 8px; text-decoration: none;">
-                                    Mostafa Magdy
-                                    <i class="fab fa-linkedin-in" style="color: #0077b5; font-size: 16px;"></i>
-                                 </a>
-                              </h4>
-                           </div>
+                     
+                     <!-- 5. صلاح - Content Creator -->
+                     <div class="team-card">
+                        <div class="team-image">
+                           <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect width='100%25' height='100%25' fill='%23f0f0f0'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23999'%3ELoading...%3C/text%3E%3C/svg%3E" 
+                                data-src="https://res.cloudinary.com/dtd8dx59o/image/upload/c_fill,w_300,h_300,q_auto,f_auto/v1758438544/u7of5rocb00xmxlhc5jf.jpg" 
+                                alt="Salha Elden" class="lazy-image">
+                           <div class="team-overlay"></div>
+                        </div>
+                        <div class="team-info">
+                           <div class="team-role">Content Creator</div>
+                           <div class="team-name">Salha Elden</div>
+                           <a href="https://www.linkedin.com/in/alaa-fawzy-684aa2345/" target="_blank" rel="noopener noreferrer" class="team-linkedin">
+                              <span>Connect</span>
+                              <i class="fab fa-linkedin-in"></i>
+                           </a>
                         </div>
                      </div>
-                     <div class="col-xl-3 col-lg-4 col-md-6">
-                        <div class="tp-team-item tp-hover-btn-wrapper fix mb-30">
-                           <div class="tp-hover-btn-item">
-                              <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/v1757752380/lokfvxwq4aqpv2cti16p.jpg" alt="">
-                           </div>
-                           <div class="tp-team-content">
-                              <span>Graphic designer</span>
-                              <h4 class="tp-team-title-sm">
-                                 <a href="https://www.linkedin.com/in/xl3bdx/" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; gap: 8px; text-decoration: none;">
-                                    Mahmoud Elabd
-                                    <i class="fab fa-linkedin-in" style="color: #0077b5; font-size: 16px;"></i>
-                                 </a>
-                              </h4>
-                           </div>
+                     
+                     <!-- 6. أنس - Photographer -->
+                     <div class="team-card">
+                        <div class="team-image">
+                           <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect width='100%25' height='100%25' fill='%23f0f0f0'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23999'%3ELoading...%3C/text%3E%3C/svg%3E" 
+                                data-src="https://res.cloudinary.com/dtd8dx59o/image/upload/c_fill,w_300,h_300,q_auto,f_auto/v1757752387/foramfzg6dsajq8bzqls.jpg" 
+                                alt="Anas Radwan" class="lazy-image">
+                           <div class="team-overlay"></div>
+                        </div>
+                        <div class="team-info">
+                           <div class="team-role">Photographer</div>
+                           <div class="team-name">Anas Radwan</div>
+                           <a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer" class="team-linkedin">
+                              <span>Connect</span>
+                              <i class="fab fa-linkedin-in"></i>
+                           </a>
                         </div>
                      </div>
-                     <div class="col-xl-3 col-lg-4 col-md-6">
-                        <div class="tp-team-item tp-hover-btn-wrapper fix mb-30">
-                           <div class="tp-hover-btn-item">
-                              <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/v1757752381/sr9men6mhkiztc0iyhly.jpg" alt="">
-                           </div>
-                           <div class="tp-team-content">
-                              <span>Photographer</span>
-                              <h4 class="tp-team-title-sm">
-                                 <a href="https://www.linkedin.com/in/mohamedhamdy53" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; gap: 8px; text-decoration: none;">
-                                    Mohamed Hamdy
-                                    <i class="fab fa-linkedin-in" style="color: #0077b5; font-size: 16px;"></i>
-                                 </a>
-                              </h4>
-                           </div>
+                     
+                     <!-- 7. علاء - Graphic Designer -->
+                     <div class="team-card">
+                        <div class="team-image">
+                           <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect width='100%25' height='100%25' fill='%23f0f0f0'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23999'%3ELoading...%3C/text%3E%3C/svg%3E" 
+                                data-src="https://res.cloudinary.com/dtd8dx59o/image/upload/c_fill,w_300,h_300,q_auto,f_auto/v1757752388/nrha6fxppvgur03vf2lm.jpg" 
+                                alt="Alaa Fawzy" class="lazy-image">
+                           <div class="team-overlay"></div>
+                        </div>
+                        <div class="team-info">
+                           <div class="team-role">Graphic Designer</div>
+                           <div class="team-name">Alaa Fawzy</div>
+                           <a href="https://www.linkedin.com/in/alaa-fawzy-684aa2345/" target="_blank" rel="noopener noreferrer" class="team-linkedin">
+                              <span>Connect</span>
+                              <i class="fab fa-linkedin-in"></i>
+                           </a>
                         </div>
                      </div>
-                     <div class="col-xl-3 col-lg-4 col-md-6">
-                        <div class="tp-team-item tp-hover-btn-wrapper fix mb-30">
-                           <div class="tp-hover-btn-item">
-                              <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/v1757752385/gkraqbbaobzup2nqphu6.jpg" alt="">
-                           </div>
-                           <div class="tp-team-content">
-                              <span>Full Stack Developer | Software Engineer</span>
-                              <h4 class="tp-team-title-sm">
-                                 <a href="https://www.linkedin.com/in/rramez-hany/" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; gap: 8px; text-decoration: none;">
-                                    Ramez Hany
-                                    <i class="fab fa-linkedin-in" style="color: #0077b5; font-size: 16px;"></i>
-                                 </a>
-                              </h4>
-                           </div>
+                     
+                     <!-- 8. محمود العبد - Graphic Designer -->
+                     <div class="team-card">
+                        <div class="team-image">
+                           <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect width='100%25' height='100%25' fill='%23f0f0f0'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23999'%3ELoading...%3C/text%3E%3C/svg%3E" 
+                                data-src="https://res.cloudinary.com/dtd8dx59o/image/upload/c_fill,w_300,h_300,q_auto,f_auto/v1757752380/lokfvxwq4aqpv2cti16p.jpg" 
+                                alt="Mahmoud Elabd" class="lazy-image">
+                           <div class="team-overlay"></div>
+                        </div>
+                        <div class="team-info">
+                           <div class="team-role">Graphic Designer</div>
+                           <div class="team-name">Mahmoud Elabd</div>
+                           <a href="https://www.linkedin.com/in/xl3bdx/" target="_blank" rel="noopener noreferrer" class="team-linkedin">
+                              <span>Connect</span>
+                              <i class="fab fa-linkedin-in"></i>
+                           </a>
                         </div>
                      </div>
-                     <div class="col-xl-3 col-lg-4 col-md-6">
-                        <div class="tp-team-item tp-hover-btn-wrapper fix mb-30">
-                           <div class="tp-hover-btn-item">
-                              <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/v1757752378/vljvux3wrd5szfukiacc.jpg" alt="">
-                           </div>
-                           <div class="tp-team-content">
-                              <span>Social Media</span>
-                              <h4 class="tp-team-title-sm">
-                                 <a href="https://www.linkedin.com/in/mariam-hamdy-21b713349/" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; gap: 8px; text-decoration: none;">
-                                    Mariam Hamdy
-                                    <i class="fab fa-linkedin-in" style="color: #0077b5; font-size: 16px;"></i>
-                                 </a>
-                              </h4>
-                           </div>
+                     
+                     <!-- 9. رامز - Full Stack Developer -->
+                     <div class="team-card">
+                        <div class="team-image">
+                           <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect width='100%25' height='100%25' fill='%23f0f0f0'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23999'%3ELoading...%3C/text%3E%3C/svg%3E" 
+                                data-src="https://res.cloudinary.com/dtd8dx59o/image/upload/c_fill,w_300,h_300,q_auto,f_auto/v1757752385/gkraqbbaobzup2nqphu6.jpg" 
+                                alt="Ramez Hany" class="lazy-image">
+                           <div class="team-overlay"></div>
+                        </div>
+                        <div class="team-info">
+                           <div class="team-role">Full Stack Developer</div>
+                           <div class="team-name">Ramez Hany</div>
+                           <a href="https://www.linkedin.com/in/rramez-hany/" target="_blank" rel="noopener noreferrer" class="team-linkedin">
+                              <span>Connect</span>
+                              <i class="fab fa-linkedin-in"></i>
+                           </a>
                         </div>
                      </div>
-                     <div class="col-xl-3 col-lg-4 col-md-6">
-                        <div class="tp-team-item tp-hover-btn-wrapper fix mb-30">
-                           <div class="tp-hover-btn-item">
-                              <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/v1757752378/b8oxb6jykwu5t7gzv28p.jpg" alt="">
-                           </div>
-                           <div class="tp-team-content">
-                              <span>CEO</span>
-                              <h4 class="tp-team-title-sm">
-                                 <a href="https://www.linkedin.com/in/moamenhelal/" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; gap: 8px; text-decoration: none;">
-                                    Moamen Helal
-                                    <i class="fab fa-linkedin-in" style="color: #0077b5; font-size: 16px;"></i>
-                                 </a>
-                              </h4>
-                           </div>
+                     
+                     <!-- 10. فرح - Script Writer -->
+                     <div class="team-card">
+                        <div class="team-image">
+                           <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect width='100%25' height='100%25' fill='%23f0f0f0'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23999'%3ELoading...%3C/text%3E%3C/svg%3E" 
+                                data-src="https://res.cloudinary.com/dtd8dx59o/image/upload/c_fill,w_300,h_300,q_auto,f_auto/v1757752387/dspr2vptm1gv3wiov43x.jpg" 
+                                alt="Farah Walid" class="lazy-image">
+                           <div class="team-overlay"></div>
+                        </div>
+                        <div class="team-info">
+                           <div class="team-role">Script Writer</div>
+                           <div class="team-name">Farah Walid</div>
+                           <a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer" class="team-linkedin">
+                              <span>Connect</span>
+                              <i class="fab fa-linkedin-in"></i>
+                           </a>
+                        </div>
+                     </div>
+                     
+                     <!-- 11. تسنيم - HR Manager -->
+                     <div class="team-card">
+                        <div class="team-image">
+                           <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect width='100%25' height='100%25' fill='%23f0f0f0'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23999'%3ELoading...%3C/text%3E%3C/svg%3E" 
+                                data-src="https://res.cloudinary.com/dtd8dx59o/image/upload/c_fill,w_300,h_300,q_auto,f_auto/v1757752387/uscvzfwv9btart05afes.jpg" 
+                                alt="Tasnem Elmohamady" class="lazy-image">
+                           <div class="team-overlay"></div>
+                        </div>
+                        <div class="team-info">
+                           <div class="team-role">HR Manager</div>
+                           <div class="team-name">Tasnem Elmohamady</div>
+                           <a href="https://www.linkedin.com/in/tasneem-elmohamady" target="_blank" rel="noopener noreferrer" class="team-linkedin">
+                              <span>Connect</span>
+                              <i class="fab fa-linkedin-in"></i>
+                           </a>
+                        </div>
+                     </div>
+                     
+                     <!-- 12. محمد حمدي - Photographer -->
+                     <div class="team-card">
+                        <div class="team-image">
+                           <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect width='100%25' height='100%25' fill='%23f0f0f0'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23999'%3ELoading...%3C/text%3E%3C/svg%3E" 
+                                data-src="https://res.cloudinary.com/dtd8dx59o/image/upload/c_fill,w_300,h_300,q_auto,f_auto/v1757752381/sr9men6mhkiztc0iyhly.jpg" 
+                                alt="Mohamed Hamdy" class="lazy-image">
+                           <div class="team-overlay"></div>
+                        </div>
+                        <div class="team-info">
+                           <div class="team-role">Photographer</div>
+                           <div class="team-name">Mohamed Hamdy</div>
+                           <a href="https://www.linkedin.com/in/mohamedhamdy53" target="_blank" rel="noopener noreferrer" class="team-linkedin">
+                              <span>Connect</span>
+                              <i class="fab fa-linkedin-in"></i>
+                           </a>
+                        </div>
+                     </div>
+                     
+                     <!-- 13. مريم - Social Media Specialist -->
+                     <div class="team-card">
+                        <div class="team-image">
+                           <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect width='100%25' height='100%25' fill='%23f0f0f0'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23999'%3ELoading...%3C/text%3E%3C/svg%3E" 
+                                data-src="https://res.cloudinary.com/dtd8dx59o/image/upload/c_fill,w_300,h_300,q_auto,f_auto/v1757752378/vljvux3wrd5szfukiacc.jpg" 
+                                alt="Mariam Hamdy" class="lazy-image">
+                           <div class="team-overlay"></div>
+                        </div>
+                        <div class="team-info">
+                           <div class="team-role">Social Media Specialist</div>
+                           <div class="team-name">Mariam Hamdy</div>
+                           <a href="https://www.linkedin.com/in/mariam-hamdy-21b713349/" target="_blank" rel="noopener noreferrer" class="team-linkedin">
+                              <span>Connect</span>
+                              <i class="fab fa-linkedin-in"></i>
+                           </a>
                         </div>
                      </div>
                   </div>
@@ -432,172 +726,38 @@
             </div>
             <!-- team area end -->
 
-            <!-- testimonial area start -->
-            <div class="tp-studio-testimonial-area tm-testimonial-height tp-studio-testimonial-xs-space tp-studio-plr black-bg p-relative fix">
-               <div class="tp-studio-testimonial-title-box d-none d-md-block">
-                  <h4 class="tp-studio-testimonial-title">What Our Clients Say</h4>
-               </div>
-               <div class="container container-1330">
-                  <div class="tp-studio-funfact-wrap">
-                     <div class="row gx-0">
-                        <div class="col-xl col-lg col-md col-sm-4 col-6">
-                           <div class="tp-studio-funfact-item text-start text-md-center">
-                              <h4 class="tp-studio-funfact-title"><span>+</span><i class="purecounter" data-purecounter-duration="1" data-purecounter-end="54">54</i></h4>
-                              <span>Experts</span>
-                           </div>
-                        </div>
-                        <div class="col-xl col-lg col-md col-sm-4 col-6">
-                           <div class="tp-studio-funfact-item text-start text-md-center">
-                              <h4 class="tp-studio-funfact-title"><span>+</span><i class="purecounter" data-purecounter-duration="1" data-purecounter-end="21">21</i></h4>
-                              <span>Projects</span>
-                           </div>
-                        </div>
-                        <div class="col-xl col-lg col-md col-sm-4 col-6">
-                           <div class="tp-studio-funfact-item text-start text-md-center">
-                              <h4 class="tp-studio-funfact-title"><span>+</span><i class="purecounter" data-purecounter-duration="1" data-purecounter-end="17">17</i></h4>
-                              <span>Years in business</span>
-                           </div>
-                        </div>
-                        <div class="col-xl col-lg col-md col-sm-4 col-6">
-                           <div class="tp-studio-funfact-item text-start text-md-center">
-                              <h4 class="tp-studio-funfact-title"><span>+</span><i class="purecounter" data-purecounter-duration="1" data-purecounter-end="86">86</i></h4>
-                              <span>Awards</span>
-                           </div>
-                        </div>
-                        <div class="col-xl col-lg col-md col-sm-4 col-6">
-                           <div class="tp-studio-funfact-item text-start text-md-center">
-                              <h4 class="tp-studio-funfact-title"><span>+</span><i class="purecounter" data-purecounter-duration="1" data-purecounter-end="4">04</i></h4>
-                              <span>Offices</span>
-                           </div>
-                        </div>
+            <!-- stats section start -->
+            <div class="stats-section">
+               <div class="team-container">
+                  <div class="stats-grid fade-in-up">
+                     <div class="stat-item">
+                        <div class="stat-number"><span>+</span><i class="purecounter" data-purecounter-duration="1" data-purecounter-end="14">14</i></div>
+                        <div class="stat-label">Team Members</div>
                      </div>
-                  </div>
-                  <div class="tp-studio-testimonial-wrap pt-120">
-                     <div class="row align-items-start">
-                        <div class="col-xl-3 col-lg-3 d-none d-lg-block">
-                           <div class="tp-studio-testimonial-shape">
-                              <img src="assets/img/home-03/about/ab-shape-img.png" alt="">
-                           </div>
-                        </div>
-                        <div class="col-xl-2 col-lg-2 col-md-3">
-                           <div class="tp-studio-testimonial-top-title">
-                              <span>Testimonials:</span>
-                           </div>
-                        </div>
-                        <div class="col-xl-7 col-lg-7 col-md-9">
-                           <div class="tp-studio-testimonial-wrapper">
-                              <div class="tp-studio-testimonial-slider-wrap p-relative">
-                                 <div class="swiper-container tp-studio-testimonial-active fix">
-                                    <div class="swiper-wrapper">
-                                       <div class="swiper-slide">
-                                          <div class="tp-studio-testimonial-item">
-                                             <div class="tp-studio-testimonial-text">
-                                                <p>
-                                                   "Our office is something we are pleased with. We
-                                                   consider it the little magnet; it is wanting to come here
-                                                   and afterward difficult to leave it. Our office is
-                                                   additionally a big name."
-                                                </p>
-                                             </div>
-                                             <div class="tp-studio-testimonial-user-info-box d-flex align-items-center">
-                                                <div class="tp-studio-testimonial-user-info">
-                                                   <h4 class="tp-studio-testimonial-user-name">Chris Hughes</h4>
-                                                   <span>CEO | Gemini Skincare</span>
-                                                </div>
-                                                <div class="tp-studio-testimonial-line d-none d-md-block">
-                                                   <span></span>
-                                                </div>
-                                                <div class="tp-studio-testimonial-logo">
-                                                   <img src="assets/img/home-08/testimonial/test-logo-1.png" alt="">
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </div>
-                                       <div class="swiper-slide">
-                                          <div class="tp-studio-testimonial-item">
-                                             <div class="tp-studio-testimonial-text">
-                                                <p>
-                                                   "Our office is something we are pleased with. We
-                                                   consider it the little magnet; it is wanting to come here
-                                                   and afterward difficult to leave it. Our office is
-                                                   additionally a big name."
-                                                </p>
-                                             </div>
-                                             <div class="tp-studio-testimonial-user-info-box d-flex align-items-center">
-                                                <div class="tp-studio-testimonial-user-info">
-                                                   <h4 class="tp-studio-testimonial-user-name">Chris Hughes</h4>
-                                                   <span>CEO | Gemini Skincare</span>
-                                                </div>
-                                                <div class="tp-studio-testimonial-line d-none d-md-block">
-                                                   <span></span>
-                                                </div>
-                                                <div class="tp-studio-testimonial-logo">
-                                                   <img src="assets/img/home-08/testimonial/test-logo-1.png" alt="">
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </div>
-                                       <div class="swiper-slide">
-                                          <div class="tp-studio-testimonial-item">
-                                             <div class="tp-studio-testimonial-text">
-                                                <p>
-                                                   "Our office is something we are pleased with. We
-                                                   consider it the little magnet; it is wanting to come here
-                                                   and afterward difficult to leave it. Our office is
-                                                   additionally a big name."
-                                                </p>
-                                             </div>
-                                             <div class="tp-studio-testimonial-user-info-box d-flex align-items-center">
-                                                <div class="tp-studio-testimonial-user-info">
-                                                   <h4 class="tp-studio-testimonial-user-name">Chris Hughes</h4>
-                                                   <span>CEO | Gemini Skincare</span>
-                                                </div>
-                                                <div class="tp-studio-testimonial-line d-none d-md-block">
-                                                   <span></span>
-                                                </div>
-                                                <div class="tp-studio-testimonial-logo">
-                                                   <img src="assets/img/home-08/testimonial/test-logo-1.png" alt="">
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class="tp-studio-testimonial-arrow">
-                                    <button class="tp-studio-prev">
-                                       <span>
-                                          <svg width="11" height="18" viewBox="0 0 11 18" fill="none"
-                                             xmlns="http://www.w3.org/2000/svg">
-                                             <path d="M9.47266 0C9.47266 4.97463 5.23507 9 -0.0018237 9" stroke="#F5F7F5"
-                                                stroke-width="1.5" stroke-miterlimit="10" />
-                                             <path d="M-0.0018237 9C5.23507 9 9.47266 13.0254 9.47266 18" stroke="#F5F7F5"
-                                                stroke-width="1.5" stroke-miterlimit="10" />
-                                          </svg>
-                                       </span>
-                                    </button>
-                                    <button class="tp-studio-next">
-                                       <span>
-                                          <svg width="11" height="18" viewBox="0 0 11 18" fill="none"
-                                             xmlns="http://www.w3.org/2000/svg">
-                                             <path d="M1.52734 0C1.52734 4.97463 5.76493 9 11.0018 9" stroke="#F5F7F5"
-                                                stroke-width="1.5" stroke-miterlimit="10" />
-                                             <path d="M11.0018 9C5.76493 9 1.52734 13.0254 1.52734 18" stroke="#F5F7F5"
-                                                stroke-width="1.5" stroke-miterlimit="10" />
-                                          </svg>
-                                       </span>
-                                    </button>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
+                     <div class="stat-item">
+                        <div class="stat-number"><span>+</span><i class="purecounter" data-purecounter-duration="1" data-purecounter-end="50">50</i></div>
+                        <div class="stat-label">Projects</div>
+                     </div>
+                     <div class="stat-item">
+                        <div class="stat-number"><span>+</span><i class="purecounter" data-purecounter-duration="1" data-purecounter-end="3">3</i></div>
+                        <div class="stat-label">Years Experience</div>
+                     </div>
+                     <div class="stat-item">
+                        <div class="stat-number"><span>+</span><i class="purecounter" data-purecounter-duration="1" data-purecounter-end="25">25</i></div>
+                        <div class="stat-label">Happy Clients</div>
+                     </div>
+                     <div class="stat-item">
+                        <div class="stat-number"><span>+</span><i class="purecounter" data-purecounter-duration="1" data-purecounter-end="2">2</i></div>
+                        <div class="stat-label">Offices</div>
                      </div>
                   </div>
                </div>
-            </div>	
-            <!-- testimonial area end -->
+            </div>
+            <!-- stats section end -->
 
 
-         </main>
+            </main>
+         </div>
 
         <!-- Footer Placeholder -->
 <div id="footer-placeholder"></div>
@@ -637,6 +797,162 @@
    <script src="assets/js/tp-cursor.js"></script>
 
    <script src="assets/js/component-loader.js"></script>
+
+   <!-- Optimized Performance Script -->
+   <script>
+      // Use passive listeners for better performance
+      const passiveOptions = { passive: true };
+      
+      // Debounce function for scroll events
+      function debounce(func, wait) {
+         let timeout;
+         return function executedFunction(...args) {
+            const later = () => {
+               clearTimeout(timeout);
+               func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+         };
+      }
+
+      // Lazy loading implementation
+      function lazyLoadImages() {
+         const lazyImages = document.querySelectorAll('.lazy-image:not(.loaded)');
+         
+         if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+               entries.forEach(entry => {
+                  if (entry.isIntersecting) {
+                     const img = entry.target;
+                     img.src = img.dataset.src;
+                     img.classList.add('loaded');
+                     observer.unobserve(img);
+                  }
+               });
+            }, {
+               rootMargin: '100px 0px',
+               threshold: 0.01
+            });
+
+            lazyImages.forEach(img => {
+               imageObserver.observe(img);
+            });
+         } else {
+            // Fallback for older browsers
+            lazyImages.forEach(img => {
+               img.src = img.dataset.src;
+               img.classList.add('loaded');
+            });
+         }
+      }
+
+      // Optimized animations with requestAnimationFrame
+      function animateOnScroll() {
+         requestAnimationFrame(() => {
+            // Animate hero section
+            const heroElements = document.querySelectorAll('.fade-in-up:not(.animate)');
+            heroElements.forEach((element, index) => {
+               setTimeout(() => {
+                  element.classList.add('animate');
+               }, index * 100); // Reduced delay for faster animation
+            });
+
+            // Animate team cards on scroll
+            const teamCards = document.querySelectorAll('.team-card:not(.animate)');
+            
+            const observer = new IntersectionObserver((entries) => {
+               entries.forEach((entry, index) => {
+                  if (entry.isIntersecting) {
+                     requestAnimationFrame(() => {
+                        setTimeout(() => {
+                           entry.target.classList.add('animate');
+                        }, index * 50); // Reduced delay
+                     });
+                  }
+               });
+            }, {
+               threshold: 0.1,
+               rootMargin: '20px'
+            });
+
+            teamCards.forEach(card => {
+               observer.observe(card);
+            });
+
+            // Optimized stats animation
+            const statItems = document.querySelectorAll('.stat-item');
+            if (statItems.length > 0) {
+               const statsObserver = new IntersectionObserver((entries) => {
+                  entries.forEach(entry => {
+                     if (entry.isIntersecting) {
+                        statItems.forEach((stat, index) => {
+                           requestAnimationFrame(() => {
+                              setTimeout(() => {
+                                 stat.style.opacity = '1';
+                                 stat.style.transform = 'translateY(0)';
+                              }, index * 100); // Reduced delay
+                           });
+                        });
+                     }
+                  });
+               });
+
+               statItems.forEach(stat => {
+                  stat.style.opacity = '0';
+                  stat.style.transform = 'translateY(30px)';
+                  stat.style.transition = 'all 0.4s ease'; // Faster transition
+               });
+               statsObserver.observe(statItems[0]);
+            }
+         });
+      }
+
+      // Optimized scroll handler with throttling
+      let ticking = false;
+      const handleScroll = () => {
+         if (!ticking) {
+            requestAnimationFrame(() => {
+               // Reduced scroll effects for better performance
+               ticking = false;
+            });
+            ticking = true;
+         }
+      };
+
+      // DOM ready optimization
+      if (document.readyState === 'loading') {
+         document.addEventListener('DOMContentLoaded', initPage);
+      } else {
+         initPage();
+      }
+
+      function initPage() {
+         // Initialize lazy loading first
+         lazyLoadImages();
+         
+         // Then animations
+         setTimeout(animateOnScroll, 100);
+         
+         // Add optimized scroll listener
+         window.addEventListener('scroll', debounce(handleScroll, 16), passiveOptions);
+         
+         // Preload critical images for faster subsequent loads
+         setTimeout(() => {
+            const criticalImages = [
+               'https://res.cloudinary.com/dtd8dx59o/image/upload/c_fill,w_300,h_300,q_auto,f_auto/v1757752378/b8oxb6jykwu5t7gzv28p.jpg',
+               'https://res.cloudinary.com/dtd8dx59o/image/upload/c_fill,w_300,h_300,q_auto,f_auto/v1758439704/raww1sdchmryowyhchzp.jpg',
+               'https://res.cloudinary.com/dtd8dx59o/image/upload/c_fill,w_300,h_300,q_auto,f_auto/v1758439574/dkerkkxmuk8iwwetxuat.jpg'
+            ];
+            
+            criticalImages.forEach(src => {
+               const img = new Image();
+               img.src = src;
+            });
+         }, 2000);
+      }
+   </script>
+
 </body>
 
 </html>
