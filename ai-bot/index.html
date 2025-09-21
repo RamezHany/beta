@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helal Marketing AI | مساعد التسويق الذكي</title>
+    <meta name="description" content="مساعد التسويق الذكي من وكالة هلال - خبير في التسويق الرقمي، التسويق بالمحتوى، وسائل التواصل الاجتماعي، والإعلانات">
+    <link rel="icon" type="image/x-icon" href="../assets/img/favicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+        // Set the workerSrc for pdf.js
+        pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js`;
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+        }
+        
+        /* Helal Brand Colors */
+        :root {
+            --helal-gold: #FFD700;
+            --helal-gold-dark: #FFA500;
+            --helal-bg-dark: #1a1a1a;
+            --helal-bg-secondary: #2d2d2d;
+            --helal-card-bg: rgba(255, 255, 255, 0.05);
+            --helal-border: rgba(255, 215, 0, 0.2);
+        }
+        
+        #chat-container::-webkit-scrollbar {
+            width: 8px;
+        }
+        .dark #chat-container::-webkit-scrollbar-track {
+            background: var(--helal-bg-dark);
+        }
+        .dark #chat-container::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, var(--helal-gold), var(--helal-gold-dark));
+            border-radius: 10px;
+            border: 2px solid var(--helal-bg-dark);
+        }
+        
+        /* Helal Brand Styling */
+        .helal-gradient {
+            background: linear-gradient(135deg, var(--helal-gold), var(--helal-gold-dark));
+        }
+        
+        .helal-card {
+            background: var(--helal-card-bg);
+            border: 2px solid var(--helal-border);
+            backdrop-filter: blur(15px);
+        }
+        
+        .helal-glow {
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+        }
+        
+        /* Background Pattern */
+        .bg-pattern::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('../assets/v3.svg') center/cover;
+            opacity: 0.1;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        /* Logo animation */
+        .logo-animate {
+            animation: logoGlow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes logoGlow {
+            from {
+                filter: drop-shadow(0 0 5px var(--helal-gold));
+            }
+            to {
+                filter: drop-shadow(0 0 15px var(--helal-gold));
+            }
+        }
+    </style>
+</head>
+<body class="bg-pattern relative min-h-screen flex items-center justify-center">
+
+    <div class="flex flex-col w-full max-w-2xl h-full md:h-[90vh] helal-card rounded-3xl helal-glow relative overflow-hidden z-10">
+        <!-- Header -->
+        <header class="helal-gradient text-black p-6 rounded-t-3xl flex items-center justify-between shadow-lg flex-shrink-0 relative">
+            <div class="flex items-center gap-4">
+                <!-- Helal Logo -->
+                <div class="logo-animate">
+                    <img src="../assets/img/logo/logo-white.png" alt="Helal Logo" class="w-10 h-12 object-contain filter brightness-0">
+                </div>
+                <div>
+                    <h1 class="text-xl md:text-2xl font-bold">Helal Marketing AI</h1>
+                    <p class="text-sm opacity-90">مساعد التسويق الذكي</p>
+                </div>
+            </div>
+            <div class="text-right text-xs opacity-80">
+                <p>Powered by</p>
+                <p class="font-bold">Helal Content Marketing</p>
+            </div>
+        </header>
+
+        <!-- Chat Container -->
+        <main id="chat-container" class="flex-1 p-6 overflow-y-auto relative" style="background: rgba(0, 0, 0, 0.4);">
+            <div id="placeholder" class="absolute inset-0 flex items-center justify-center">
+                <div class="text-center text-gray-300">
+                    <div class="helal-gradient w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-black">
+                            <path d="M21 15V6"/>
+                            <path d="M18.5 18a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
+                            <path d="M12 12H3"/>
+                            <path d="M16 6H3"/>
+                            <path d="M12 18H3"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-yellow-400 mb-2">مرحباً بك في Helal Marketing AI</h3>
+                    <p class="text-gray-400">مساعدك الذكي المتخصص في التسويق الرقمي</p>
+                    <p class="text-sm text-gray-500 mt-2">ابدأ بطرح أسئلتك حول التسويق، الإعلانات، أو استراتيجيات الأعمال</p>
+                </div>
+            </div>
+             <!-- Typing Indicator -->
+            <div id="typing-indicator" class="hidden">
+                 <div class="flex items-start gap-3 mb-4">
+                    <div class="helal-gradient text-black p-3 rounded-full flex-shrink-0 shadow-lg">
+                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                           <path d="M21 15V6"/>
+                           <path d="M18.5 18a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
+                           <path d="M12 12H3"/>
+                           <path d="M16 6H3"/>
+                           <path d="M12 18H3"/>
+                       </svg>
+                    </div>
+                    <div class="helal-card p-4 rounded-2xl shadow-md flex items-center space-x-2 space-x-reverse border border-yellow-400/30">
+                        <div class="w-2 h-2 bg-yellow-400 rounded-full animate-pulse [animation-delay:-0.3s]"></div>
+                        <div class="w-2 h-2 bg-yellow-400 rounded-full animate-pulse [animation-delay:-0.15s]"></div>
+                        <div class="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
+                        <span class="text-yellow-400 text-sm mr-2">Helal AI يكتب...</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Processing Overlay for PDF -->
+        <div id="processing-overlay" class="hidden absolute inset-0 bg-gray-900 bg-opacity-80 flex items-center justify-center z-20">
+            <div class="text-center text-white">
+                <svg class="animate-spin h-8 w-8 text-amber-500 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                <p class="mt-2">جاري قراءة الملف...</p>
+            </div>
+        </div>
+
+        <!-- Input Form -->
+        <footer class="p-6 border-t border-yellow-400/20 rounded-b-3xl flex-shrink-0 relative" style="background: rgba(0, 0, 0, 0.6);">
+            <!-- File Preview -->
+            <div id="file-preview-container" class="hidden mb-3 p-3 helal-card rounded-xl w-fit">
+                <div class="flex items-center gap-3">
+                    <div id="file-icon-container" class="flex-shrink-0"></div>
+                    <span id="file-name" class="text-white text-sm truncate"></span>
+                    <button id="remove-file-btn" type="button" class="text-gray-400 hover:text-yellow-400 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+            </div>
+            <form id="chat-form" class="flex items-center gap-4">
+                <button type="button" id="upload-file-btn" class="helal-gradient text-black p-3 rounded-full transition-all duration-200 hover:scale-110 shadow-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.59a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+                </button>
+                <input type="file" id="file-upload-input" class="hidden" accept="image/*,application/pdf,.doc,.docx">
+                <input type="text" id="message-input" placeholder="اسأل مساعد التسويق الذكي..." autocomplete="off" class="flex-1 p-4 border border-yellow-400/30 helal-card text-white rounded-2xl focus:ring-2 focus:ring-yellow-400 focus:outline-none focus:border-yellow-400 transition-all duration-200 placeholder-gray-400">
+                <button type="submit" class="helal-gradient text-black p-4 rounded-2xl hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 focus:ring-offset-transparent transition-all duration-200 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center shadow-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+                </button>
+            </form>
+        </footer>
+        <div class="text-center text-xs text-yellow-400/80 px-6 pb-4 rounded-b-3xl flex-shrink-0 relative" style="background: rgba(0, 0, 0, 0.6);">
+            <p class="flex items-center justify-center gap-2">
+                <span>Powered by</span>
+                <span class="font-bold text-yellow-400">Helal Content Marketing</span>
+                <span>|</span>
+                <span>Alexandria, Egypt</span>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const chatForm = document.getElementById('chat-form');
+            const messageInput = document.getElementById('message-input');
+            const chatContainer = document.getElementById('chat-container');
+            const typingIndicator = document.getElementById('typing-indicator');
+            const submitButton = chatForm.querySelector('button[type="submit"]');
+            const placeholder = document.getElementById('placeholder');
+            
+            const uploadFileBtn = document.getElementById('upload-file-btn');
+            const fileUploadInput = document.getElementById('file-upload-input');
+            const filePreviewContainer = document.getElementById('file-preview-container');
+            const fileIconContainer = document.getElementById('file-icon-container');
+            const fileNameEl = document.getElementById('file-name');
+            const removeFileBtn = document.getElementById('remove-file-btn');
+            const processingOverlay = document.getElementById('processing-overlay');
+
+            let uploadedFile = {
+                content: null, // For base64 image or extracted PDF text
+                type: null,
+                name: null
+            };
+
+            let chatHistory = [{
+                role: "user",
+                parts: [{ text: `You are 'Helal Marketing AI', a specialized AI marketing assistant created by Helal Content Marketing in Alexandria, Egypt. 
+
+Your expertise includes:
+- Digital Marketing Strategy
+- Social Media Marketing
+- Content Marketing & Creation
+- Google Ads & Facebook Ads
+- SEO & SEM
+- Email Marketing
+- Brand Strategy & Personal Branding
+- Marketing Analytics
+- E-commerce Marketing
+- Influencer Marketing
+- Marketing Automation
+- Conversion Rate Optimization
+
+Guidelines:
+- Always respond in Arabic unless specifically asked to respond in English
+- Be professional yet friendly and approachable
+- Focus specifically on marketing topics and business growth
+- Provide actionable, practical marketing advice
+- Reference current marketing trends and best practices
+- If asked about non-marketing topics, politely redirect to marketing-related discussions
+- Mention Helal Content Marketing's services when relevant (without being pushy)
+- You can analyze marketing materials, campaign documents, and images
+- Always aim to provide value and demonstrate marketing expertise
+
+Your goal is to help businesses and individuals with their marketing challenges and growth strategies.` }]
+            }, {
+                role: "model",
+                parts: [{ text: "مرحباً! أنا Helal Marketing AI، مساعدك الذكي المتخصص في التسويق الرقمي من وكالة هلال بالإسكندرية. سأساعدك في جميع احتياجاتك التسويقية، من استراتيجيات التسويق الرقمي إلى إدارة وسائل التواصل الاجتماعي وتحسين الحملات الإعلانية. كيف يمكنني مساعدتك اليوم في تطوير أعمالك؟" }]
+            }];
+
+            function scrollToBottom() {
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
+
+            function displayMessage(sender, message, fileInfo = null) {
+                if (placeholder) placeholder.style.display = 'none';
+                let messageContent = ``;
+                if (message) {
+                    messageContent += `<p class="text-white">${message.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</p>`;
+                }
+
+                if (fileInfo && fileInfo.name) {
+                    if (fileInfo.type.startsWith('image/')) {
+                        messageContent = `<img src="data:${fileInfo.type};base64,${fileInfo.content}" class="rounded-lg max-w-full h-auto" alt="Uploaded Image">${message ? `<p class="mt-2 text-white">${message}</p>` : ''}`;
+                    } else {
+                        messageContent += `<div class="mt-2 p-2 bg-gray-600 rounded-lg text-sm text-gray-300 flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+                            <span>تم إرفاق ملف: ${fileInfo.name}</span>
+                        </div>`;
+                    }
+                }
+                let messageHtml = '';
+                if (sender === 'user') {
+                    messageHtml = `
+                        <div class="flex items-start gap-3 mb-6 justify-end">
+                            <div class="helal-card border border-yellow-400/30 text-white p-4 rounded-2xl shadow-lg max-w-xs md:max-w-md backdrop-blur-sm">${messageContent}</div>
+                            <div class="bg-yellow-400/20 text-yellow-400 p-3 rounded-full flex-shrink-0 border border-yellow-400/40">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="12" cy="7" r="4"/>
+                                </svg>
+                            </div>
+                        </div>`;
+                } else { // bot
+                    messageHtml = `
+                        <div class="flex items-start gap-3 mb-6">
+                            <div class="helal-gradient text-black p-3 rounded-full flex-shrink-0 shadow-lg">
+                               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                   <path d="M21 15V6"/>
+                                   <path d="M18.5 18a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
+                                   <path d="M12 12H3"/>
+                                   <path d="M16 6H3"/>
+                                   <path d="M12 18H3"/>
+                               </svg>
+                            </div>
+                            <div class="helal-card border border-yellow-400/20 p-4 rounded-2xl shadow-lg max-w-xs md:max-w-md backdrop-blur-sm">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="text-yellow-400 text-xs font-semibold">Helal Marketing AI</span>
+                                </div>
+                                <p class="text-white leading-relaxed">${message}</p>
+                            </div>
+                        </div>`;
+                }
+                // FIX: Insert the new message BEFORE the typing indicator element
+                typingIndicator.insertAdjacentHTML('beforebegin', messageHtml);
+                scrollToBottom();
+            }
+            
+            async function getBotResponse(prompt, file = null) {
+                let userParts = [];
+                let fullPrompt = prompt;
+
+                if (file && file.type.startsWith('image/')) {
+                    userParts.push({ text: prompt });
+                    userParts.push({ inlineData: { mimeType: file.type, data: file.content } });
+                } else if (file && file.type === 'application/pdf') {
+                    if (file.content === 'PDF_PARSING_ERROR') {
+                        fullPrompt = `لقد حاول المستخدم رفع ملف PDF اسمه "${file.name}" ولكن حدث خطأ فني أثناء محاولة قراءة محتواه. كمساعد تسويق من وكالة هلال، أعتذر عن هذا الخلل وأنصح المستخدم بتجربة ملف آخر أو التأكد من أن الملف غير تالف. اقترح عليه إرسال مواد تسويقية أخرى يمكنني مساعدته بتحليلها.`;
+                    } else if (file.content === 'PDF_IS_IMAGE') {
+                        fullPrompt = `لقد قام المستخدم برفع ملف PDF اسمه "${file.name}" ولكن يبدو أنه يحتوي على صور فقط بدون نصوص يمكن قراءتها. كمساعد تسويق ذكي، أعتذر وأخبر المستخدم أنني حاليًا لا أستطيع قراءة النصوص من الصور داخل ملفات PDF، لكن يمكنه إرسال الصور منفصلة أو مشاركة المحتوى النصي ليتمكن من تقديم استشارة تسويقية مفيدة.`;
+                    } else if (file.content) {
+                        const truncatedContent = file.content.substring(0, 15000);
+                        fullPrompt = `كمساعد تسويق ذكي من وكالة هلال، لقد تم إرفاق ملف PDF تسويقي/تجاري بعنوان "${file.name}" وهذا محتواه:\n\n---\n${truncatedContent}\n---\n\nيرجى تحليل هذا المحتوى من منظور تسويقي والإجابة على سؤال المستخدم: "${prompt}"`;
+                    }
+                     userParts.push({ text: fullPrompt });
+                } else if (file) {
+                    fullPrompt = `لقد قام المستخدم بإرفاق ملف اسمه "${file.name}" من نوع ${file.type}. كمساعد تسويق من وكالة هلال، أخبر المستخدم أنني متخصص في تحليل المحتوى التسويقي والمرئيات، وأنصحه بإرسال صور، ملفات PDF للمواد التسويقية، أو طرح أسئلة تسويقية مباشرة. سؤاله هو: "${prompt}"`;
+                    userParts.push({ text: fullPrompt });
+                } else {
+                    userParts.push({ text: prompt });
+                }
+
+                chatHistory.push({ role: "user", parts: userParts });
+                const apiKey = "AIzaSyDVk30nhdS-gMsMne1ywNTELmllkBTPKCA"; 
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+                const payload = { contents: chatHistory };
+
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    if (!response.ok) throw new Error(`API Error: ${response.status}`);
+                    const result = await response.json();
+                    if (result.candidates && result.candidates[0]?.content?.parts[0]?.text) {
+                        const botResponseText = result.candidates[0].content.parts[0].text;
+                        chatHistory.push({ role: "model", parts: [{ text: botResponseText }] });
+                        return botResponseText;
+                    }
+                    return "عذراً، حدث خطأ تقني مؤقت. كمساعد تسويق من وكالة هلال، أنصحك بإعادة المحاولة أو طرح سؤالك بطريقة مختلفة.";
+                } catch (error) {
+                    console.error("Error fetching bot response:", error);
+                    return "عذراً، واجهنا مشكلة تقنية مؤقتة. فريق هلال التقني يعمل على حل هذه المشاكل. يرجى المحاولة مرة أخرى خلال دقائق قليلة.";
+                }
+            }
+            
+            uploadFileBtn.addEventListener('click', () => {
+                fileUploadInput.click();
+            });
+            
+            fileUploadInput.addEventListener('change', (event) => {
+                const file = event.target.files[0];
+                if (!file) return;
+                
+                uploadedFile.name = file.name;
+                uploadedFile.type = file.type;
+                fileNameEl.textContent = file.name;
+
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        uploadedFile.content = e.target.result.split(',')[1];
+                        fileIconContainer.innerHTML = `<img src="${e.target.result}" class="h-12 w-12 object-cover rounded" />`;
+                        filePreviewContainer.classList.remove('hidden');
+                    };
+                    reader.readAsDataURL(file);
+                } else if (file.type === 'application/pdf') {
+                    processingOverlay.classList.remove('hidden');
+                    const reader = new FileReader();
+                    reader.onload = async (e) => {
+                        try {
+                            const pdf = await pdfjsLib.getDocument(e.target.result).promise;
+                            let fullText = '';
+                            for (let i = 1; i <= pdf.numPages; i++) {
+                                const page = await pdf.getPage(i);
+                                const textContent = await page.getTextContent();
+                                const pageText = textContent.items.map(item => item.str).join(' ');
+                                fullText += pageText + '\n\n';
+                            }
+                            
+                            if (!fullText.trim()) {
+                                uploadedFile.content = 'PDF_IS_IMAGE';
+                            } else {
+                                uploadedFile.content = fullText.trim();
+                            }
+                            fileIconContainer.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>`;
+                            filePreviewContainer.classList.remove('hidden');
+                        } catch (error) {
+                            console.error('Error parsing PDF:', error);
+                            uploadedFile.content = 'PDF_PARSING_ERROR';
+                            fileIconContainer.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-red-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="12" x2="12" y2="18" /><line x1="12" y1="12" x2="12" y2="18" /></svg>`;
+                            filePreviewContainer.classList.remove('hidden');
+                        } finally {
+                            processingOverlay.classList.add('hidden');
+                        }
+                    };
+                    reader.readAsArrayBuffer(file);
+                } else {
+                    uploadedFile.content = null; // We don't process other files
+                    fileIconContainer.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>`;
+                    filePreviewContainer.classList.remove('hidden');
+                }
+            });
+
+            removeFileBtn.addEventListener('click', () => {
+                uploadedFile = { content: null, type: null, name: null };
+                fileUploadInput.value = '';
+                filePreviewContainer.classList.add('hidden');
+            });
+
+            chatForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const message = messageInput.value.trim();
+                if (!message && !uploadedFile.name) return;
+
+                // Disable form immediately
+                submitButton.disabled = true;
+                messageInput.disabled = true;
+                
+                // Display user message and clear inputs
+                displayMessage('user', message, uploadedFile.name ? uploadedFile : null);
+                messageInput.value = '';
+                
+                // Show typing indicator
+                typingIndicator.classList.remove('hidden');
+                scrollToBottom();
+
+                // Get bot response
+                const botResponse = await getBotResponse(message, uploadedFile.name ? uploadedFile : null);
+                
+                // Clear file after it has been sent
+                removeFileBtn.click(); 
+
+                // Hide typing indicator and display response
+                typingIndicator.classList.add('hidden');
+                displayMessage('bot', botResponse);
+                
+                // Re-enable form
+                submitButton.disabled = false;
+                messageInput.disabled = false;
+                messageInput.focus();
+            });
+        });
+    </script>
+</body>
+</html>
