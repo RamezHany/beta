@@ -85,35 +85,142 @@
                 filter: drop-shadow(0 0 15px var(--helal-gold));
             }
         }
+        
+        /* Mobile Responsive Improvements */
+        @media (max-width: 768px) {
+            .max-w-xs {
+                max-width: 85% !important;
+            }
+            
+            .md\\:max-w-md {
+                max-width: 90% !important;
+            }
+            
+            /* Adjust message containers for mobile */
+            .mobile-message {
+                max-width: 100%;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+            }
+            
+            /* Header adjustments */
+            .mobile-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 8px;
+            }
+            
+            .mobile-header .logo-section {
+                justify-content: center;
+            }
+            
+            .mobile-header .powered-by {
+                font-size: 10px;
+                opacity: 0.7;
+            }
+            
+            /* Chat input improvements */
+            .mobile-input {
+                font-size: 16px; /* Prevents zoom on iOS */
+                padding: 12px;
+            }
+            
+            /* Typing indicator */
+            .mobile-typing {
+                max-width: 80%;
+            }
+            
+            /* File preview adjustments */
+            .mobile-file-preview {
+                max-width: 90%;
+                overflow: hidden;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            /* Extra small devices */
+            .container-mobile {
+                margin: 10px;
+                max-width: calc(100vw - 20px);
+                height: calc(100vh - 20px);
+            }
+            
+            .text-mobile-sm {
+                font-size: 14px;
+            }
+            
+            .p-mobile {
+                padding: 12px;
+            }
+            
+            /* Avatar sizes for mobile */
+            .avatar-mobile {
+                width: 32px;
+                height: 32px;
+                padding: 6px;
+            }
+            
+            /* Button sizes for mobile */
+            .btn-mobile {
+                padding: 10px;
+                min-width: 44px; /* Minimum touch target */
+                min-height: 44px;
+            }
+        }
+        
+        /* Touch-friendly improvements */
+        .touch-target {
+            min-width: 44px;
+            min-height: 44px;
+        }
+        
+        /* Prevent horizontal scroll */
+        body {
+            overflow-x: hidden;
+        }
+        
+        /* iOS Safari viewport height fix */
+        .full-height {
+            height: 100vh;
+            height: calc(var(--vh, 1vh) * 100);
+        }
+        
+        /* Improve readability on mobile */
+        @media (max-width: 768px) {
+            .text-mobile-readable {
+                line-height: 1.6;
+                font-size: 15px;
+            }
+        }
     </style>
 </head>
-<body class="bg-pattern relative min-h-screen flex items-center justify-center">
+<body class="bg-pattern relative min-h-screen flex items-center justify-center p-2 sm:p-4">
 
-    <div class="flex flex-col w-full max-w-2xl h-full md:h-[90vh] helal-card rounded-3xl helal-glow relative overflow-hidden z-10">
+    <div class="flex flex-col w-full max-w-2xl h-full max-h-screen sm:max-h-[95vh] md:h-[90vh] helal-card rounded-2xl sm:rounded-3xl helal-glow relative overflow-hidden z-10 container-mobile">
         <!-- Header -->
-        <header class="helal-gradient text-black p-6 rounded-t-3xl flex items-center justify-between shadow-lg flex-shrink-0 relative">
-            <div class="flex items-center gap-4">
+        <header class="helal-gradient text-black p-4 sm:p-6 rounded-t-2xl sm:rounded-t-3xl shadow-lg flex-shrink-0 relative mobile-header">
+            <div class="flex items-center gap-3 sm:gap-4 logo-section">
                 <!-- Helal Logo -->
                 <div class="logo-animate">
-                    <img src="../assets/img/logo/logo-white.png" alt="Helal Logo" class="w-10 h-12 object-contain filter brightness-0">
+                    <img src="../assets/img/logo/logo-white.png" alt="Helal Logo" class="w-8 h-10 sm:w-10 sm:h-12 object-contain filter brightness-0">
                 </div>
-                <div>
-                    <h1 class="text-xl md:text-2xl font-bold">Helal Marketing AI</h1>
-                    <p class="text-sm opacity-90">مساعد التسويق الذكي</p>
+                <div class="flex-1 min-w-0">
+                    <h1 class="text-lg sm:text-xl md:text-2xl font-bold truncate">Helal Marketing AI</h1>
+                    <p class="text-xs sm:text-sm opacity-90">مساعد التسويق الذكي</p>
                 </div>
             </div>
-            <div class="text-right text-xs opacity-80">
-                <p>Powered by</p>
-                <p class="font-bold">Helal Content Marketing</p>
+            <div class="text-center sm:text-right text-xs powered-by mt-2 sm:mt-0">
+                <p class="text-xs">Powered by</p>
+                <p class="font-bold text-xs sm:text-sm">Helal Content Marketing</p>
             </div>
         </header>
 
         <!-- Chat Container -->
-        <main id="chat-container" class="flex-1 p-6 overflow-y-auto relative" style="background: rgba(0, 0, 0, 0.4);">
-            <div id="placeholder" class="absolute inset-0 flex items-center justify-center">
-                <div class="text-center text-gray-300">
-                    <div class="helal-gradient w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-black">
+        <main id="chat-container" class="flex-1 p-3 sm:p-6 overflow-y-auto relative" style="background: rgba(0, 0, 0, 0.4);">
+            <div id="placeholder" class="absolute inset-0 flex items-center justify-center p-4">
+                <div class="text-center text-gray-300 max-w-sm">
+                    <div class="helal-gradient w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-black sm:w-10 sm:h-10">
                             <path d="M21 15V6"/>
                             <path d="M18.5 18a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
                             <path d="M12 12H3"/>
@@ -121,16 +228,16 @@
                             <path d="M12 18H3"/>
                         </svg>
                     </div>
-                    <h3 class="text-xl font-bold text-yellow-400 mb-2">مرحباً بك في Helal Marketing AI</h3>
-                    <p class="text-gray-400">مساعدك الذكي المتخصص في التسويق الرقمي</p>
-                    <p class="text-sm text-gray-500 mt-2">ابدأ بطرح أسئلتك حول التسويق، الإعلانات، أو استراتيجيات الأعمال</p>
+                    <h3 class="text-lg sm:text-xl font-bold text-yellow-400 mb-2 text-mobile-readable">مرحباً بك في Helal Marketing AI</h3>
+                    <p class="text-gray-400 text-sm sm:text-base text-mobile-readable">مساعدك الذكي المتخصص في التسويق الرقمي</p>
+                    <p class="text-xs sm:text-sm text-gray-500 mt-2 text-mobile-readable leading-relaxed">ابدأ بطرح أسئلتك حول التسويق، الإعلانات، أو استراتيجيات الأعمال</p>
                 </div>
             </div>
              <!-- Typing Indicator -->
             <div id="typing-indicator" class="hidden">
-                 <div class="flex items-start gap-3 mb-4">
-                    <div class="helal-gradient text-black p-3 rounded-full flex-shrink-0 shadow-lg">
-                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                 <div class="flex items-start gap-2 sm:gap-3 mb-4">
+                    <div class="helal-gradient text-black p-2 sm:p-3 rounded-full flex-shrink-0 shadow-lg avatar-mobile">
+                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sm:w-6 sm:h-6">
                            <path d="M21 15V6"/>
                            <path d="M18.5 18a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
                            <path d="M12 12H3"/>
@@ -138,11 +245,11 @@
                            <path d="M12 18H3"/>
                        </svg>
                     </div>
-                    <div class="helal-card p-4 rounded-2xl shadow-md flex items-center space-x-2 space-x-reverse border border-yellow-400/30">
+                    <div class="helal-card p-3 sm:p-4 rounded-xl sm:rounded-2xl shadow-md flex items-center space-x-2 space-x-reverse border border-yellow-400/30 mobile-typing">
                         <div class="w-2 h-2 bg-yellow-400 rounded-full animate-pulse [animation-delay:-0.3s]"></div>
                         <div class="w-2 h-2 bg-yellow-400 rounded-full animate-pulse [animation-delay:-0.15s]"></div>
                         <div class="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
-                        <span class="text-yellow-400 text-sm mr-2">Helal AI يكتب...</span>
+                        <span class="text-yellow-400 text-xs sm:text-sm mr-2">Helal AI يكتب...</span>
                     </div>
                 </div>
             </div>
@@ -157,34 +264,34 @@
         </div>
 
         <!-- Input Form -->
-        <footer class="p-6 border-t border-yellow-400/20 rounded-b-3xl flex-shrink-0 relative" style="background: rgba(0, 0, 0, 0.6);">
+        <footer class="p-3 sm:p-6 border-t border-yellow-400/20 rounded-b-2xl sm:rounded-b-3xl flex-shrink-0 relative" style="background: rgba(0, 0, 0, 0.6);">
             <!-- File Preview -->
-            <div id="file-preview-container" class="hidden mb-3 p-3 helal-card rounded-xl w-fit">
-                <div class="flex items-center gap-3">
+            <div id="file-preview-container" class="hidden mb-3 p-2 sm:p-3 helal-card rounded-lg sm:rounded-xl w-fit max-w-full mobile-file-preview">
+                <div class="flex items-center gap-2 sm:gap-3">
                     <div id="file-icon-container" class="flex-shrink-0"></div>
-                    <span id="file-name" class="text-white text-sm truncate"></span>
-                    <button id="remove-file-btn" type="button" class="text-gray-400 hover:text-yellow-400 transition-colors">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    <span id="file-name" class="text-white text-xs sm:text-sm truncate"></span>
+                    <button id="remove-file-btn" type="button" class="text-gray-400 hover:text-yellow-400 transition-colors touch-target p-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sm:w-5 sm:h-5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                     </button>
                 </div>
             </div>
-            <form id="chat-form" class="flex items-center gap-4">
-                <button type="button" id="upload-file-btn" class="helal-gradient text-black p-3 rounded-full transition-all duration-200 hover:scale-110 shadow-lg">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.59a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+            <form id="chat-form" class="flex items-center gap-2 sm:gap-4">
+                <button type="button" id="upload-file-btn" class="helal-gradient text-black p-2 sm:p-3 rounded-full transition-all duration-200 hover:scale-110 shadow-lg touch-target btn-mobile">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sm:w-6 sm:h-6"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.59a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
                 </button>
                 <input type="file" id="file-upload-input" class="hidden" accept="image/*,application/pdf,.doc,.docx">
-                <input type="text" id="message-input" placeholder="اسأل مساعد التسويق الذكي..." autocomplete="off" class="flex-1 p-4 border border-yellow-400/30 helal-card text-white rounded-2xl focus:ring-2 focus:ring-yellow-400 focus:outline-none focus:border-yellow-400 transition-all duration-200 placeholder-gray-400">
-                <button type="submit" class="helal-gradient text-black p-4 rounded-2xl hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 focus:ring-offset-transparent transition-all duration-200 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center shadow-lg">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+                <input type="text" id="message-input" placeholder="اسأل مساعد التسويق الذكي..." autocomplete="off" class="flex-1 p-3 sm:p-4 border border-yellow-400/30 helal-card text-white rounded-xl sm:rounded-2xl focus:ring-2 focus:ring-yellow-400 focus:outline-none focus:border-yellow-400 transition-all duration-200 placeholder-gray-400 mobile-input text-mobile-readable">
+                <button type="submit" class="helal-gradient text-black p-3 sm:p-4 rounded-xl sm:rounded-2xl hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 focus:ring-offset-transparent transition-all duration-200 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center shadow-lg touch-target btn-mobile">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sm:w-6 sm:h-6"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
                 </button>
             </form>
         </footer>
-        <div class="text-center text-xs text-yellow-400/80 px-6 pb-4 rounded-b-3xl flex-shrink-0 relative" style="background: rgba(0, 0, 0, 0.6);">
-            <p class="flex items-center justify-center gap-2">
+        <div class="text-center text-xs text-yellow-400/80 px-3 sm:px-6 pb-3 sm:pb-4 rounded-b-2xl sm:rounded-b-3xl flex-shrink-0 relative" style="background: rgba(0, 0, 0, 0.6);">
+            <p class="flex items-center justify-center gap-1 sm:gap-2 flex-wrap text-xs">
                 <span>Powered by</span>
                 <span class="font-bold text-yellow-400">Helal Content Marketing</span>
-                <span>|</span>
-                <span>Alexandria, Egypt</span>
+                <span class="hidden sm:inline">|</span>
+                <span class="text-xs">Alexandria, Egypt</span>
             </p>
         </div>
     </div>
@@ -197,6 +304,18 @@
             const typingIndicator = document.getElementById('typing-indicator');
             const submitButton = chatForm.querySelector('button[type="submit"]');
             const placeholder = document.getElementById('placeholder');
+            
+            // Mobile viewport height fix for iOS Safari
+            function setViewportHeight() {
+                const vh = window.innerHeight * 0.01;
+                document.documentElement.style.setProperty('--vh', `${vh}px`);
+            }
+            
+            setViewportHeight();
+            window.addEventListener('resize', setViewportHeight);
+            window.addEventListener('orientationchange', () => {
+                setTimeout(setViewportHeight, 100);
+            });
             
             const uploadFileBtn = document.getElementById('upload-file-btn');
             const fileUploadInput = document.getElementById('file-upload-input');
@@ -271,10 +390,10 @@ Your goal is to help businesses and individuals with their marketing challenges 
                 let messageHtml = '';
                 if (sender === 'user') {
                     messageHtml = `
-                        <div class="flex items-start gap-3 mb-6 justify-end">
-                            <div class="helal-card border border-yellow-400/30 text-white p-4 rounded-2xl shadow-lg max-w-xs md:max-w-md backdrop-blur-sm">${messageContent}</div>
-                            <div class="bg-yellow-400/20 text-yellow-400 p-3 rounded-full flex-shrink-0 border border-yellow-400/40">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <div class="flex items-start gap-2 sm:gap-3 mb-4 sm:mb-6 justify-end">
+                            <div class="helal-card border border-yellow-400/30 text-white p-3 sm:p-4 rounded-xl sm:rounded-2xl shadow-lg mobile-message backdrop-blur-sm text-mobile-readable">${messageContent}</div>
+                            <div class="bg-yellow-400/20 text-yellow-400 p-2 sm:p-3 rounded-full flex-shrink-0 border border-yellow-400/40 avatar-mobile">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sm:w-5 sm:h-5">
                                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
                                     <circle cx="12" cy="7" r="4"/>
                                 </svg>
@@ -282,9 +401,9 @@ Your goal is to help businesses and individuals with their marketing challenges 
                         </div>`;
                 } else { // bot
                     messageHtml = `
-                        <div class="flex items-start gap-3 mb-6">
-                            <div class="helal-gradient text-black p-3 rounded-full flex-shrink-0 shadow-lg">
-                               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <div class="flex items-start gap-2 sm:gap-3 mb-4 sm:mb-6">
+                            <div class="helal-gradient text-black p-2 sm:p-3 rounded-full flex-shrink-0 shadow-lg avatar-mobile">
+                               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sm:w-6 sm:h-6">
                                    <path d="M21 15V6"/>
                                    <path d="M18.5 18a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
                                    <path d="M12 12H3"/>
@@ -292,11 +411,11 @@ Your goal is to help businesses and individuals with their marketing challenges 
                                    <path d="M12 18H3"/>
                                </svg>
                             </div>
-                            <div class="helal-card border border-yellow-400/20 p-4 rounded-2xl shadow-lg max-w-xs md:max-w-md backdrop-blur-sm">
+                            <div class="helal-card border border-yellow-400/20 p-3 sm:p-4 rounded-xl sm:rounded-2xl shadow-lg mobile-message backdrop-blur-sm">
                                 <div class="flex items-center gap-2 mb-2">
                                     <span class="text-yellow-400 text-xs font-semibold">Helal Marketing AI</span>
                                 </div>
-                                <p class="text-white leading-relaxed">${message}</p>
+                                <p class="text-white leading-relaxed text-mobile-readable">${message}</p>
                             </div>
                         </div>`;
                 }
