@@ -29,12 +29,43 @@
    <link rel="stylesheet" href="assets/css/custom-animation.css">
    <link rel="stylesheet" href="assets/css/main.css">
    
-   <!-- Gallery Video Optimization -->
+   <!-- Modern Homepage Styling -->
    <style>
+   /* Global Page Styling */
+   .page-bg {
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+      min-height: 100vh;
+      position: relative;
+   }
+
+   .page-bg::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('assets/v3.svg') center/cover;
+      opacity: 0.1;
+      pointer-events: none;
+   }
+
+   /* Gallery Video Optimization */
    .tp-gallery-item {
       position: relative;
       overflow: hidden;
-      border-radius: 8px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid rgba(255, 215, 0, 0.2);
+      backdrop-filter: blur(10px);
+      transition: all 0.4s ease;
+   }
+
+   .tp-gallery-item:hover {
+      transform: translateY(-5px);
+      border-color: #FFD700;
+      background: rgba(255, 215, 0, 0.1);
+      box-shadow: 0 15px 35px rgba(255, 215, 0, 0.3);
    }
    
    .gallery-video-container {
@@ -42,6 +73,8 @@
       width: 100%;
       height: 400px;
       cursor: pointer;
+      border-radius: 20px;
+      overflow: hidden;
    }
    
    .gallery-video-thumbnail {
@@ -50,7 +83,12 @@
       background-size: cover;
       background-position: center;
       position: relative;
-      border-radius: 8px;
+      border-radius: 20px;
+      transition: transform 0.3s ease;
+   }
+
+   .gallery-video-container:hover .gallery-video-thumbnail {
+      transform: scale(1.05);
    }
    
    .gallery-video-play-btn {
@@ -58,31 +96,59 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 70px;
-      height: 70px;
-      background: rgba(255, 215, 0, 0.9);
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #FFD700, #FFA500);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.4s ease;
       z-index: 10;
+      box-shadow: 0 10px 25px rgba(255, 215, 0, 0.4);
+      border: 3px solid rgba(255, 255, 255, 0.2);
    }
    
    .gallery-video-play-btn:hover {
-      background: rgba(255, 215, 0, 1);
-      transform: translate(-50%, -50%) scale(1.1);
+      background: linear-gradient(135deg, #FFA500, #FFD700);
+      transform: translate(-50%, -50%) scale(1.15);
+      box-shadow: 0 15px 35px rgba(255, 215, 0, 0.6);
+   }
+
+   .gallery-video-play-btn::after {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      border: 2px solid rgba(255, 215, 0, 0.3);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+   }
+
+   @keyframes pulse {
+      0% {
+         transform: scale(1);
+         opacity: 1;
+      }
+      100% {
+         transform: scale(1.2);
+         opacity: 0;
+      }
    }
    
    .gallery-video-play-btn::before {
       content: '';
       width: 0;
       height: 0;
-      border-left: 18px solid #000;
-      border-top: 11px solid transparent;
-      border-bottom: 11px solid transparent;
-      margin-left: 3px;
+      border-left: 20px solid #000;
+      border-top: 12px solid transparent;
+      border-bottom: 12px solid transparent;
+      margin-left: 4px;
+      z-index: 1;
+      position: relative;
    }
    
    .gallery-video-iframe {
@@ -90,6 +156,7 @@
       width: 100%;
       height: 100%;
       border: 0;
+      border-radius: 20px;
    }
    
    .gallery-video-iframe.loaded {
@@ -106,16 +173,21 @@
       display: none;
       text-align: center;
       z-index: 15;
+      background: rgba(0, 0, 0, 0.9);
+      padding: 25px;
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(255, 215, 0, 0.3);
    }
    
    .gallery-video-loading .spinner {
-      width: 40px;
-      height: 40px;
-      border: 4px solid rgba(255, 215, 0, 0.3);
-      border-top: 4px solid #FFD700;
+      width: 50px;
+      height: 50px;
+      border: 5px solid rgba(255, 215, 0, 0.2);
+      border-top: 5px solid #FFD700;
       border-radius: 50%;
       animation: spin 1s linear infinite;
-      margin: 0 auto 10px;
+      margin: 0 auto 15px;
    }
    
    @keyframes spin {
@@ -125,8 +197,333 @@
    
    .gallery-video-loading p {
       margin: 0;
-      font-weight: 500;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+      font-weight: 600;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+      font-family: 'Poppins', sans-serif;
+   }
+
+   /* Service Cards Enhancement */
+   .tp-service-3-wrap {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 215, 0, 0.1);
+      border-radius: 15px;
+      padding: 30px;
+      margin-bottom: 30px;
+      backdrop-filter: blur(10px);
+      transition: all 0.4s ease;
+   }
+
+   .tp-service-3-wrap:hover {
+      background: rgba(255, 215, 0, 0.05);
+      border-color: rgba(255, 215, 0, 0.3);
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(255, 215, 0, 0.2);
+   }
+
+   /* Project Cards Enhancement */
+   .tp-project-3-thumb {
+      border-radius: 15px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+   }
+
+   .tp-project-3-thumb:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+   }
+
+   /* Brand Section Enhancement */
+   .tp-brand-3-area {
+      position: relative;
+   }
+
+   .tp-brand-3-area::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('assets/v3.svg') center/cover;
+      opacity: 0.03;
+      pointer-events: none;
+   }
+
+   .tp-brand-item {
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100px;
+      cursor: pointer;
+      margin: 0 15px;
+   }
+
+   .swiper-slide {
+      padding: 10px;
+   }
+
+   .tp-brand-3-slider-active .swiper-wrapper {
+      display: flex;
+      align-items: center;
+   }
+
+   .tp-brand-3-slider-active {
+      padding: 20px 0;
+   }
+
+   .tp-brand-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.15), transparent);
+      transition: left 0.6s ease;
+      z-index: 1;
+   }
+
+   .tp-brand-item:hover::before {
+      left: 100%;
+   }
+
+   .tp-brand-item::after {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700, #FFA500);
+      border-radius: 22px;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      z-index: -1;
+   }
+
+   .tp-brand-item:hover::after {
+      opacity: 0.6;
+   }
+
+   .tp-brand-item img {
+      position: relative;
+      z-index: 2;
+   }
+
+   /* CTA Section Enhancement */
+   .tp-cta-area {
+      background: linear-gradient(135deg, #000 0%, #1a1a1a 100%) !important;
+      position: relative;
+   }
+
+   .tp-cta-area::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('assets/v3.svg') center/cover;
+      opacity: 0.05;
+      pointer-events: none;
+   }
+
+   /* Hero Section Simple Enhancement */
+   .tp-hero-3-area {
+      position: relative;
+   }
+
+   .tp-hero-3-content-box {
+      position: relative;
+      z-index: 2;
+   }
+
+   /* Projects Section Enhancements */
+   .project-video-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+      transition: left 0.6s ease;
+      z-index: 1;
+   }
+
+   .project-video-card:hover::before {
+      left: 100%;
+   }
+
+   .portfolio-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('assets/v3.svg') center/cover;
+      opacity: 0.02;
+      pointer-events: none;
+   }
+
+   /* Responsive Design */
+   @media (max-width: 768px) {
+      .tp-brand-3-area {
+         padding-top: 60px !important;
+      }
+
+      .tp-brand-3-slider-wrapper {
+         padding: 30px 20px !important;
+         border-radius: 20px !important;
+      }
+
+      .tp-brand-item {
+         padding: 25px 15px !important;
+         border-radius: 15px !important;
+         min-height: 90px !important;
+         margin: 0 10px !important;
+      }
+
+      .swiper-slide {
+         padding: 8px !important;
+      }
+
+      .tp-section-title-90 {
+         font-size: 2.2rem !important;
+      }
+
+      .text-center.mb-80 {
+         margin-bottom: 50px !important;
+      }
+
+      .gallery-video-container {
+         height: 250px !important;
+      }
+      
+      .gallery-video-play-btn {
+         width: 60px;
+         height: 60px;
+      }
+      
+      .gallery-video-play-btn::before {
+         border-left: 15px solid #000;
+         border-top: 9px solid transparent;
+         border-bottom: 9px solid transparent;
+         margin-left: 3px;
+      }
+
+      .tp-service-3-wrap {
+         padding: 20px;
+         margin-bottom: 20px;
+      }
+
+      /* Projects Section Mobile */
+      .portfolio-container {
+         padding: 30px 20px !important;
+         border-radius: 20px !important;
+      }
+
+      .project-row-wrapper {
+         margin-bottom: 40px !important;
+      }
+
+      .project-content-center {
+         padding: 30px 15px !important;
+      }
+
+      .project-content-center h3 {
+         font-size: 1.8rem !important;
+      }
+
+      .tp-project-3-area {
+         padding-top: 80px !important;
+         padding-bottom: 80px !important;
+      }
+   }
+
+   @media (max-width: 480px) {
+      .tp-brand-3-area {
+         padding-top: 40px !important;
+      }
+
+      .tp-brand-3-slider-wrapper {
+         padding: 25px 15px !important;
+         border-radius: 15px !important;
+      }
+
+      .tp-brand-item {
+         padding: 20px 12px !important;
+         border-radius: 12px !important;
+         min-height: 75px !important;
+         margin: 0 8px !important;
+      }
+
+      .swiper-slide {
+         padding: 6px !important;
+      }
+
+      .tp-section-title-90 {
+         font-size: 1.9rem !important;
+      }
+
+      .text-center.mb-80 {
+         margin-bottom: 40px !important;
+      }
+
+      .tp-section-subtitle-2 {
+         font-size: 12px !important;
+         letter-spacing: 2px !important;
+      }
+
+      .gallery-video-container {
+         height: 200px !important;
+      }
+      
+      .tp-gallery-item {
+         border-radius: 15px;
+      }
+      
+      .gallery-video-container,
+      .gallery-video-thumbnail,
+      .gallery-video-iframe {
+         border-radius: 15px;
+      }
+
+      /* Projects Section Extra Small Screens */
+      .portfolio-container {
+         padding: 25px 15px !important;
+         border-radius: 15px !important;
+      }
+
+      .project-row-wrapper {
+         margin-bottom: 35px !important;
+      }
+
+      .project-content-center {
+         padding: 25px 10px !important;
+      }
+
+      .project-content-center h3 {
+         font-size: 1.6rem !important;
+         margin-bottom: 12px !important;
+      }
+
+      .project-content-center p {
+         font-size: 14px !important;
+         margin-bottom: 15px !important;
+      }
+
+      .project-video-card {
+         border-radius: 15px !important;
+      }
+
+      .tp-project-3-area {
+         padding-top: 60px !important;
+         padding-bottom: 60px !important;
+      }
    }
    </style>
 </head>
@@ -180,7 +577,7 @@
 
    <div id="smooth-wrapper">
       <div id="smooth-content">
-
+         <div class="page-bg">
          <main>
 
             <!-- hero area start -->
@@ -189,21 +586,17 @@
                   <div class="row">
                      <div class="col-xl-12">
                         <div class="tp-hero-3-content-box text-center p-relative">
-                           <!-- <div class="tp-hero-3-circle-shape">
-                              
-                           </div> -->
                            <h1 class="tp-hero-3-title tp_reveal_anim">
                               <span class="tp-reveal-line">Where <span style="color: #FFD700;">Brands</span></span>
                               <span class="tp-reveal-line">Come <span style="color: #FFD700;">Alive</span></span>
                            </h1>
                            <span class="tp-hero-3-category tp_reveal_anim">
                               <span style="color: #FFD700;">Media Production</span> / 
-                              
                               Personal Branding / 
                               <span style="color: #FFD700;">Digital Marketing</span> 
                            </span>
                            
-                           <a class="tp-btn-yellow" href="contact.html" style="border-radius: 0;">
+                           <a class="tp-btn-yellow" href="contact.html">
                               <span class="tp-btn-yellow-wrap">
                                  <span class="text-1">Let's Talk</span>
                                  <span class="text-2">Let's Talk</span>
@@ -218,7 +611,7 @@
             <!-- hero area end -->
 
             <!-- gallery area start -->
-            <div class="tp-gallery-area fix p-relative">
+            <div class="tp-gallery-area fix p-relative" style="background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(10px); padding: 80px 0;">
                <div class="tp-gallery-shape-1">
                   <img class="img-1" src="assets/img/home-03/gallery/gal-shape-1.png" alt="">
                   <img class="img-2" src="assets/img/home-03/gallery/gal-shape-dark-1.png" alt="">
@@ -231,7 +624,7 @@
                   <div class="row">
                      <div class="col-xl-12">
                         <div class="tp-gallery-slider-wrap">
-                           <div class="swiper-container tp-gallery-slider-active"  style="background-image:url('assets/v3.svg');background-position:center;">
+                           <div class="swiper-container tp-gallery-slider-active" style="background: rgba(255, 255, 255, 0.02); border-radius: 20px; padding: 40px 20px;">
                               <div class="swiper-wrapper tp-gallery-titming">
                                  <div class="swiper-slide">
                                     <div class="tp-gallery-item">
@@ -386,7 +779,7 @@
             <!-- gallery area end -->
 
             <!-- about area start -->
-            <div class="tp-about-3-area pt-120 pb-110">
+            <div class="tp-about-3-area pt-120 pb-110" style="background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(10px);">
                <div class="container">
                   <div class="row">
                      <div class="col-xl-11">
@@ -438,37 +831,64 @@
             <!-- about area end -->
 
             <!-- brand area start -->
-            <div class="tp-brand-3-area pb-120">
+            <div class="tp-brand-3-area pb-120" style="background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(15px); position: relative; padding-top: 80px;">
+               <!-- Section Title -->
+               <div class="container">
+                  <div class="row justify-content-center">
+                     <div class="col-xl-10">
+                        <div class="text-center mb-80">
+                           <!-- Icon -->
+                           <div style="margin-bottom: 25px;">
+                              <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #FFD700, #FFA500); border-radius: 15px; margin: 0 auto; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);">
+                                 <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: #000;">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="9" cy="7" r="4"/>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                                 </svg>
+                              </div>
+                           </div>
+
+                           <span class="tp-section-subtitle-2" style="color: #FFD700; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 20px; display: block; opacity: 0.9;">Trusted Partners</span>
+                           <h2 class="tp-section-title-90" style="color: #fff; font-size: 3rem; font-weight: 700; margin-bottom: 25px; background: linear-gradient(135deg, #fff, #FFD700); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Brands We Collaborate With</h2>
+                           <p style="color: #aaa; font-size: 18px; max-width: 600px; margin: 0 auto; line-height: 1.7; font-weight: 400;">
+                              Building successful partnerships with industry leaders across Egypt and the Middle East, delivering exceptional results together.
+                           </p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+
                <div class="container container-1400">
                   <div class="">
                      <div class="col-xl-12">
-                        <div class="tp-brand-3-slider-wrapper">
+                        <div class="tp-brand-3-slider-wrapper" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 215, 0, 0.03)); border: 2px solid rgba(255, 215, 0, 0.15); border-radius: 25px; padding: 50px 30px; backdrop-filter: blur(20px); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);">
                            <div class="swiper-container tp-brand-3-slider-active fix">
                                <div class="swiper-wrapper brand-wrapper">
                                  
                                   <div class="swiper-slide">
-                                     <div class="tp-brand-item">
-                                        <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/v1757700514/ynrf4mw7elrthmmn6w8r.png" alt="">
+                                     <div class="tp-brand-item" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02)); border: 2px solid rgba(255, 215, 0, 0.2); border-radius: 20px; padding: 35px 25px; transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); backdrop-filter: blur(15px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.borderColor='rgba(255, 215, 0, 0.5)'; this.style.background='linear-gradient(135deg, rgba(255, 215, 0, 0.08), rgba(255, 215, 0, 0.03))'; this.style.boxShadow='0 15px 45px rgba(255, 215, 0, 0.2)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.borderColor='rgba(255, 215, 0, 0.2)'; this.style.background='linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02))'; this.style.boxShadow='0 8px 32px rgba(0, 0, 0, 0.2)'">
+                                        <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/v1757700514/ynrf4mw7elrthmmn6w8r.png" alt="Partner Brand" style="max-width: 100%; height: auto; filter: brightness(0.95) contrast(1.1); transition: all 0.4s ease;" onmouseover="this.style.filter='brightness(1.1) contrast(1.2) saturate(1.1)'" onmouseout="this.style.filter='brightness(0.95) contrast(1.1)'">
                                      </div>
                                   </div>
                                   <div class="swiper-slide">
-                                     <div class="tp-brand-item">
-                                        <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/v1757700514/hdb3hrgkql2p9jto3psd.png" alt="">
+                                     <div class="tp-brand-item" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02)); border: 2px solid rgba(255, 215, 0, 0.2); border-radius: 20px; padding: 35px 25px; transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); backdrop-filter: blur(15px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.borderColor='rgba(255, 215, 0, 0.5)'; this.style.background='linear-gradient(135deg, rgba(255, 215, 0, 0.08), rgba(255, 215, 0, 0.03))'; this.style.boxShadow='0 15px 45px rgba(255, 215, 0, 0.2)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.borderColor='rgba(255, 215, 0, 0.2)'; this.style.background='linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02))'; this.style.boxShadow='0 8px 32px rgba(0, 0, 0, 0.2)'">
+                                        <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/v1757700514/hdb3hrgkql2p9jto3psd.png" alt="Partner Brand" style="max-width: 100%; height: auto; filter: brightness(0.95) contrast(1.1); transition: all 0.4s ease;" onmouseover="this.style.filter='brightness(1.1) contrast(1.2) saturate(1.1)'" onmouseout="this.style.filter='brightness(0.95) contrast(1.1)'">
                                      </div>
                                   </div>
                                   <div class="swiper-slide">
-                                     <div class="tp-brand-item">
-                                        <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/v1757700514/ssdrftcqjuqwvbozgpiw.png" alt="">
+                                     <div class="tp-brand-item" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02)); border: 2px solid rgba(255, 215, 0, 0.2); border-radius: 20px; padding: 35px 25px; transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); backdrop-filter: blur(15px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.borderColor='rgba(255, 215, 0, 0.5)'; this.style.background='linear-gradient(135deg, rgba(255, 215, 0, 0.08), rgba(255, 215, 0, 0.03))'; this.style.boxShadow='0 15px 45px rgba(255, 215, 0, 0.2)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.borderColor='rgba(255, 215, 0, 0.2)'; this.style.background='linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02))'; this.style.boxShadow='0 8px 32px rgba(0, 0, 0, 0.2)'">
+                                        <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/v1757700514/ssdrftcqjuqwvbozgpiw.png" alt="Partner Brand" style="max-width: 100%; height: auto; filter: brightness(0.95) contrast(1.1); transition: all 0.4s ease;" onmouseover="this.style.filter='brightness(1.1) contrast(1.2) saturate(1.1)'" onmouseout="this.style.filter='brightness(0.95) contrast(1.1)'">
                                      </div>
                                   </div>
                                   <div class="swiper-slide">
-                                     <div class="tp-brand-item">
-                                        <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/v1757700514/dwatahfdeitrcyrvunlh.png" alt="">
+                                     <div class="tp-brand-item" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02)); border: 2px solid rgba(255, 215, 0, 0.2); border-radius: 20px; padding: 35px 25px; transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); backdrop-filter: blur(15px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.borderColor='rgba(255, 215, 0, 0.5)'; this.style.background='linear-gradient(135deg, rgba(255, 215, 0, 0.08), rgba(255, 215, 0, 0.03))'; this.style.boxShadow='0 15px 45px rgba(255, 215, 0, 0.2)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.borderColor='rgba(255, 215, 0, 0.2)'; this.style.background='linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02))'; this.style.boxShadow='0 8px 32px rgba(0, 0, 0, 0.2)'">
+                                        <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/v1757700514/dwatahfdeitrcyrvunlh.png" alt="Partner Brand" style="max-width: 100%; height: auto; filter: brightness(0.95) contrast(1.1); transition: all 0.4s ease;" onmouseover="this.style.filter='brightness(1.1) contrast(1.2) saturate(1.1)'" onmouseout="this.style.filter='brightness(0.95) contrast(1.1)'">
                                      </div>
                                   </div>
                                   <div class="swiper-slide">
-                                     <div class="tp-brand-item">
-                                        <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/v1757700514/a650zsyjryjarkamvj2q.png" alt="">
+                                     <div class="tp-brand-item" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02)); border: 2px solid rgba(255, 215, 0, 0.2); border-radius: 20px; padding: 35px 25px; transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); backdrop-filter: blur(15px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.borderColor='rgba(255, 215, 0, 0.5)'; this.style.background='linear-gradient(135deg, rgba(255, 215, 0, 0.08), rgba(255, 215, 0, 0.03))'; this.style.boxShadow='0 15px 45px rgba(255, 215, 0, 0.2)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.borderColor='rgba(255, 215, 0, 0.2)'; this.style.background='linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02))'; this.style.boxShadow='0 8px 32px rgba(0, 0, 0, 0.2)'">
+                                        <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/v1757700514/a650zsyjryjarkamvj2q.png" alt="Partner Brand" style="max-width: 100%; height: auto; filter: brightness(0.95) contrast(1.1); transition: all 0.4s ease;" onmouseover="this.style.filter='brightness(1.1) contrast(1.2) saturate(1.1)'" onmouseout="this.style.filter='brightness(0.95) contrast(1.1)'">
                                      </div>
                                   </div>
                                 
@@ -483,121 +903,133 @@
             <!-- brand area end -->
 
             <!-- project area start -->
-            <div class="tp-project-3-area pt-130 black-bg">
-               <div class="container container-1720">
-                  <!-- <div class="row justify-content-center">
-                     <div class="col-xl-7">
-                        <div class="tp-project-3-title-box p-relative mb-150">
-                           <h4 class="tp-section-title-200 tp_reveal_anim">
-                              Latest <dev style="color: #FFD700;">Projects</dev>
-                           </h4>
-                           <div class="tp-project-3-btn-box">
-                              <a class="tp-btn-zikzak p-relative" href="portfolio-wrapper.html">
-                                 <span class="zikzak-content">
-                                    See <br> All Project
-                                    <svg width="17" height="17" viewBox="0 0 17 17" fill="none"
-                                       xmlns="http://www.w3.org/2000/svg">
-                                       <path
-                                          d="M16.2434 8.16465C16.3866 8.31677 16.4668 8.52224 16.4668 8.73637C16.4668 8.9505 16.3866 9.15597 16.2434 9.30811L9.38818 16.53C9.24196 16.6773 9.04774 16.7599 8.84546 16.7607C8.74439 16.7602 8.64426 16.7399 8.55031 16.7005C8.41169 16.6392 8.2934 16.5359 8.21038 16.4038C8.12736 16.2717 8.0833 16.1167 8.08378 15.9583V9.53881H1.22849C1.02648 9.53881 0.832739 9.45428 0.689893 9.30378C0.547047 9.15329 0.466797 8.9492 0.466797 8.73637C0.466797 8.52356 0.547047 8.31945 0.689893 8.16897C0.832739 8.01848 1.02648 7.93395 1.22849 7.93395H8.08378V1.51445C8.0833 1.35603 8.12736 1.20101 8.21038 1.06892C8.2934 0.936828 8.41169 0.833584 8.55031 0.772196C8.691 0.714385 8.84436 0.699718 8.99264 0.729895C9.14092 0.760071 9.27805 0.833857 9.38818 0.942715L16.2434 8.16465Z"
-                                          fill="#19191A" />
+            <div class="tp-project-3-area pt-130 pb-130" style="background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(15px); position: relative;">
+               <!-- Section Header -->
+               <div class="container">
+                  <div class="row justify-content-center">
+                     <div class="col-xl-10">
+                        <div class="text-center mb-80">
+                           <!-- Icon -->
+                           <div style="margin-bottom: 25px;">
+                              <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #FFD700, #FFA500); border-radius: 15px; margin: 0 auto; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);">
+                                 <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: #000;">
+                                    <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                                    <path d="M2 17l10 5 10-5"/>
+                                    <path d="M2 12l10 5 10-5"/>
                                     </svg>
-                                 </span>
-                                 <svg class="anim" width="160" height="161" viewBox="0 0 160 161" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                       d="M73.023 3.97715C76.6245 -0.442502 83.3755 -0.442502 86.977 3.97715L88.8998 6.33684C91.6265 9.68311 96.3451 10.6222 100.145 8.57493L102.813 7.13788C107.829 4.43534 114.063 7.01587 115.701 12.4734L116.588 15.4276C117.828 19.5569 121.822 22.227 126.111 21.7943L129.147 21.4881C134.809 20.9169 139.573 25.6784 139.005 31.3408L138.693 34.4529C138.263 38.7355 140.926 42.7227 145.046 43.9669L148.008 44.8612C153.449 46.5041 156.024 52.7165 153.34 57.7265L151.854 60.5019C149.824 64.2914 150.757 68.9873 154.082 71.7123L156.507 73.6991C160.9 77.2998 160.9 84.0202 156.507 87.6209L154.082 89.6077C150.757 92.3327 149.824 97.0286 151.854 100.818L153.34 103.593C156.024 108.604 153.449 114.816 148.008 116.459L145.046 117.353C140.926 118.597 138.263 122.585 138.693 126.867L139.005 129.979C139.573 135.642 134.809 140.403 129.147 139.832L126.111 139.526C121.822 139.093 117.828 141.763 116.588 145.892L115.701 148.847C114.063 154.304 107.829 156.885 102.813 154.182L100.145 152.745C96.3451 150.698 91.6265 151.637 88.8998 154.983L86.9769 157.343C83.3755 161.762 76.6245 161.762 73.023 157.343L71.1002 154.983C68.3735 151.637 63.6549 150.698 59.8547 152.745L57.1873 154.182C52.1708 156.885 45.9372 154.304 44.2988 148.847L43.4119 145.892C42.1722 141.763 38.1783 139.093 33.8887 139.526L30.8534 139.832C25.1913 140.403 20.4271 135.642 20.995 129.979L21.3071 126.867C21.7367 122.585 19.0739 118.597 14.9536 117.353L11.9917 116.459C6.55087 114.816 3.97613 108.604 6.65971 103.593L8.14628 100.818C10.1761 97.0286 9.24252 92.3327 5.91763 89.6077L3.49338 87.6209C-0.900073 84.0202 -0.900072 77.2998 3.49338 73.6991L5.91763 71.7123C9.24252 68.9873 10.1761 64.2914 8.14628 60.5019L6.65971 57.7265C3.97613 52.7165 6.55087 46.5041 11.9917 44.8612L14.9536 43.9669C19.0739 42.7227 21.7367 38.7355 21.3071 34.4529L20.995 31.3408C20.4271 25.6784 25.1913 20.9169 30.8534 21.4881L33.8887 21.7943C38.1783 22.227 42.1722 19.5569 43.4119 15.4275L44.2988 12.4734C45.9372 7.01587 52.1708 4.43534 57.1873 7.13788L59.8547 8.57493C63.6549 10.6222 68.3735 9.68311 71.1002 6.33684L73.023 3.97715Z"
-                                       fill="white" />
-                                 </svg>
-                              </a>
                            </div>
                         </div>
-                     </div>
-                  </div> -->
 
-                  <div class="row justify-content-center">
-                     <div class="col-xl-7">
-                        <div class="tp-project-3-title-box p-relative mb-150" style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
-                  
-                           <!-- العنوان -->
-                           <h4 class="tp-section-title-200 tp_reveal_anim">
-                              Latest <span style="color: #FFD700;">Projects</span>
-                           </h4>
-                  
-                  
-                  
+                           <span class="tp-section-subtitle-2" style="color: #FFD700; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 20px; display: block; opacity: 0.9;">Featured Work</span>
+                           <h2 class="tp-section-title-90" style="color: #fff; font-size: 3rem; font-weight: 700; margin-bottom: 25px; background: linear-gradient(135deg, #fff, #FFD700); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Latest Projects</h2>
+                           <p style="color: #aaa; font-size: 18px; max-width: 600px; margin: 0 auto 40px; line-height: 1.7; font-weight: 400;">
+                              Explore our recent work showcasing creativity, innovation, and exceptional results across different industries and platforms.
+                           </p>
+
+                           <!-- View All Button -->
+                           <a href="portfolio-grid-col-4.html" style="display: inline-flex; align-items: center; gap: 12px; background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05)); border: 2px solid rgba(255, 215, 0, 0.3); border-radius: 50px; padding: 12px 30px; color: #FFD700; text-decoration: none; font-weight: 600; font-size: 14px; transition: all 0.4s ease; backdrop-filter: blur(10px);" onmouseover="this.style.background='linear-gradient(135deg, #FFD700, #FFA500)'; this.style.color='#000'; this.style.borderColor='#FFD700'; this.style.transform='translateY(-2px)'" onmouseout="this.style.background='linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05))'; this.style.color='#FFD700'; this.style.borderColor='rgba(255, 215, 0, 0.3)'; this.style.transform='translateY(0)'">
+                              View All Projects
+                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                 <path d="M5 12h14"/>
+                                 <path d="M12 5l7 7-7 7"/>
+                              </svg>
+                           </a>
+                        </div>
                         </div>
                      </div>
                   </div>
+
+               <div class="container container-1720">
+                  <div class="portfolio-container" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 215, 0, 0.03)); border: 2px solid rgba(255, 215, 0, 0.15); border-radius: 25px; padding: 50px 30px; backdrop-filter: blur(20px); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);">
                   
 
                   <div class="row">
                      <div class="col-xl-12">
-                        <div class="tp-project-3-wrap">
-                           <div class="row">
-                              <div class="col-xl-4 col-lg-4 col-md-6">
-                                 <div class="tp-project-3-thumb pro-img-1" style="overflow: hidden; border-radius: 10px; position: relative; padding-top: 177.78%;">
-                                   <div class="gallery-video-container" data-video-id="3951tS1OmZY" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-                                      <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/3951tS1OmZY/maxresdefault.jpg');">
+                        <!-- Project Row 1: Content Creation -->
+                        <div class="project-row-wrapper" style="margin-bottom: 60px;">
+                           <div class="row align-items-center">
+                              <div class="col-xl-4 col-lg-4 col-md-6 mb-30">
+                                 <div class="project-video-card" style="position: relative; border-radius: 20px; overflow: hidden; background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(255, 215, 0, 0.2); backdrop-filter: blur(10px); transition: all 0.4s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='#FFD700'; this.style.background='rgba(255, 215, 0, 0.1)'" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(255, 215, 0, 0.2)'; this.style.background='rgba(255, 255, 255, 0.05)'">
+                                   <div class="gallery-video-container" data-video-id="3951tS1OmZY" style="height: 300px;">
+                                      <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/3951tS1OmZY/maxresdefault.jpg'); height: 100%; border-radius: 20px;">
                                          <div class="gallery-video-play-btn"></div>
                                          <div class="gallery-video-loading">Loading...</div>
                                       </div>
-                                      <iframe class="gallery-video-iframe" data-src="https://www.youtube.com/embed/3951tS1OmZY?rel=0&autoplay=1&mute=0" allowfullscreen></iframe>
+                                      <iframe class="gallery-video-iframe" data-src="https://www.youtube.com/embed/3951tS1OmZY?rel=0&autoplay=1&mute=0" allowfullscreen style="border-radius: 20px;"></iframe>
                                    </div>
                                  </div>
                               </div>
-                              <div class="col-xl-4 col-lg-4 col-md-12 order-1 order-lg-0">
-                                 <div class="tp-project-3-content text-center">
-                                    <h4 class="tp-project-3-title-sm"><a href="#">Content Creation</a></h4>
-                                    
+                              <div class="col-xl-4 col-lg-4 col-md-12 mb-30 order-1 order-lg-0">
+                                 <div class="project-content-center" style="text-align: center; padding: 40px 20px;">
+                                    <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #FFD700, #FFA500); border-radius: 12px; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center;">
+                                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: #000;">
+                                          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                          <polyline points="22,4 12,14.01 9,11.01"/>
+                                       </svg>
                                  </div>
-                                 <div class="tp-project-3-border color-1 text-center">
-                                    
+                                    <h3 style="color: #FFD700; font-size: 2.2rem; font-weight: 700; margin-bottom: 15px; font-family: 'Poppins', sans-serif;">Content Creation</h3>
+                                    <p style="color: #aaa; font-size: 16px; line-height: 1.6; margin-bottom: 20px;">Professional video content that tells compelling stories and engages your audience across all platforms.</p>
+                                    <div style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;">
+                                       <span style="background: rgba(255, 215, 0, 0.1); color: #FFD700; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;">Video Production</span>
+                                       <span style="background: rgba(255, 215, 0, 0.1); color: #FFD700; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;">Storytelling</span>
+                                       <span style="background: rgba(255, 215, 0, 0.1); color: #FFD700; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;">Creative Direction</span>
                                  </div>
                               </div>
-                              <div class="col-xl-4 col-lg-4 col-md-6 order-0 order-lg-0">
-                                 <div class="tp-project-3-thumb pro-img-2" style="overflow: hidden; border-radius: 10px; position: relative; padding-top: 177.78%;">
-                                   <div class="gallery-video-container" data-video-id="DRhzFPIER6U" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-                                      <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/DRhzFPIER6U/maxresdefault.jpg');">
+                              </div>
+                              <div class="col-xl-4 col-lg-4 col-md-6 mb-30 order-0 order-lg-0">
+                                 <div class="project-video-card" style="position: relative; border-radius: 20px; overflow: hidden; background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(255, 215, 0, 0.2); backdrop-filter: blur(10px); transition: all 0.4s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='#FFD700'; this.style.background='rgba(255, 215, 0, 0.1)'" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(255, 215, 0, 0.2)'; this.style.background='rgba(255, 255, 255, 0.05)'">
+                                   <div class="gallery-video-container" data-video-id="DRhzFPIER6U" style="height: 300px;">
+                                      <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/DRhzFPIER6U/maxresdefault.jpg'); height: 100%; border-radius: 20px;">
                                          <div class="gallery-video-play-btn"></div>
                                          <div class="gallery-video-loading">Loading...</div>
                                       </div>
-                                      <iframe class="gallery-video-iframe" data-src="https://www.youtube.com/embed/DRhzFPIER6U?rel=0&autoplay=1&mute=0" allowfullscreen></iframe>
+                                      <iframe class="gallery-video-iframe" data-src="https://www.youtube.com/embed/DRhzFPIER6U?rel=0&autoplay=1&mute=0" allowfullscreen style="border-radius: 20px;"></iframe>
                                    </div>
                                  </div>
                               </div>
                            </div>
                         </div>
-                        <div class="tp-project-3-wrap">
-                           <div class="row">
-                              <div class="col-xl-4 col-lg-4 col-md-6">
-                                 <div class="tp-project-3-thumb pro-img-1" style="overflow: hidden; border-radius: 10px; position: relative; padding-top: 177.78%;">
-                                   <div class="gallery-video-container" data-video-id="7RqDY1Z9kBc" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-                                      <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/7RqDY1Z9kBc/maxresdefault.jpg');">
+                        <!-- Project Row 2: Podcasts -->
+                        <div class="project-row-wrapper" style="margin-bottom: 60px;">
+                           <div class="row align-items-center">
+                              <div class="col-xl-4 col-lg-4 col-md-6 mb-30">
+                                 <div class="project-video-card" style="position: relative; border-radius: 20px; overflow: hidden; background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(255, 215, 0, 0.2); backdrop-filter: blur(10px); transition: all 0.4s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='#FFD700'; this.style.background='rgba(255, 215, 0, 0.1)'" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(255, 215, 0, 0.2)'; this.style.background='rgba(255, 255, 255, 0.05)'">
+                                   <div class="gallery-video-container" data-video-id="7RqDY1Z9kBc" style="height: 300px;">
+                                      <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/7RqDY1Z9kBc/maxresdefault.jpg'); height: 100%; border-radius: 20px;">
                                          <div class="gallery-video-play-btn"></div>
                                          <div class="gallery-video-loading">Loading...</div>
                                       </div>
-                                      <iframe class="gallery-video-iframe" data-src="https://www.youtube.com/embed/7RqDY1Z9kBc?rel=0&autoplay=1&mute=0" allowfullscreen></iframe>
+                                      <iframe class="gallery-video-iframe" data-src="https://www.youtube.com/embed/7RqDY1Z9kBc?rel=0&autoplay=1&mute=0" allowfullscreen style="border-radius: 20px;"></iframe>
                                    </div>
                                  </div>
                               </div>
-                              <div class="col-xl-4 col-lg-4 col-md-12 order-1 order-lg-0">
-                                 <div class="tp-project-3-content text-center">
-                                    <!-- <span class="tp-project-3-meta" style="color: #FFD700;">Digital Marketing</span> -->
-                                    <h4 class="tp-project-3-title-sm"><a href="#">Podcasts</a></h4>
-                                    
+                              <div class="col-xl-4 col-lg-4 col-md-12 mb-30 order-1 order-lg-0">
+                                 <div class="project-content-center" style="text-align: center; padding: 40px 20px;">
+                                    <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #FFD700, #FFA500); border-radius: 12px; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center;">
+                                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: #000;">
+                                          <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                                          <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                                          <line x1="12" y1="19" x2="12" y2="23"/>
+                                          <line x1="8" y1="23" x2="16" y2="23"/>
+                                       </svg>
                                  </div>
-                                 <div class="tp-project-3-border color-2 text-center">
-                                    
+                                    <h3 style="color: #FFD700; font-size: 2.2rem; font-weight: 700; margin-bottom: 15px; font-family: 'Poppins', sans-serif;">Podcasts</h3>
+                                    <p style="color: #aaa; font-size: 16px; line-height: 1.6; margin-bottom: 20px;">Professional podcast production with high-quality audio, engaging conversations, and strategic content planning.</p>
+                                    <div style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;">
+                                       <span style="background: rgba(255, 215, 0, 0.1); color: #FFD700; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;">Audio Production</span>
+                                       <span style="background: rgba(255, 215, 0, 0.1); color: #FFD700; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;">Interviews</span>
+                                       <span style="background: rgba(255, 215, 0, 0.1); color: #FFD700; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;">Content Strategy</span>
                                  </div>
                               </div>
-                              <div class="col-xl-4 col-lg-4 col-md-6 order-0 order-lg-0">
-                                 <div class="tp-project-3-thumb pro-img-2" style="overflow: hidden; border-radius: 10px; position: relative; padding-top: 177.78%;">
-                                   <div class="gallery-video-container" data-video-id="BU0MZMGDzWw" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-                                      <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/BU0MZMGDzWw/maxresdefault.jpg');">
+                              </div>
+                              <div class="col-xl-4 col-lg-4 col-md-6 mb-30 order-0 order-lg-0">
+                                 <div class="project-video-card" style="position: relative; border-radius: 20px; overflow: hidden; background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(255, 215, 0, 0.2); backdrop-filter: blur(10px); transition: all 0.4s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='#FFD700'; this.style.background='rgba(255, 215, 0, 0.1)'" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(255, 215, 0, 0.2)'; this.style.background='rgba(255, 255, 255, 0.05)'">
+                                   <div class="gallery-video-container" data-video-id="BU0MZMGDzWw" style="height: 300px;">
+                                      <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/BU0MZMGDzWw/maxresdefault.jpg'); height: 100%; border-radius: 20px;">
                                          <div class="gallery-video-play-btn"></div>
                                          <div class="gallery-video-loading">Loading...</div>
                                       </div>
-                                      <iframe class="gallery-video-iframe" data-src="https://www.youtube.com/embed/BU0MZMGDzWw?rel=0&autoplay=1&mute=0" allowfullscreen></iframe>
+                                      <iframe class="gallery-video-iframe" data-src="https://www.youtube.com/embed/BU0MZMGDzWw?rel=0&autoplay=1&mute=0" allowfullscreen style="border-radius: 20px;"></iframe>
                                    </div>
                                  </div>
                               </div>
@@ -609,49 +1041,55 @@
                         
                          
 
-                        <div class="tp-project-3-wrap">
-                           <div class="row justify-content-center">
-                         
-                             <!-- الفيديو الأول -->
-                              <div class="col-xl-4 col-lg-4 col-md-6">
-                               <div class="tp-project-3-thumb pro-img-1" style="overflow: hidden; border-radius: 10px; position: relative; padding-top: 177.78%;">
-                                 <div class="gallery-video-container" data-video-id="ZMJqmKrkAEE" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-                                    <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/ZMJqmKrkAEE/maxresdefault.jpg');">
+                        <!-- Project Row 3: Advertisement -->
+                        <div class="project-row-wrapper" style="margin-bottom: 0;">
+                           <div class="row align-items-center">
+                              <div class="col-xl-4 col-lg-4 col-md-6 mb-30">
+                                 <div class="project-video-card" style="position: relative; border-radius: 20px; overflow: hidden; background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(255, 215, 0, 0.2); backdrop-filter: blur(10px); transition: all 0.4s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='#FFD700'; this.style.background='rgba(255, 215, 0, 0.1)'" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(255, 215, 0, 0.2)'; this.style.background='rgba(255, 255, 255, 0.05)'">
+                                   <div class="gallery-video-container" data-video-id="ZMJqmKrkAEE" style="height: 300px;">
+                                      <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/ZMJqmKrkAEE/maxresdefault.jpg'); height: 100%; border-radius: 20px;">
                                        <div class="gallery-video-play-btn"></div>
                                        <div class="gallery-video-loading">Loading...</div>
                                     </div>
-                                    <iframe class="gallery-video-iframe" data-src="https://www.youtube.com/embed/ZMJqmKrkAEE?rel=0&autoplay=1&mute=0" allowfullscreen></iframe>
+                                      <iframe class="gallery-video-iframe" data-src="https://www.youtube.com/embed/ZMJqmKrkAEE?rel=0&autoplay=1&mute=0" allowfullscreen style="border-radius: 20px;"></iframe>
                                  </div>
                                  </div>
                               </div>
-                         
-                             <!-- النص -->
-                              <div class="col-xl-4 col-lg-4 col-md-12 order-1 order-lg-0">
-                                 <div class="tp-project-3-content text-center">
-                                 <!-- <span class="tp-project-3-meta" style="color: #FFD700;">Advertisement</span> -->
-                                 <h4 class="tp-project-3-title-sm" style="font-size:60px;"><a href="#">Advertisement</a></h4>
-
+                              <div class="col-xl-4 col-lg-4 col-md-12 mb-30 order-1 order-lg-0">
+                                 <div class="project-content-center" style="text-align: center; padding: 40px 20px;">
+                                    <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #FFD700, #FFA500); border-radius: 12px; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center;">
+                                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: #000;">
+                                          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                                          <path d="M13 8H7"/>
+                                          <path d="M17 12H7"/>
+                                       </svg>
+                                 </div>
+                                    <h3 style="color: #FFD700; font-size: 2.2rem; font-weight: 700; margin-bottom: 15px; font-family: 'Poppins', sans-serif;">Advertisement</h3>
+                                    <p style="color: #aaa; font-size: 16px; line-height: 1.6; margin-bottom: 20px;">Strategic advertising campaigns that capture attention, build brand awareness, and drive conversions across multiple channels.</p>
+                                    <div style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;">
+                                       <span style="background: rgba(255, 215, 0, 0.1); color: #FFD700; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;">TV Commercials</span>
+                                       <span style="background: rgba(255, 215, 0, 0.1); color: #FFD700; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;">Digital Ads</span>
+                                       <span style="background: rgba(255, 215, 0, 0.1); color: #FFD700; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;">Campaign Strategy</span>
                                  </div>
                                  </div>
-                         
-                             <!-- الفيديو الثاني -->
-                              <div class="col-xl-4 col-lg-4 col-md-6 order-0 order-lg-0">
-                               <div class="tp-project-3-thumb pro-img-2" style="overflow: hidden; border-radius: 10px; position: relative; padding-top: 177.78%;">
-                                 <div class="gallery-video-container" data-video-id="MDN-0rEV4jc" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-                                    <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/MDN-0rEV4jc/maxresdefault.jpg');">
+                              </div>
+                              <div class="col-xl-4 col-lg-4 col-md-6 mb-30 order-0 order-lg-0">
+                                 <div class="project-video-card" style="position: relative; border-radius: 20px; overflow: hidden; background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(255, 215, 0, 0.2); backdrop-filter: blur(10px); transition: all 0.4s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='#FFD700'; this.style.background='rgba(255, 215, 0, 0.1)'" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(255, 215, 0, 0.2)'; this.style.background='rgba(255, 255, 255, 0.05)'">
+                                   <div class="gallery-video-container" data-video-id="MDN-0rEV4jc" style="height: 300px;">
+                                      <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/MDN-0rEV4jc/maxresdefault.jpg'); height: 100%; border-radius: 20px;">
                                        <div class="gallery-video-play-btn"></div>
                                        <div class="gallery-video-loading">Loading...</div>
                                     </div>
-                                    <iframe class="gallery-video-iframe" data-src="https://www.youtube.com/embed/MDN-0rEV4jc?rel=0&autoplay=1&mute=0" allowfullscreen></iframe>
+                                      <iframe class="gallery-video-iframe" data-src="https://www.youtube.com/embed/MDN-0rEV4jc?rel=0&autoplay=1&mute=0" allowfullscreen style="border-radius: 20px;"></iframe>
                                  </div>
                                  </div>
                               </div>
-                         
                            </div>
                         </div>
                          
                      </div>
                   </div>
+                  </div> <!-- Close portfolio-container -->
                </div>
             </div>
             <!-- project area end -->
@@ -667,7 +1105,7 @@
             <!-- video area end -->
 
             <!-- service area start -->
-            <div class="tp-service-3-area pt-130 pb-130">
+            <div class="tp-service-3-area pt-130 pb-130" style="background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px);">
                <div class="container">
                   <div class="row">
                      <div class="col-xl-9">
@@ -857,6 +1295,7 @@
             <!-- contact area end -->
 
          </main>
+         </div>
 
          <!-- Footer Placeholder -->
          <div id="footer-placeholder"></div>

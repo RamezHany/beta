@@ -4,9 +4,15 @@
 <head>
    <meta charset="utf-8">
    <meta http-equiv="x-ua-compatible" content="ie=edge">
-   <title>Helal Content Marketing</title>
-   <meta name="description" content="">
+   <title>Portfolio | Helal Content Marketing - Creative Digital Solutions</title>
+   <meta name="description" content="Explore our creative portfolio showcasing exceptional video content, digital marketing campaigns, and innovative solutions by Helal Content Marketing team in Alexandria, Egypt.">
    <meta name="viewport" content="width=device-width, initial-scale=1">
+   
+   <!-- Open Graph Meta Tags -->
+   <meta property="og:title" content="Portfolio | Helal Content Marketing">
+   <meta property="og:description" content="Discover our creative video content and digital marketing portfolio">
+   <meta property="og:type" content="website">
+   <meta name="twitter:card" content="summary_large_image">
 
    <!-- Place favicon.ico in the root directory -->
    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
@@ -22,30 +28,116 @@
    <link rel="stylesheet" href="assets/css/custom-animation.css">
    <link rel="stylesheet" href="assets/css/main.css">
    <style>
+   /* Modern Portfolio Styling */
+   .portfolio-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px;
+   }
+
+   .page-bg {
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+      min-height: 100vh;
+      position: relative;
+   }
+
+   .page-bg::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('assets/v3.svg') center/cover;
+      opacity: 0.1;
+      pointer-events: none;
+   }
+
+   .portfolio-header {
+      text-align: center;
+      margin-bottom: 60px;
+      padding-top: 80px;
+   }
+
+   .portfolio-title {
+      font-size: 48px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 20px;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #FFD700, #FFA500);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+   }
+
+   .portfolio-subtitle {
+      font-size: 18px;
+      color: #ccc;
+      margin-bottom: 10px;
+      font-family: 'Poppins', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+   }
+
+   .portfolio-description {
+      font-size: 16px;
+      color: #aaa;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+   }
+
    .video-container {
-      border-radius: 8px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid rgba(255, 215, 0, 0.2);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      transition: all 0.4s ease;
       position: relative;
       cursor: pointer;
+      backdrop-filter: blur(10px);
+      overflow: hidden;
+      margin-bottom: 30px;
    }
+   
    .video-container:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      border-color: #FFD700;
+      background: rgba(255, 215, 0, 0.1);
    }
+
+   .video-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+      transition: left 0.6s;
+      z-index: 1;
+   }
+
+   .video-container:hover::before {
+      left: 100%;
+   }
+
    .tp-project-5-2-thumb {
-      border-radius: 8px;
+      border-radius: 20px;
       overflow: hidden;
    }
    
-   /* Lazy Loading Styles */
+   /* Video Thumbnail Styles */
    .video-thumbnail {
       width: 100%;
       height: 100%;
       background-size: cover;
       background-position: center;
       position: relative;
-      border-radius: 8px;
+      border-radius: 20px;
+      z-index: 2;
    }
    
    .video-play-btn {
@@ -53,31 +145,58 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 80px;
-      height: 80px;
-      background: rgba(255, 215, 0, 0.9);
+      width: 90px;
+      height: 90px;
+      background: linear-gradient(135deg, #FFD700, #FFA500);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      transition: all 0.3s ease;
-      z-index: 10;
+      transition: all 0.4s ease;
+      z-index: 15;
+      box-shadow: 0 10px 25px rgba(255, 215, 0, 0.4);
+      border: 3px solid rgba(255, 255, 255, 0.2);
    }
    
    .video-play-btn:hover {
-      background: rgba(255, 215, 0, 1);
-      transform: translate(-50%, -50%) scale(1.1);
+      background: linear-gradient(135deg, #FFA500, #FFD700);
+      transform: translate(-50%, -50%) scale(1.15);
+      box-shadow: 0 15px 35px rgba(255, 215, 0, 0.6);
+      border-color: rgba(255, 255, 255, 0.4);
    }
    
    .video-play-btn::before {
       content: '';
       width: 0;
       height: 0;
-      border-left: 20px solid #000;
-      border-top: 12px solid transparent;
-      border-bottom: 12px solid transparent;
-      margin-left: 4px;
+      border-left: 24px solid #000;
+      border-top: 15px solid transparent;
+      border-bottom: 15px solid transparent;
+      margin-left: 6px;
+   }
+
+   .video-play-btn::after {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      border: 2px solid rgba(255, 215, 0, 0.3);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+   }
+
+   @keyframes pulse {
+      0% {
+         transform: scale(1);
+         opacity: 1;
+      }
+      100% {
+         transform: scale(1.2);
+         opacity: 0;
+      }
    }
    
    .video-iframe {
@@ -88,6 +207,8 @@
       width: 100%;
       height: 100%;
       border: 0;
+      border-radius: 20px;
+      z-index: 20;
    }
    
    .video-iframe.loaded {
@@ -103,17 +224,22 @@
       font-size: 18px;
       display: none;
       text-align: center;
-      z-index: 15;
+      z-index: 25;
+      background: rgba(0, 0, 0, 0.9);
+      padding: 30px;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(255, 215, 0, 0.3);
    }
    
    .video-loading .spinner {
-      width: 50px;
-      height: 50px;
-      border: 5px solid rgba(255, 215, 0, 0.3);
-      border-top: 5px solid #FFD700;
+      width: 60px;
+      height: 60px;
+      border: 6px solid rgba(255, 215, 0, 0.2);
+      border-top: 6px solid #FFD700;
       border-radius: 50%;
       animation: spin 1s linear infinite;
-      margin: 0 auto 15px;
+      margin: 0 auto 20px;
    }
    
    @keyframes spin {
@@ -125,6 +251,59 @@
       margin: 0;
       font-weight: 600;
       text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+      font-family: 'Poppins', sans-serif;
+      font-size: 16px;
+   }
+
+   /* Responsive Design */
+   @media (max-width: 768px) {
+      .portfolio-container {
+         padding: 15px;
+      }
+      
+      .portfolio-title {
+         font-size: 36px;
+      }
+      
+      .portfolio-subtitle {
+         font-size: 16px;
+      }
+      
+      .video-container {
+         margin-bottom: 20px;
+      }
+      
+      .video-play-btn {
+         width: 70px;
+         height: 70px;
+      }
+      
+      .video-play-btn::before {
+         border-left: 20px solid #000;
+         border-top: 12px solid transparent;
+         border-bottom: 12px solid transparent;
+         margin-left: 4px;
+      }
+   }
+
+   @media (max-width: 480px) {
+      .portfolio-title {
+         font-size: 28px;
+      }
+      
+      .portfolio-header {
+         padding-top: 60px;
+         margin-bottom: 40px;
+      }
+      
+      .video-container {
+         border-radius: 15px;
+      }
+      
+      .video-thumbnail,
+      .video-iframe {
+         border-radius: 15px;
+      }
    }
    </style>
 </head>
@@ -142,7 +321,7 @@
         <img class="line line-5"src="assets/img/home-03/about/ab-shape-img.png" alt="Logo" style="width: 120px; height: auto; margin-bottom: 20px;" />
    
     
-        <div class="loader-text">Loading ...</div>
+        <div class="loader-text">Loading Portfolio...</div>
       </div>
     </div>
     <!-- pre loader area end -->
@@ -167,28 +346,28 @@
   
    <div id="smooth-wrapper">
       <div id="smooth-content">
+         <div class="page-bg">
+            <main>
 
-         <main>
-
-            <!-- hero area start -->
-            <div class="tm-hero-area tm-hero-ptb">
-               <div class="container">
-                  <div class="row">
-                     <div class="col-xl-12">
-                        <div class="tm-hero-content">
-                           <span class="tm-hero-subtitle">Helal Content Marketing</span>
-                           <h4 class="tm-hero-title fs-220 tp-char-animation">Portofolio</h4>
-                        </div>
+               <!-- Portfolio Header -->
+               <div class="portfolio-header">
+                  <div class="container">
+                     <div class="portfolio-container">
+                        <span class="portfolio-subtitle">Helal Content Marketing</span>
+                        <h1 class="portfolio-title">Our Creative Portfolio</h1>
+                        <p class="portfolio-description">
+                           Discover our exceptional video content and digital marketing campaigns. 
+                           Each project showcases our creativity, strategy, and commitment to excellence.
+                        </p>
                      </div>
                   </div>
                </div>
-            </div>
-            <!-- hero area end -->
 
             <!-- portfolio area start -->
-            <div class="tp-project-5-2-area tp-project-5-2-pt pb-130">
-               <div class="container container-1530">
-                  <div class="row">
+            <div class="pb-130">
+               <div class="container">
+                  <div class="portfolio-container">
+                     <div class="row">
                      <div class="col-xl-3 col-lg-6 col-md-6">
                         <div class="tp-project-5-2-thumb mb-30 p-relative not-hide-cursor">
                            <div class="video-container" style="width: 100%; height: 400px;" data-video-id="MDN-0rEV4jc">
@@ -277,27 +456,33 @@
                            </div>
                         </div>
                      </div>
+                     </div>
                   </div>
-                 
                </div>
             </div>
             <!-- portfolio area end -->
 
             <!-- contact area start -->
             <div class="sv-big-text-area pb-80">
-               <div class="container container-1530">
-                  <div class="sv-small-text-box d-flex justify-content-between">
-                     <span>DIGITAL DESIGN EXPERIENCE</span>
-                     <!-- <span>CREATIVE STUDIO</span> -->
-                  </div>
-                  <div class="sv-big-text-box">
-                     <h4 class="sv-big-text tp-char-animation"><a href="contact.html">Get in Touch</a></h4>
+               <div class="container">
+                  <div class="portfolio-container">
+                     <div class="sv-small-text-box d-flex justify-content-center">
+                        <span style="color: #FFD700; font-weight: 600; letter-spacing: 2px;">CREATIVE DIGITAL EXPERIENCE</span>
+                     </div>
+                     <div class="sv-big-text-box text-center">
+                        <h4 class="sv-big-text tp-char-animation">
+                           <a href="contact.html" style="background: linear-gradient(135deg, #FFD700, #FFA500); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-decoration: none;">
+                              Get in Touch
+                           </a>
+                        </h4>
+                     </div>
                   </div>
                </div>
             </div>
             <!-- contact area end -->
 
-         </main>
+            </main>
+         </div>
 
       <!-- Footer Placeholder -->
 <div id="footer-placeholder"></div>
