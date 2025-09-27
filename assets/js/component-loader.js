@@ -142,159 +142,405 @@ const FALLBACK_NAVBAR = `
 
 const FALLBACK_FOOTER = `
 <footer>
-   <div class="tp-footer-2-area pt-100 pb-20 tp-footer-white" style="background-color: #f8f9fa;">
+   <!-- Custom Footer Styling -->
+   <style>
+   .modern-footer {
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+      position: relative;
+   }
+
+   .modern-footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('assets/v3.svg') center/cover;
+      opacity: 0.05;
+      pointer-events: none;
+   }
+
+   .footer-main-container {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 215, 0, 0.03));
+      border: 2px solid rgba(255, 215, 0, 0.15);
+      border-radius: 25px;
+      padding: 60px 40px 40px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      margin-bottom: 40px;
+      position: relative;
+   }
+
+   .footer-widget-title {
+      color: #FFD700;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 25px;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #FFD700, #FFA500);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+   }
+
+   .footer-brand-section {
+      padding-right: 20px;
+   }
+
+   .footer-logo {
+      margin-bottom: 25px;
+   }
+
+   .footer-logo img {
+      max-width: 150px;
+      height: auto;
+   }
+
+   .footer-description {
+      color: #aaa;
+      font-size: 16px;
+      line-height: 1.7;
+      margin-bottom: 25px;
+   }
+
+   .footer-contact-info {
+      margin-bottom: 20px;
+   }
+
+   .footer-contact-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 15px;
+      color: #ccc;
+      font-size: 15px;
+   }
+
+   .footer-contact-item .icon {
+      width: 35px;
+      height: 35px;
+      background: linear-gradient(135deg, #FFD700, #FFA500);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+   }
+
+   .footer-contact-item .icon svg {
+      width: 16px;
+      height: 16px;
+      color: #000;
+   }
+
+   .footer-contact-item a {
+      color: #ccc;
+      text-decoration: none;
+      transition: color 0.3s ease;
+   }
+
+   .footer-contact-item a:hover {
+      color: #FFD700;
+   }
+
+   .footer-nav-menu ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+   }
+
+   .footer-nav-menu ul li {
+      margin-bottom: 12px;
+   }
+
+   .footer-nav-menu ul li a {
+      color: #ccc;
+      text-decoration: none;
+      font-size: 15px;
+      transition: all 0.3s ease;
+      display: inline-block;
+      position: relative;
+   }
+
+   .footer-nav-menu ul li a::before {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(135deg, #FFD700, #FFA500);
+      transition: width 0.3s ease;
+   }
+
+   .footer-nav-menu ul li a:hover {
+      color: #FFD700;
+      transform: translateX(5px);
+   }
+
+   .footer-nav-menu ul li a:hover::before {
+      width: 100%;
+   }
+
+   .newsletter-form {
+      position: relative;
+   }
+
+   .newsletter-input {
+      width: 100%;
+      padding: 15px 20px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 215, 0, 0.3);
+      border-radius: 50px;
+      color: #fff;
+      font-size: 15px;
+      outline: none;
+      transition: all 0.3s ease;
+      padding-right: 60px;
+   }
+
+   .newsletter-input::placeholder {
+      color: #aaa;
+   }
+
+   .newsletter-input:focus {
+      border-color: #FFD700;
+      background: rgba(255, 215, 0, 0.1);
+   }
+
+   .newsletter-button {
+      position: absolute;
+      right: 5px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 45px;
+      height: 45px;
+      background: linear-gradient(135deg, #FFD700, #FFA500);
+      border: none;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+   }
+
+   .newsletter-button:hover {
+      transform: translateY(-50%) scale(1.05);
+      box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+   }
+
+   .newsletter-button svg {
+      width: 16px;
+      height: 16px;
+      color: #000;
+   }
+
+   .footer-copyright {
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(255, 215, 0, 0.2);
+      padding: 25px 0;
+   }
+
+   .copyright-text {
+      color: #aaa;
+      font-size: 14px;
+      margin: 0;
+   }
+
+   .footer-social-links {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      align-items: center;
+   }
+
+   .footer-social-links a {
+      color: #ccc;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      transition: all 0.3s ease;
+   }
+
+   .footer-social-links a:hover {
+      color: #000;
+      background: linear-gradient(135deg, #FFD700, #FFA500);
+      border-color: #FFD700;
+      transform: translateY(-2px);
+   }
+
+   @media (max-width: 768px) {
+      .footer-main-container {
+         padding: 40px 25px 30px;
+         border-radius: 20px;
+      }
+
+      .footer-brand-section {
+         padding-right: 0;
+         margin-bottom: 40px;
+      }
+
+      .footer-social-links {
+         justify-content: center;
+         flex-wrap: wrap;
+         gap: 15px;
+      }
+
+      .copyright-text {
+         text-align: center;
+      }
+   }
+
+   @media (max-width: 480px) {
+      .footer-main-container {
+         padding: 30px 20px 25px;
+         border-radius: 15px;
+      }
+
+      .footer-widget-title {
+         font-size: 18px;
+      }
+
+      .newsletter-input {
+         padding: 12px 18px;
+         padding-right: 55px;
+         font-size: 14px;
+      }
+
+      .newsletter-button {
+         width: 40px;
+         height: 40px;
+      }
+   }
+   </style>
+
+   <!-- footer area start -->
+   <div class="tp-footer-2-area modern-footer pt-80 pb-0">
       <div class="container container-1480">
-         <div class="row">
-            <div class="col-xl-6 col-lg-6 col-md-6 mb-50">
-               <div class="tp-footer-2-widget footer-col-2-1">
-                  <div class="tp-footer-2-widget-logo tp-footer-dark">
-                     <a class="logo-1" href="index.html"><img src="assets/img/logo/logo.png" alt="" style="max-height: 60px;"></a>
-                     <a class="logo-2" href="index.html"><img src="assets/img/logo/logo-white.png" alt="" style="max-height: 60px;"></a>
-                  </div>
-                  <div class="tp-footer-2-widget-text mt-3">
-                     <p style="color: #333; font-size: 1rem; line-height: 1.6; margin-bottom: 15px;">Helal - Where Brands Come Alive <br> Digital Marketing & Branding Agency <br> Alexandria, Egypt</p>
-                     <div class="tp-footer-2-contact-item">
-                        <span style="display: block; color: #333; font-size: 0.9rem;">
-                           <i class="fas fa-phone" style="color: #FFD700; margin-right: 8px;"></i>
-                           <a href="tel:+201288640058" style="color: #333; text-decoration: none;">+201288640058</a>
-                        </span>
-                     </div>                        
-                  </div>
-               </div>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 mb-50">
-               <div class="tp-footer-2-widget footer-col-2-4">
-                  <div class="tp-footer-2-widget-newslatter">
-                     <h4 class="tp-footer-2-widget-title" style="color: #333; font-size: 1.1rem; margin-bottom: 15px;">Subscribe to our newsletter</h4>
-                     <form id="newsletter-form">
-                        <div class="tp-footer-2-input p-relative" style="display: flex;">
-                           <input type="email" id="newsletter-email" placeholder="Enter your email..." required 
-                                  style="flex: 1; padding: 10px 15px; border: 1px solid #ddd; border-radius: 0; border-right: none; font-size: 0.9rem;">
-                           <button type="submit" id="newsletter-btn" 
-                                   style="background-color: #FFD700; border: 1px solid #FFD700; color: #000; padding: 10px 15px; cursor: pointer;">
-                              <svg width="16" height="17" viewBox="0 0 16 17" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                 <path d="M15.7767 8.06743C15.9198 8.21703 16 8.41908 16 8.62965C16 8.84022 15.9198 9.04228 15.7767 9.19189L8.92138 16.2938C8.77516 16.4386 8.58094 16.5198 8.37867 16.5206C8.27759 16.5201 8.17746 16.5002 8.08351 16.4614C7.94489 16.4012 7.8266 16.2996 7.74358 16.1697C7.66056 16.0398 7.61651 15.8873 7.61698 15.7316V9.41876H0.761697C0.559684 9.41876 0.365942 9.33563 0.223096 9.18764C0.0802502 9.03964 0 8.83894 0 8.62965C0 8.42038 0.0802502 8.21966 0.223096 8.07168C0.365942 7.92369 0.559684 7.84056 0.761697 7.84056H7.61698V1.52777C7.61651 1.37198 7.66056 1.21953 7.74358 1.08964C7.8266 0.959746 7.94489 0.858218 8.08351 0.797851C8.2242 0.741 8.37756 0.726577 8.52585 0.756252C8.67412 0.785926 8.81125 0.858486 8.92138 0.965535L15.7767 8.06743Z" fill="currentColor"/>
-                              </svg>                                       
-                           </button>
+         <div class="footer-main-container">
+            <div class="row">
+               <!-- Brand Section -->
+               <div class="col-xl-4 col-lg-4 col-md-6 mb-40">
+                  <div class="footer-brand-section">
+                     <div class="footer-logo">
+                        <a href="index.html">
+                           <img src="assets/img/logo/logo-white.png" alt="Helal Content Marketing">
+                        </a>
+                     </div>
+                     <div class="footer-description">
+                        <p>Where brands come alive through innovative digital marketing, creative content production, and strategic branding solutions in Alexandria, Egypt.</p>
+                     </div>
+                     <div class="footer-contact-info">
+                        <div class="footer-contact-item">
+                           <div class="icon">
+                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                 <circle cx="12" cy="10" r="3"/>
+                              </svg>
+                           </div>
+                           <a href="https://goo.gl/maps/alexandria-egypt" target="_blank">Alexandria, Egypt</a>
                         </div>
-                        <div id="newsletter-message" style="margin-top: 10px; color: #FFD700; font-size: 0.9rem;"></div>
+                        <div class="footer-contact-item">
+                           <div class="icon">
+                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                              </svg>
+                           </div>
+                           <a href="tel:+201000000000">+20 100 000 0000</a>
+                        </div>
+                        <div class="footer-contact-item">
+                           <div class="icon">
+                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                 <polyline points="22,6 12,13 2,6"/>
+                              </svg>
+                           </div>
+                           <a href="mailto:business@helal-marketing.com">business@helal-marketing.com</a>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+
+               <!-- Navigation Links -->
+               <div class="col-xl-2 col-lg-3 col-md-6 mb-40">
+                  <div class="footer-nav-menu">
+                     <h4 class="footer-widget-title">Quick Links</h4>
+                     <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="team.html">Team</a></li>
+                        <li><a href="portfolio-grid-col-4.html">Portfolio</a></li>
+                        <li><a href="links.html">Links</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                     </ul>
+                  </div>
+               </div>
+
+               <!-- Services -->
+               <div class="col-xl-3 col-lg-5 col-md-6 mb-40">
+                  <div class="footer-nav-menu">
+                     <h4 class="footer-widget-title">Our Services</h4>
+                     <ul>
+                        <li><a href="#services">Media Production</a></li>
+                        <li><a href="#services">Digital Marketing</a></li>
+                        <li><a href="#services">Personal Branding</a></li>
+                        <li><a href="#services">Content Creation</a></li>
+                        <li><a href="#services">Social Media Management</a></li>
+                     </ul>
+                  </div>
+               </div>
+
+               <!-- Newsletter -->
+               <div class="col-xl-3 col-lg-5 col-md-6 mb-40">
+                  <div class="footer-newsletter">
+                     <h4 class="footer-widget-title">Stay Updated</h4>
+                     <p style="color: #aaa; font-size: 15px; margin-bottom: 25px; line-height: 1.6;">Subscribe to our newsletter for the latest marketing insights and updates.</p>
+                     <form id="newsletter-form" class="newsletter-form" action="#" method="post">
+                        <input type="email" id="newsletter-email" class="newsletter-input" placeholder="Enter your email..." required>
+                        <button type="submit" class="newsletter-button">
+                           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                              <line x1="22" y1="2" x2="11" y2="13"/>
+                              <polygon points="22,2 15,22 11,13 2,9 22,2"/>
+                           </svg>
+                        </button>
                      </form>
+                     <div id="newsletter-message" style="margin-top: 10px; color: #FFD700; font-size: 0.9rem;"></div>
                   </div>
                </div>
             </div>
          </div>
       </div>
    </div>
-   <div class="tp-copyright-2-area tp-copyright-2-bdr-top tp-copyright-white" style="background-color: #e9ecef; border-top: 1px solid #dee2e6; padding: 20px 0;">
+
+   <div class="footer-copyright">
       <div class="container container-1480">
-         <div class="row justify-content-center">
-            <div class="col-xl-12">
-               <div class="text-center">
-                  <div class="tp-copyright-2-left mb-20">
-                     <p style="color: #6c757d; font-size: 0.9rem; margin: 0;">All rights reserved —2025© Helal Digital Marketing Agency</p>
-                  </div>
-                  <div class="tp-copyright-2-social" style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
-                     <a href="https://linkedin.com/company/helal-content-markering" target="_blank" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">
-                        <svg style="width: 24px; height: 24px; fill: #0077b5;" viewBox="0 0 24 24">
-                           <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                        </svg>
-                     </a>
-                     <a href="https://tiktok.com/@helal.content1?_t=ZS-8yjQkzpNW0v&_r=1" target="_blank" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">
-                        <svg style="width: 24px; height: 24px; fill: #000000;" viewBox="0 0 24 24">
-                           <path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
-                        </svg>
-                     </a>
-                     <a href="https://instagram.com/helal_content1?igsh=ZThpMDZlcjlqb24z&utm_source=qr" target="_blank" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">
-                        <svg style="width: 24px; height: 24px; fill: #e4405f;" viewBox="0 0 24 24">
-                           <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                        </svg>
-                     </a>
-                     <a href="https://facebook.com/share/16ifRDRTyu/?mibextid=wwXIfr" target="_blank" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">
-                        <svg style="width: 24px; height: 24px; fill: #4267b2;" viewBox="0 0 24 24">
-                           <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                        </svg>
-                     </a>
-                  </div>
+         <div class="row align-items-center">
+            <div class="col-xl-6 col-lg-6 col-md-12 mb-20 mb-lg-0">
+               <div class="text-center text-lg-start">
+                  <p class="copyright-text">© 2025 Helal Content Marketing. All rights reserved. | Alexandria, Egypt</p>
+               </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12">
+               <div class="footer-social-links text-center text-lg-end">
+                  <a href="https://linkedin.com/company/helal-marketing" target="_blank">LinkedIn</a>
+                  <a href="https://instagram.com/helal.marketing" target="_blank">Instagram</a>
+                  <a href="https://facebook.com/helal.marketing" target="_blank">Facebook</a>
+                  <a href="https://youtube.com/@helalmarketing" target="_blank">YouTube</a>
+                  <a href="ai-bot/index.html">AI Assistant</a>
                </div>
             </div>
          </div>
       </div>
    </div>
-</footer>
+   <!-- footer area end -->
 
-<style>
-/* Improvements to make footer match the overall website design */
-.tp-footer-2-area {
-   background-color: #f8f9fa !important;
-}
-
-.tp-footer-2-widget-text p {
-   color: #333 !important;
-   font-size: 1rem !important;
-   line-height: 1.6 !important;
-   margin-bottom: 15px !important;
-}
-
-.tp-footer-2-widget-title {
-   color: #333 !important;
-   font-size: 1.1rem !important;
-   margin-bottom: 15px !important;
-}
-
-.tp-copyright-2-area {
-   background-color: #e9ecef !important;
-   border-top: 1px solid #dee2e6 !important;
-   padding: 20px 0 !important;
-}
-
-.tp-copyright-2-left p {
-   color: #6c757d !important;
-   font-size: 0.9rem !important;
-   margin: 0 !important;
-}
-
-.tp-footer-2-input input {
-   padding: 10px 15px !important;
-   border: 1px solid #ddd !important;
-   border-radius: 0 !important;
-   border-right: none !important;
-   font-size: 0.9rem !important;
-}
-
-.tp-footer-2-input button {
-   background-color: #FFD700 !important;
-   border: 1px solid #FFD700 !important;
-   color: #000 !important;
-   padding: 10px 15px !important;
-}
-
-/* Responsive improvements */
-@media (max-width: 768px) {
-   .tp-footer-2-area {
-      padding-top: 50px !important;
-      padding-bottom: 10px !important;
-   }
-   
-   .tp-copyright-2-social {
-      justify-content: center !important;
-   }
-   
-   .tp-footer-2-input {
-      flex-direction: column !important;
-   }
-   
-   .tp-footer-2-input input {
-      border-right: 1px solid #ddd !important;
-      margin-bottom: 5px !important;
-   }
-}
-
-/* Social icons hover effects */
-.tp-copyright-2-social a:hover svg {
-   opacity: 0.8 !important;
-   transition: opacity 0.3s ease !important;
-}
-</style>`;
+</footer>`;
 
 class ComponentLoader {
     constructor() {
