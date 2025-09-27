@@ -165,18 +165,18 @@ const FALLBACK_FOOTER = `
       background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 215, 0, 0.03));
       border: 2px solid rgba(255, 215, 0, 0.15);
       border-radius: 25px;
-      padding: 60px 40px 40px;
+      padding: 50px 30px;
       backdrop-filter: blur(20px);
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-      margin-bottom: 40px;
+      margin-bottom: 30px;
       position: relative;
    }
 
    .footer-widget-title {
       color: #FFD700;
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 700;
-      margin-bottom: 25px;
+      margin-bottom: 20px;
       font-family: 'Poppins', sans-serif;
       background: linear-gradient(135deg, #FFD700, #FFA500);
       -webkit-background-clip: text;
@@ -185,43 +185,43 @@ const FALLBACK_FOOTER = `
    }
 
    .footer-brand-section {
-      padding-right: 20px;
+      padding-right: 15px;
    }
 
    .footer-logo {
-      margin-bottom: 25px;
+      margin-bottom: 20px;
    }
 
    .footer-logo img {
-      max-width: 150px;
+      max-width: 130px;
       height: auto;
    }
 
    .footer-description {
       color: #aaa;
-      font-size: 16px;
-      line-height: 1.7;
-      margin-bottom: 25px;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 20px;
    }
 
    .footer-contact-info {
-      margin-bottom: 20px;
+      margin-bottom: 15px;
    }
 
    .footer-contact-item {
       display: flex;
       align-items: center;
-      gap: 12px;
-      margin-bottom: 15px;
+      gap: 10px;
+      margin-bottom: 12px;
       color: #ccc;
-      font-size: 15px;
+      font-size: 14px;
    }
 
    .footer-contact-item .icon {
-      width: 35px;
-      height: 35px;
+      width: 30px;
+      height: 30px;
       background: linear-gradient(135deg, #FFD700, #FFA500);
-      border-radius: 8px;
+      border-radius: 6px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -229,8 +229,8 @@ const FALLBACK_FOOTER = `
    }
 
    .footer-contact-item .icon svg {
-      width: 16px;
-      height: 16px;
+      width: 14px;
+      height: 14px;
       color: #000;
    }
 
@@ -251,13 +251,13 @@ const FALLBACK_FOOTER = `
    }
 
    .footer-nav-menu ul li {
-      margin-bottom: 12px;
+      margin-bottom: 10px;
    }
 
    .footer-nav-menu ul li a {
       color: #ccc;
       text-decoration: none;
-      font-size: 15px;
+      font-size: 14px;
       transition: all 0.3s ease;
       display: inline-block;
       position: relative;
@@ -269,14 +269,14 @@ const FALLBACK_FOOTER = `
       bottom: -2px;
       left: 0;
       width: 0;
-      height: 2px;
+      height: 1px;
       background: linear-gradient(135deg, #FFD700, #FFA500);
       transition: width 0.3s ease;
    }
 
    .footer-nav-menu ul li a:hover {
       color: #FFD700;
-      transform: translateX(5px);
+      transform: translateX(3px);
    }
 
    .footer-nav-menu ul li a:hover::before {
@@ -289,19 +289,19 @@ const FALLBACK_FOOTER = `
 
    .newsletter-input {
       width: 100%;
-      padding: 15px 20px;
+      padding: 12px 15px;
       background: rgba(255, 255, 255, 0.1);
       border: 2px solid rgba(255, 215, 0, 0.3);
       border-radius: 50px;
       color: #fff;
-      font-size: 15px;
+      font-size: 14px;
       outline: none;
       transition: all 0.3s ease;
-      padding-right: 60px;
+      padding-right: 50px;
    }
 
    .newsletter-input::placeholder {
-      color: #aaa;
+      color: #999;
    }
 
    .newsletter-input:focus {
@@ -314,8 +314,8 @@ const FALLBACK_FOOTER = `
       right: 5px;
       top: 50%;
       transform: translateY(-50%);
-      width: 45px;
-      height: 45px;
+      width: 35px;
+      height: 35px;
       background: linear-gradient(135deg, #FFD700, #FFA500);
       border: none;
       border-radius: 50%;
@@ -328,12 +328,12 @@ const FALLBACK_FOOTER = `
 
    .newsletter-button:hover {
       transform: translateY(-50%) scale(1.05);
-      box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+      box-shadow: 0 6px 15px rgba(255, 215, 0, 0.4);
    }
 
    .newsletter-button svg {
-      width: 16px;
-      height: 16px;
+      width: 14px;
+      height: 14px;
       color: #000;
    }
 
@@ -341,18 +341,18 @@ const FALLBACK_FOOTER = `
       background: rgba(0, 0, 0, 0.8);
       backdrop-filter: blur(10px);
       border-top: 1px solid rgba(255, 215, 0, 0.2);
-      padding: 25px 0;
+      padding: 20px 0;
    }
 
    .copyright-text {
       color: #aaa;
-      font-size: 14px;
+      font-size: 13px;
       margin: 0;
    }
 
    .footer-social-links {
       display: flex;
-      gap: 20px;
+      gap: 15px;
       justify-content: center;
       align-items: center;
    }
@@ -360,10 +360,10 @@ const FALLBACK_FOOTER = `
    .footer-social-links a {
       color: #ccc;
       text-decoration: none;
-      font-size: 15px;
-      font-weight: 600;
-      padding: 8px 16px;
-      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 6px 12px;
+      border-radius: 18px;
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 215, 0, 0.2);
       transition: all 0.3s ease;
@@ -378,45 +378,73 @@ const FALLBACK_FOOTER = `
 
    @media (max-width: 768px) {
       .footer-main-container {
-         padding: 40px 25px 30px;
+         padding: 40px 20px 25px;
          border-radius: 20px;
       }
 
       .footer-brand-section {
          padding-right: 0;
-         margin-bottom: 40px;
+         margin-bottom: 30px;
       }
 
       .footer-social-links {
          justify-content: center;
          flex-wrap: wrap;
-         gap: 15px;
+         gap: 12px;
       }
 
       .copyright-text {
          text-align: center;
+         font-size: 12px;
       }
    }
 
    @media (max-width: 480px) {
       .footer-main-container {
-         padding: 30px 20px 25px;
-         border-radius: 15px;
+         padding: 25px 15px 20px;
+         border-radius: 18px;
       }
 
       .footer-widget-title {
-         font-size: 18px;
+         font-size: 16px;
+      }
+
+      .footer-logo img {
+         max-width: 110px;
+      }
+
+      .footer-description {
+         font-size: 13px;
       }
 
       .newsletter-input {
-         padding: 12px 18px;
-         padding-right: 55px;
-         font-size: 14px;
+         padding: 10px 12px;
+         padding-right: 45px;
+         font-size: 13px;
       }
 
       .newsletter-button {
-         width: 40px;
-         height: 40px;
+         width: 30px;
+         height: 30px;
+      }
+
+      .newsletter-button svg {
+         width: 12px;
+         height: 12px;
+      }
+
+      .footer-contact-item {
+         font-size: 13px;
+      }
+
+      .footer-contact-item .icon {
+         width: 26px;
+         height: 26px;
+      }
+
+      .footer-contact-item .icon svg {
+         width: 12px;
+         height: 12px;
       }
    }
    </style>
@@ -500,7 +528,7 @@ const FALLBACK_FOOTER = `
                <div class="col-xl-3 col-lg-5 col-md-6 mb-40">
                   <div class="footer-newsletter">
                      <h4 class="footer-widget-title">Stay Updated</h4>
-                     <p style="color: #aaa; font-size: 15px; margin-bottom: 25px; line-height: 1.6;">Subscribe to our newsletter for the latest marketing insights and updates.</p>
+                     <p style="color: #aaa; font-size: 13px; margin-bottom: 20px; line-height: 1.6;">Subscribe to our newsletter for the latest marketing insights and updates.</p>
                      <form id="newsletter-form" class="newsletter-form" action="#" method="post">
                         <input type="email" id="newsletter-email" class="newsletter-input" placeholder="Enter your email..." required>
                         <button type="submit" class="newsletter-button">
@@ -510,7 +538,7 @@ const FALLBACK_FOOTER = `
                            </svg>
                         </button>
                      </form>
-                     <div id="newsletter-message" style="margin-top: 10px; color: #FFD700; font-size: 0.9rem;"></div>
+                     <div id="newsletter-message" style="margin-top: 8px; color: #FFD700; font-size: 12px;"></div>
                   </div>
                </div>
             </div>
