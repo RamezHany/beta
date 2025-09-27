@@ -376,7 +376,7 @@ const FALLBACK_FOOTER = `
       transform: translateY(-2px);
    }
 
-   @media (max-width: 768px) {
+   @media (max-width: 992px) {
       .footer-main-container {
          padding: 40px 20px 25px;
          border-radius: 20px;
@@ -399,7 +399,65 @@ const FALLBACK_FOOTER = `
       }
    }
 
-   @media (max-width: 480px) {
+   @media (max-width: 992px) {
+      .footer-main-container {
+         padding: 40px 20px 25px;
+         border-radius: 20px;
+      }
+
+      .footer-brand-section {
+         padding-right: 0;
+         margin-bottom: 30px;
+      }
+
+      .footer-social-links {
+         justify-content: center;
+         flex-wrap: wrap;
+         gap: 12px;
+      }
+
+      .copyright-text {
+         text-align: center;
+         font-size: 12px;
+      }
+   }
+
+   @media (max-width: 768px) {
+      .footer-main-container {
+         padding: 40px 20px 25px;
+         border-radius: 20px;
+      }
+
+      .footer-brand-section {
+         padding-right: 0;
+         margin-bottom: 30px;
+      }
+
+      .footer-social-links {
+         justify-content: center;
+         flex-wrap: wrap;
+         gap: 12px;
+      }
+
+      .copyright-text {
+         text-align: center;
+         font-size: 12px;
+      }
+      
+      /* Make newsletter column full width on medium screens */
+      .col-xl-3.col-lg-12.col-md-12.mb-40 {
+         width: 100%;
+         max-width: 100%;
+         flex: 0 0 100%;
+      }
+      
+      /* Newsletter section full width */
+      .footer-newsletter {
+         width: 100%;
+      }
+   }
+
+   @media (max-width: 576px) {
       .footer-main-container {
          padding: 25px 15px 20px;
          border-radius: 18px;
@@ -446,6 +504,12 @@ const FALLBACK_FOOTER = `
          width: 12px;
          height: 12px;
       }
+      
+      /* Stack the navigation links and services on small screens */
+      .col-lg-6.col-md-6.mb-30 {
+         width: 100%;
+         padding: 0 0 20px 0;
+      }
    }
    </style>
 
@@ -468,37 +532,41 @@ const FALLBACK_FOOTER = `
                   </div>
                </div>
 
-               <!-- Navigation Links -->
-               <div class="col-xl-2 col-lg-3 col-md-6 mb-40">
-                  <div class="footer-nav-menu">
-                     <h4 class="footer-widget-title">Quick Links</h4>
-                     <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="team.html">Team</a></li>
-                        <li><a href="portfolio-grid-col-4.html">Portfolio</a></li>
-                        <li><a href="links.html">Links</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                         <li>   <a href="ai-bot/index.html">AI Assistant</a></li>
-                     </ul>
-                  </div>
-               </div>
+               <!-- Navigation Links and Services - Will be side by side on medium screens and stacked on small screens -->
+               <div class="col-xl-5 col-lg-8 col-md-12 mb-40">
+                  <div class="row">
+                     <!-- Navigation Links -->
+                     <div class="col-lg-6 col-md-6 mb-30">
+                        <div class="footer-nav-menu">
+                           <h4 class="footer-widget-title">Quick Links</h4>
+                           <ul>
+                              <li><a href="index.html">Home</a></li>
+                              <li><a href="team.html">Team</a></li>
+                              <li><a href="portfolio-grid-col-4.html">Portfolio</a></li>
+                              <li><a href="links.html">Links</a></li>
+                              <li><a href="contact.html">Contact</a></li>
+                           </ul>
+                        </div>
+                     </div>
 
-               <!-- Services -->
-               <div class="col-xl-3 col-lg-5 col-md-6 mb-40">
-                  <div class="footer-nav-menu">
-                     <h4 class="footer-widget-title">Our Services</h4>
-                     <ul>
-                        <li><a href="#services">Media Production</a></li>
-                        <li><a href="#services">Digital Marketing</a></li>
-                        <li><a href="#services">Personal Branding</a></li>
-                        <li><a href="#services">Content Creation</a></li>
-                        <li><a href="#services">Social Media Management</a></li>
-                     </ul>
+                     <!-- Services -->
+                     <div class="col-lg-6 col-md-6 mb-30">
+                        <div class="footer-nav-menu">
+                           <h4 class="footer-widget-title">Our Services</h4>
+                           <ul>
+                              <li><a href="#services">Media Production</a></li>
+                              <li><a href="#services">Digital Marketing</a></li>
+                              <li><a href="#services">Personal Branding</a></li>
+                              <li><a href="#services">Content Creation</a></li>
+                              <li><a href="#services">Social Media Management</a></li>
+                           </ul>
+                        </div>
+                     </div>
                   </div>
                </div>
 
                <!-- Newsletter and Social Media -->
-               <div class="col-xl-3 col-lg-5 col-md-6 mb-40">
+               <div class="col-xl-3 col-lg-12 col-md-12 mb-40">
                   <div class="footer-newsletter">
                      <h4 class="footer-widget-title">Stay Updated</h4>
                      <p style="color: #aaa; font-size: 13px; margin-bottom: 20px; line-height: 1.6;">Subscribe to our newsletter for the latest marketing insights and updates.</p>
@@ -517,7 +585,7 @@ const FALLBACK_FOOTER = `
                         <a href="https://instagram.com/helal.marketing" target="_blank">Instagram</a>
                         <a href="https://facebook.com/helal.marketing" target="_blank">Facebook</a>
                         <a href="https://youtube.com/@helalmarketing" target="_blank">YouTube</a>
-                    
+                        <a href="ai-bot/index.html">AI Assistant</a>
                      </div>
                   </div>
                </div>
