@@ -478,6 +478,7 @@ const FALLBACK_FOOTER = `
                         <li><a href="portfolio-grid-col-4.html">Portfolio</a></li>
                         <li><a href="links.html">Links</a></li>
                         <li><a href="contact.html">Contact</a></li>
+                         <li>   <a href="ai-bot/index.html">AI Assistant</a></li>
                      </ul>
                   </div>
                </div>
@@ -516,7 +517,7 @@ const FALLBACK_FOOTER = `
                         <a href="https://instagram.com/helal.marketing" target="_blank">Instagram</a>
                         <a href="https://facebook.com/helal.marketing" target="_blank">Facebook</a>
                         <a href="https://youtube.com/@helalmarketing" target="_blank">YouTube</a>
-                        <a href="ai-bot/index.html">AI Assistant</a>
+                    
                      </div>
                   </div>
                </div>
