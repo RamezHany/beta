@@ -12,6 +12,30 @@ document.addEventListener('DOMContentLoaded', function() {
     cssLink.href = '/assets/css/unified-style.css';
     document.head.appendChild(cssLink);
   }
+  
+  // تطبيق التعديلات على الأزرار
+  const allButtons = document.querySelectorAll('.btn, button, .tp-btn, .tp-btn-yellow, .tp-btn-white, .tp-btn-white-sm, .tp-btn-white-brand, .tp-btn-white-lg');
+  
+  allButtons.forEach(button => {
+    button.style.borderRadius = '8px';
+    button.style.boxShadow = '0 2px 5px rgba(0,0,0,0.1)';
+    button.style.transition = 'all 0.3s ease';
+  });
+
+  // تقليل تأثير التوهج
+  const glowElements = document.querySelectorAll('.glow-effect, [class*="glow"], .tp-hero-shape-animation, .tp-hero-shape img');
+  
+  glowElements.forEach(element => {
+    element.style.opacity = '0.6';
+    element.style.filter = 'blur(8px)';
+  });
+
+  // تعديل العناصر الأخرى لتكون مستديرة
+  const roundedElements = document.querySelectorAll('.modal, .modal-content, .card, .form-control, .input-group, .tp-contact-form-field input, .tp-contact-form-field textarea');
+  
+  roundedElements.forEach(element => {
+    element.style.borderRadius = '8px';
+  });
 });
 
 // Simple fallback components that will work immediately

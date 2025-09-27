@@ -25,11 +25,11 @@
         /* Helal Brand Colors */
         :root {
             --helal-gold: #FFD700;
-            --helal-gold-dark: #FFA500;
+            --helal-gold-dark: #E6A800; /* تعديل اللون الذهبي الداكن ليكون أقل حدة */
             --helal-bg-dark: #1a1a1a;
             --helal-bg-secondary: #2d2d2d;
             --helal-card-bg: rgba(255, 255, 255, 0.05);
-            --helal-border: rgba(255, 215, 0, 0.2);
+            --helal-border: rgba(255, 215, 0, 0.15); /* تقليل شفافية الحدود */
         }
         
         #chat-container::-webkit-scrollbar {
@@ -40,13 +40,15 @@
         }
         .dark #chat-container::-webkit-scrollbar-thumb {
             background: linear-gradient(135deg, var(--helal-gold), var(--helal-gold-dark));
-            border-radius: 10px;
+            border-radius: 8px;
             border: 2px solid var(--helal-bg-dark);
+            opacity: 0.8;
         }
         
         /* Helal Brand Styling */
         .helal-gradient {
             background: linear-gradient(135deg, var(--helal-gold), var(--helal-gold-dark));
+            opacity: 0.9; /* تقليل حدة التدرج اللوني */
         }
         
         .helal-card {
