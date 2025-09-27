@@ -3,6 +3,17 @@
  * This script loads navbar and footer components into HTML pages
  */
 
+// إضافة ملف CSS الموحد إلى جميع الصفحات
+document.addEventListener('DOMContentLoaded', function() {
+  // التحقق من وجود ملف CSS الموحد
+  if (!document.querySelector('link[href*="unified-style.css"]')) {
+    const cssLink = document.createElement('link');
+    cssLink.rel = 'stylesheet';
+    cssLink.href = '/assets/css/unified-style.css';
+    document.head.appendChild(cssLink);
+  }
+});
+
 // Simple fallback components that will work immediately
 const FALLBACK_NAVBAR = `
 <!-- tp-offcanvus-area-end -->
@@ -72,7 +83,7 @@ const FALLBACK_NAVBAR = `
                <div class="tp-inner-header-right-action text-end">
                   <ul>
                      <li>
-                        <a href="contact.html" class="btn px-3 py-2" style="background-color: #FFD700; color: #000; border: none; font-weight: 500; border-radius: 0; font-size: 13px; white-space: nowrap;">Contact</a>
+                        <a href="contact.html" class="btn px-3 py-2" style="background-color: #FFD700; color: #000; border: none; font-weight: 500; border-radius: 8px; font-size: 13px; white-space: nowrap; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">Contact</a>
                      </li>
                   </ul>
                </div>
@@ -101,6 +112,63 @@ const FALLBACK_NAVBAR = `
 </header>
 
 <style>
+/* Modern Navbar Styling */
+.tp-inner-header-area {
+   background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(45, 45, 45, 0.9) 100%);
+   backdrop-filter: blur(10px);
+   border-bottom: 1px solid rgba(255, 215, 0, 0.15);
+   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+   transition: all 0.3s ease;
+}
+
+.tp-inner-header-area.sticky-header {
+   background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(45, 45, 45, 0.95) 100%);
+   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.tp-inner-header-logo img {
+   transition: all 0.3s ease;
+}
+
+.tp-main-menu-content ul li a {
+   position: relative;
+   color: #fff;
+   font-weight: 500;
+   transition: all 0.3s ease;
+}
+
+.tp-main-menu-content ul li a:before {
+   content: '';
+   position: absolute;
+   bottom: -2px;
+   left: 50%;
+   width: 0;
+   height: 2px;
+   background: linear-gradient(135deg, #FFD700, #FFA500);
+   transition: all 0.3s ease;
+   transform: translateX(-50%);
+}
+
+.tp-main-menu-content ul li a:hover {
+   color: #FFD700;
+}
+
+.tp-main-menu-content ul li a:hover:before {
+   width: 80%;
+}
+
+.tp-inner-header-right-action .btn {
+   background: linear-gradient(135deg, #FFD700, #FFA500);
+   border-radius: 4px;
+   transition: all 0.3s ease;
+   box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+}
+
+.tp-inner-header-right-action .btn:hover {
+   transform: translateY(-2px);
+   box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+}
+
 /* Tablet Navigation Fixes */
 @media (min-width: 992px) and (max-width: 1199px) {
    .tp-inner-header-area .container {
@@ -138,6 +206,38 @@ const FALLBACK_NAVBAR = `
       display: block !important;
    }
 }
+
+/* Mobile Menu Styling */
+.tp-offcanvas-wrapper {
+   background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(45, 45, 45, 0.95) 100%);
+   border-left: 1px solid rgba(255, 215, 0, 0.15);
+}
+
+.tp-offcanvas-close-btn {
+   background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 165, 0, 0.2));
+   border-radius: 50%;
+   border: 1px solid rgba(255, 215, 0, 0.3);
+   transition: all 0.3s ease;
+}
+
+.tp-offcanvas-close-btn:hover {
+   background: linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(255, 165, 0, 0.3));
+   transform: rotate(90deg);
+}
+
+.tp-main-menu-mobile ul li a {
+   color: #fff;
+   font-weight: 500;
+   padding: 12px 0;
+   display: block;
+   border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+   transition: all 0.3s ease;
+}
+
+.tp-main-menu-mobile ul li a:hover {
+   color: #FFD700;
+   padding-left: 5px;
+}
 </style>`;
 
 const FALLBACK_FOOTER = `
@@ -147,6 +247,8 @@ const FALLBACK_FOOTER = `
    .modern-footer {
       background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
       position: relative;
+      border-top: 1px solid rgba(255, 215, 0, 0.15);
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.2);
    }
 
    .modern-footer::before {
@@ -182,6 +284,18 @@ const FALLBACK_FOOTER = `
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      position: relative;
+      display: inline-block;
+   }
+   
+   .footer-widget-title:after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background: linear-gradient(135deg, #FFD700, #FFA500);
    }
 
    .footer-brand-section {
@@ -281,6 +395,14 @@ const FALLBACK_FOOTER = `
 
    .footer-nav-menu ul li a:hover::before {
       width: 100%;
+   }
+   
+   .footer-nav-menu ul li a:hover {
+      color: #FFD700;
+      background: linear-gradient(135deg, #FFD700, #FFA500);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
    }
 
    .newsletter-form {
@@ -585,7 +707,6 @@ const FALLBACK_FOOTER = `
                         <a href="https://instagram.com/helal.marketing" target="_blank">Instagram</a>
                         <a href="https://facebook.com/helal.marketing" target="_blank">Facebook</a>
                         <a href="https://youtube.com/@helalmarketing" target="_blank">YouTube</a>
-                        <a href="ai-bot/index.html">AI Assistant</a>
                      </div>
                   </div>
                </div>

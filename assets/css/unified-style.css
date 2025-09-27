@@ -1,0 +1,58 @@
+/**
+ * Unified Style - تنسيق موحد للأزرار وتأثيرات التوهج
+ */
+
+/* توحيد تصميم الأزرار لتكون مستديرة */
+.btn, 
+button,
+.tp-btn, 
+.tp-btn-yellow,
+.tp-btn-white,
+.tp-btn-white-sm,
+.tp-btn-white-brand,
+.tp-btn-white-lg,
+.tp-header-btn {
+  border-radius: 8px !important;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1) !important;
+  transition: all 0.3s ease !important;
+}
+
+/* تقليل تأثير التوهج */
+.glow-effect,
+[class*="glow"],
+.tp-btn-yellow:before,
+.tp-btn-yellow:after,
+.tp-btn-white:before,
+.tp-btn-white:after,
+.tp-hero-shape-animation,
+.tp-hero-shape img {
+  opacity: 0.6 !important;
+  filter: blur(8px) !important;
+}
+
+/* تعديل العناصر الأخرى لتكون مستديرة */
+.modal,
+.modal-content,
+.card,
+.form-control,
+.input-group,
+.tp-contact-form-field input,
+.tp-contact-form-field textarea,
+.tp-service-item,
+.tp-portfolio-item,
+.tp-team-item,
+.tp-testimonial-item {
+  border-radius: 8px !important;
+}
+
+/* تقليل تأثيرات التوهج الإضافية */
+.tp-hero-shape-animation {
+  animation: none !important;
+}
+
+/* تحسين مظهر الأزرار عند التحويم */
+.btn:hover, 
+.tp-btn:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15) !important;
+}

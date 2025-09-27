@@ -1584,7 +1584,7 @@ div.demo img {
   background-color: rgba(0, 0, 0, 0);
   color: var(--tp-common-white);
   border: 1px solid #fff;
-  border-radius: 0;
+  border-radius: 8px;
 }
 .tp-btn-white-sm.border-style:hover {
   background-color: #fff;

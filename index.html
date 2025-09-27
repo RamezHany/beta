@@ -28,6 +28,7 @@
    <link rel="stylesheet" href="assets/css/spacing.css">
    <link rel="stylesheet" href="assets/css/custom-animation.css">
    <link rel="stylesheet" href="assets/css/main.css">
+   <link rel="stylesheet" href="assets/css/unified-style.css">
    
    <!-- Modern Homepage Styling -->
    <style>
@@ -36,6 +37,7 @@
       background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
       min-height: 100vh;
       position: relative;
+      overflow-x: hidden; /* Prevent horizontal scroll from animations */
    }
 
    .page-bg::before {
@@ -48,6 +50,44 @@
       background: url('assets/v3.svg') center/cover;
       opacity: 0.1;
       pointer-events: none;
+      animation: gradualFade 2s ease-in-out forwards;
+   }
+   
+   @keyframes gradualFade {
+      0% { opacity: 0; }
+      100% { opacity: 0.1; }
+   }
+   
+   /* تعريفات الأنيميشن للعناصر الرئيسية */
+   @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+   }
+   
+   @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+   }
+   
+   @keyframes slideInLeft {
+      0% { opacity: 0; transform: translateX(-50px); }
+      100% { opacity: 1; transform: translateX(0); }
+   }
+   
+   @keyframes slideInRight {
+      0% { opacity: 0; transform: translateX(50px); }
+      100% { opacity: 1; transform: translateX(0); }
+   }
+   
+   @keyframes bounceIn {
+      0% { opacity: 0; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1.1); }
+      100% { opacity: 1; transform: scale(1); }
+   }
+   
+   @keyframes glowText {
+      0% { text-shadow: 0 0 5px rgba(255, 215, 0, 0.5); }
+      100% { text-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 0 0 30px rgba(255, 215, 0, 0.6); }
    }
 
    /* Gallery Video Optimization */
@@ -75,6 +115,11 @@
       cursor: pointer;
       border-radius: 20px;
       overflow: hidden;
+      animation: fadeIn 0.8s ease-out forwards;
+      transform: translateY(20px);
+      opacity: 0;
+      animation-fill-mode: forwards;
+      animation-delay: calc(var(--item-index, 0) * 0.2s);
    }
    
    .gallery-video-thumbnail {
@@ -84,11 +129,12 @@
       background-position: center;
       position: relative;
       border-radius: 20px;
-      transition: transform 0.3s ease;
+      transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
    }
 
    .gallery-video-container:hover .gallery-video-thumbnail {
-      transform: scale(1.05);
+      transform: scale(1.08);
+      filter: brightness(1.1);
    }
    
    .gallery-video-play-btn {
@@ -108,6 +154,12 @@
       z-index: 10;
       box-shadow: 0 10px 25px rgba(255, 215, 0, 0.4);
       border: 3px solid rgba(255, 255, 255, 0.2);
+      animation: playButtonPulse 2s infinite alternate;
+   }
+   
+   @keyframes playButtonPulse {
+      0% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 10px 25px rgba(255, 215, 0, 0.4); }
+      100% { transform: translate(-50%, -50%) scale(1.1); box-shadow: 0 15px 35px rgba(255, 215, 0, 0.6); }
    }
    
    .gallery-video-play-btn:hover {
@@ -258,6 +310,59 @@
       min-height: 100px;
       cursor: pointer;
       margin: 0 15px;
+      transition: all 0.4s ease;
+      animation: fadeInScale 0.8s ease-out forwards;
+   }
+   
+   /* تأثيرات حركية للأزرار والروابط */
+   .tp-btn-yellow {
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+      overflow: hidden;
+   }
+   
+   .tp-btn-yellow:hover {
+      transform: translateY(-5px) !important;
+      box-shadow: 0 10px 25px rgba(255, 215, 0, 0.3) !important;
+   }
+   
+   .tp-btn-yellow:active {
+      transform: translateY(0) !important;
+      transition: all 0.1s ease !important;
+   }
+   
+   /* تأثير نبض للأزرار */
+   .tp-btn-yellow::after {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      border: 2px solid rgba(255, 215, 0, 0.3);
+      border-radius: 30px;
+      animation: buttonPulse 2s infinite;
+      opacity: 0;
+      z-index: -1;
+   }
+   
+   .tp-btn-yellow:hover::after {
+      opacity: 1;
+   }
+   
+   @keyframes buttonPulse {
+      0% {
+         transform: scale(1);
+         opacity: 0.5;
+      }
+      100% {
+         transform: scale(1.2);
+         opacity: 0;
+      }
+   }
+   
+   @keyframes fadeInScale {
+      0% { opacity: 0; transform: scale(0.9); }
+      100% { opacity: 1; transform: scale(1); }
    }
 
    .swiper-slide {
@@ -328,6 +433,22 @@
       background: url('assets/v3.svg') center/cover;
       opacity: 0.05;
       pointer-events: none;
+   }
+   
+   /* تأثيرات الانتقال بين الأقسام */
+   .tp-gallery-area, .tp-service-3-area, .tp-project-3-area, .tp-brand-3-area, .tp-cta-area {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease-out;
+   }
+   
+   .tp-gallery-area.animate-section, 
+   .tp-service-3-area.animate-section, 
+   .tp-project-3-area.animate-section, 
+   .tp-brand-3-area.animate-section, 
+   .tp-cta-area.animate-section {
+      opacity: 1;
+      transform: translateY(0);
    }
 
    /* Hero Section Simple Enhancement */
@@ -586,17 +707,17 @@
                   <div class="row">
                      <div class="col-xl-12">
                         <div class="tp-hero-3-content-box text-center p-relative">
-                           <h1 class="tp-hero-3-title tp_reveal_anim">
-                              <span class="tp-reveal-line">Where <span style="color: #FFD700;">Brands</span></span>
-                              <span class="tp-reveal-line">Come <span style="color: #FFD700;">Alive</span></span>
+                           <h1 class="tp-hero-3-title tp_reveal_anim" style="animation: fadeInUp 1.2s ease-out forwards;">
+                              <span class="tp-reveal-line" style="animation: slideInLeft 1.5s ease-out forwards; display: block;">Where <span style="color: #FFD700; animation: glowText 3s infinite alternate;">Brands</span></span>
+                              <span class="tp-reveal-line" style="animation: slideInRight 1.5s ease-out forwards; display: block;">Come <span style="color: #FFD700; animation: glowText 3s infinite alternate;">Alive</span></span>
                            </h1>
-                           <span class="tp-hero-3-category tp_reveal_anim">
+                           <span class="tp-hero-3-category tp_reveal_anim" style="animation: fadeIn 2s ease-out 0.5s forwards; opacity: 0;">
                               <span style="color: #FFD700;">Media Production</span> / 
                               Personal Branding / 
                               <span style="color: #FFD700;">Digital Marketing</span> 
                            </span>
                            
-                           <a class="tp-btn-yellow" href="contact.html">
+                           <a class="tp-btn-yellow" href="contact.html" style="animation: bounceIn 1s ease-out 1.5s forwards; opacity: 0; transform: scale(0.8);">
                               <span class="tp-btn-yellow-wrap">
                                  <span class="text-1">Let's Talk</span>
                                  <span class="text-2">Let's Talk</span>
@@ -1337,6 +1458,35 @@
    <!-- Gallery Video Lazy Loading Script -->
    <script>
    document.addEventListener('DOMContentLoaded', function() {
+       // تفعيل التأثيرات الانتقالية بين الأقسام
+       const sections = document.querySelectorAll('.tp-gallery-area, .tp-service-3-area, .tp-project-3-area, .tp-brand-3-area, .tp-cta-area');
+       
+       const observerOptions = {
+           root: null,
+           rootMargin: '0px',
+           threshold: 0.15
+       };
+       
+       const sectionObserver = new IntersectionObserver(function(entries, observer) {
+           entries.forEach(entry => {
+               if (entry.isIntersecting) {
+                   entry.target.classList.add('animate-section');
+                   observer.unobserve(entry.target);
+               }
+           });
+       }, observerOptions);
+       
+       sections.forEach(section => {
+           sectionObserver.observe(section);
+       });
+       
+       // تعيين فهرس للفيديوهات لتأخير ظهورها
+       const videoContainers = document.querySelectorAll('.gallery-video-container');
+       videoContainers.forEach((container, index) => {
+           container.style.setProperty('--item-index', index);
+       });
+       
+       // سكريبت تحميل الفيديوهات
        const galleryVideoContainers = document.querySelectorAll('.gallery-video-container');
        
        galleryVideoContainers.forEach(container => {
