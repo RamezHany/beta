@@ -496,7 +496,7 @@ const FALLBACK_FOOTER = `
                   </div>
                </div>
 
-               <!-- Newsletter -->
+               <!-- Newsletter and Social Media -->
                <div class="col-xl-3 col-lg-5 col-md-6 mb-40">
                   <div class="footer-newsletter">
                      <h4 class="footer-widget-title">Stay Updated</h4>
@@ -511,6 +511,13 @@ const FALLBACK_FOOTER = `
                         </button>
                      </form>
                      <div id="newsletter-message" style="margin-top: 8px; color: #FFD700; font-size: 12px;"></div>
+                     <div class="footer-social-links" style="margin-top: 25px;">
+                        <a href="https://linkedin.com/company/helal-marketing" target="_blank">LinkedIn</a>
+                        <a href="https://instagram.com/helal.marketing" target="_blank">Instagram</a>
+                        <a href="https://facebook.com/helal.marketing" target="_blank">Facebook</a>
+                        <a href="https://youtube.com/@helalmarketing" target="_blank">YouTube</a>
+                        <a href="ai-bot/index.html">AI Assistant</a>
+                     </div>
                   </div>
                </div>
             </div>
@@ -521,18 +528,9 @@ const FALLBACK_FOOTER = `
    <div class="footer-copyright">
       <div class="container container-1480">
          <div class="row align-items-center">
-            <div class="col-xl-6 col-lg-6 col-md-12 mb-20 mb-lg-0">
-               <div class="text-center text-lg-start">
+            <div class="col-xl-12 col-lg-12 col-md-12">
+               <div class="text-center">
                   <p class="copyright-text">© 2025 Helal Content Marketing. All rights reserved.</p>
-               </div>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-12">
-               <div class="footer-social-links text-center text-lg-end">
-                  <a href="https://linkedin.com/company/helal-marketing" target="_blank">LinkedIn</a>
-                  <a href="https://instagram.com/helal.marketing" target="_blank">Instagram</a>
-                  <a href="https://facebook.com/helal.marketing" target="_blank">Facebook</a>
-                  <a href="https://youtube.com/@helalmarketing" target="_blank">YouTube</a>
-                  <a href="ai-bot/index.html">AI Assistant</a>
                </div>
             </div>
          </div>
