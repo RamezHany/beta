@@ -728,9 +728,9 @@ const FALLBACK_FOOTER = `
                      <div id="newsletter-message" style="margin-top: 8px; color: #FFD700; font-size: 12px;"></div>
                      <div class="footer-social-links" style="margin-top: 25px;">
                         <a href="https://linkedin.com/company/helal-marketing" target="_blank">LinkedIn</a>
-                        <a href="https://instagram.com/helal.marketing" target="_blank">Instagram</a>
-                        <a href="https://facebook.com/helal.marketing" target="_blank">Facebook</a>
-                        <a href="https://youtube.com/@helalmarketing" target="_blank">YouTube</a>
+                        <a href="https://instagram.com/helal_marketing1" target="_blank">Instagram</a>
+                        <a href="https://www.facebook.com/people/Helal-content-marketing/61561659192957/?mibextid=wwXIfr&rdid=PiSSkbPrdBqpIBsR&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F16ifRDRTyu%2F%3Fmibextid%3DwwXIfr" target="_blank">Facebook</a>
+                        <a href="https://youtube.com/@helal-marketing1" target="_blank">YouTube</a>
                      </div>
                   </div>
                </div>
