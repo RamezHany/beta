@@ -556,6 +556,18 @@
       100% { opacity: 1; transform: scale(1) translateX(0); }
    }
 
+   @keyframes loading {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+   }
+
+   /* ضمان ظهور صور البارتنرز */
+   .tp-brand-item img {
+      opacity: 1 !important;
+      visibility: visible !important;
+      display: block !important;
+   }
+
    .swiper-slide {
       padding: 10px;
    }
@@ -610,6 +622,8 @@
    .tp-brand-item img {
       position: relative;
       z-index: 2;
+      opacity: 1 !important;
+      display: block !important;
    }
 
    /* CTA Section Enhancement */
@@ -915,7 +929,7 @@
    <!-- Navbar Placeholder -->
    <div id="navbar-placeholder"></div>
 
-   <div class="page-bg">
+         <div class="page-bg">
          <main>
 
             <!-- hero area start -->
@@ -1206,53 +1220,63 @@
                                  
                                   <div class="swiper-slide">
                                      <div class="tp-brand-item" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02)); border: 2px solid rgba(255, 215, 0, 0.2); border-radius: 20px; padding: 35px 25px; transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); backdrop-filter: blur(15px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.borderColor='rgba(255, 215, 0, 0.5)'; this.style.background='linear-gradient(135deg, rgba(255, 215, 0, 0.08), rgba(255, 215, 0, 0.03))'; this.style.boxShadow='0 15px 45px rgba(255, 215, 0, 0.2)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.borderColor='rgba(255, 215, 0, 0.2)'; this.style.background='linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02))'; this.style.boxShadow='0 8px 32px rgba(0, 0, 0, 0.2)'">
-                                        <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/w_300,h_auto,f_auto,q_auto/v1757700514/ynrf4mw7elrthmmn6w8r.png" alt="Partner Brand" loading="lazy" style="max-width: 100%; height: auto; filter: brightness(0.95) contrast(1.1); transition: all 0.4s ease;" onmouseover="this.style.filter='brightness(1.1) contrast(1.2) saturate(1.1)'" onmouseout="this.style.filter='brightness(0.95) contrast(1.1)'">
+                                        <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/v1757700514/ynrf4mw7elrthmmn6w8r.png" alt="Partner Brand" style="max-width: 100%; height: auto; filter: brightness(0.95) contrast(1.1); transition: all 0.4s ease;" onmouseover="this.style.filter='brightness(1.1) contrast(1.2) saturate(1.1)'" onmouseout="this.style.filter='brightness(0.95) contrast(1.1)'" onload="this.style.opacity='1'" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                        <div style="display: none; align-items: center; justify-content: center; height: 100%; background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05)); color: #FFD700; font-size: 14px; font-weight: 600; border-radius: 10px;">Brand Logo</div>
                                      </div>
                                   </div>
                                   <div class="swiper-slide">
                                      <div class="tp-brand-item" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02)); border: 2px solid rgba(255, 215, 0, 0.2); border-radius: 20px; padding: 35px 25px; transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); backdrop-filter: blur(15px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.borderColor='rgba(255, 215, 0, 0.5)'; this.style.background='linear-gradient(135deg, rgba(255, 215, 0, 0.08), rgba(255, 215, 0, 0.03))'; this.style.boxShadow='0 15px 45px rgba(255, 215, 0, 0.2)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.borderColor='rgba(255, 215, 0, 0.2)'; this.style.background='linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02))'; this.style.boxShadow='0 8px 32px rgba(0, 0, 0, 0.2)'">
-                                        <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/w_300,h_auto,f_auto,q_auto/v1757700514/hdb3hrgkql2p9jto3psd.png" alt="Partner Brand" loading="lazy" style="max-width: 100%; height: auto; filter: brightness(0.95) contrast(1.1); transition: all 0.4s ease;" onmouseover="this.style.filter='brightness(1.1) contrast(1.2) saturate(1.1)'" onmouseout="this.style.filter='brightness(0.95) contrast(1.1)'">
+                                        <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/v1757700514/hdb3hrgkql2p9jto3psd.png" alt="Partner Brand" style="max-width: 100%; height: auto; filter: brightness(0.95) contrast(1.1); transition: all 0.4s ease;" onmouseover="this.style.filter='brightness(1.1) contrast(1.2) saturate(1.1)'" onmouseout="this.style.filter='brightness(0.95) contrast(1.1)'" onload="this.style.opacity='1'" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                        <div style="display: none; align-items: center; justify-content: center; height: 100%; background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05)); color: #FFD700; font-size: 14px; font-weight: 600; border-radius: 10px;">Brand Logo</div>
                                      </div>
                                   </div>
                                   <div class="swiper-slide">
                                      <div class="tp-brand-item" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02)); border: 2px solid rgba(255, 215, 0, 0.2); border-radius: 20px; padding: 35px 25px; transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); backdrop-filter: blur(15px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.borderColor='rgba(255, 215, 0, 0.5)'; this.style.background='linear-gradient(135deg, rgba(255, 215, 0, 0.08), rgba(255, 215, 0, 0.03))'; this.style.boxShadow='0 15px 45px rgba(255, 215, 0, 0.2)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.borderColor='rgba(255, 215, 0, 0.2)'; this.style.background='linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02))'; this.style.boxShadow='0 8px 32px rgba(0, 0, 0, 0.2)'">
-                                        <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/w_300,h_auto,f_auto,q_auto/v1757700514/ssdrftcqjuqwvbozgpiw.png" alt="Partner Brand" loading="lazy" style="max-width: 100%; height: auto; filter: brightness(0.95) contrast(1.1); transition: all 0.4s ease;" onmouseover="this.style.filter='brightness(1.1) contrast(1.2) saturate(1.1)'" onmouseout="this.style.filter='brightness(0.95) contrast(1.1)'">
+                                        <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/v1757700514/ssdrftcqjuqwvbozgpiw.png" alt="Partner Brand" style="max-width: 100%; height: auto; filter: brightness(0.95) contrast(1.1); transition: all 0.4s ease;" onmouseover="this.style.filter='brightness(1.1) contrast(1.2) saturate(1.1)'" onmouseout="this.style.filter='brightness(0.95) contrast(1.1)'" onload="this.style.opacity='1'" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                        <div style="display: none; align-items: center; justify-content: center; height: 100%; background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05)); color: #FFD700; font-size: 14px; font-weight: 600; border-radius: 10px;">Brand Logo</div>
                                      </div>
                                   </div>
                                   <div class="swiper-slide">
                                      <div class="tp-brand-item" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02)); border: 2px solid rgba(255, 215, 0, 0.2); border-radius: 20px; padding: 35px 25px; transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); backdrop-filter: blur(15px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.borderColor='rgba(255, 215, 0, 0.5)'; this.style.background='linear-gradient(135deg, rgba(255, 215, 0, 0.08), rgba(255, 215, 0, 0.03))'; this.style.boxShadow='0 15px 45px rgba(255, 215, 0, 0.2)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.borderColor='rgba(255, 215, 0, 0.2)'; this.style.background='linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02))'; this.style.boxShadow='0 8px 32px rgba(0, 0, 0, 0.2)'">
-                                        <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/w_300,h_auto,f_auto,q_auto/v1757700514/dwatahfdeitrcyrvunlh.png" alt="Partner Brand" loading="lazy" style="max-width: 100%; height: auto; filter: brightness(0.95) contrast(1.1); transition: all 0.4s ease;" onmouseover="this.style.filter='brightness(1.1) contrast(1.2) saturate(1.1)'" onmouseout="this.style.filter='brightness(0.95) contrast(1.1)'">
+                                        <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/v1757700514/dwatahfdeitrcyrvunlh.png" alt="Partner Brand" style="max-width: 100%; height: auto; filter: brightness(0.95) contrast(1.1); transition: all 0.4s ease;" onmouseover="this.style.filter='brightness(1.1) contrast(1.2) saturate(1.1)'" onmouseout="this.style.filter='brightness(0.95) contrast(1.1)'" onload="this.style.opacity='1'" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                        <div style="display: none; align-items: center; justify-content: center; height: 100%; background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05)); color: #FFD700; font-size: 14px; font-weight: 600; border-radius: 10px;">Brand Logo</div>
                                      </div>
                                   </div>
                                   <div class="swiper-slide">
                                      <div class="tp-brand-item" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02)); border: 2px solid rgba(255, 215, 0, 0.2); border-radius: 20px; padding: 35px 25px; transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); backdrop-filter: blur(15px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.borderColor='rgba(255, 215, 0, 0.5)'; this.style.background='linear-gradient(135deg, rgba(255, 215, 0, 0.08), rgba(255, 215, 0, 0.03))'; this.style.boxShadow='0 15px 45px rgba(255, 215, 0, 0.2)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.borderColor='rgba(255, 215, 0, 0.2)'; this.style.background='linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02))'; this.style.boxShadow='0 8px 32px rgba(0, 0, 0, 0.2)'">
-                                        <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/w_300,h_auto,f_auto,q_auto/v1757700514/a650zsyjryjarkamvj2q.png" alt="Partner Brand" loading="lazy" style="max-width: 100%; height: auto; filter: brightness(0.95) contrast(1.1); transition: all 0.4s ease;" onmouseover="this.style.filter='brightness(1.1) contrast(1.2) saturate(1.1)'" onmouseout="this.style.filter='brightness(0.95) contrast(1.1)'">
+                                        <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/v1757700514/a650zsyjryjarkamvj2q.png" alt="Partner Brand" style="max-width: 100%; height: auto; filter: brightness(0.95) contrast(1.1); transition: all 0.4s ease;" onmouseover="this.style.filter='brightness(1.1) contrast(1.2) saturate(1.1)'" onmouseout="this.style.filter='brightness(0.95) contrast(1.1)'" onload="this.style.opacity='1'" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                        <div style="display: none; align-items: center; justify-content: center; height: 100%; background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05)); color: #FFD700; font-size: 14px; font-weight: 600; border-radius: 10px;">Brand Logo</div>
                                      </div>
                                   </div>
                                 
                                   <div class="swiper-slide">
                                     <div class="tp-brand-item" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02)); border: 2px solid rgba(255, 215, 0, 0.2); border-radius: 20px; padding: 35px 25px; transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); backdrop-filter: blur(15px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.borderColor='rgba(255, 215, 0, 0.5)'; this.style.background='linear-gradient(135deg, rgba(255, 215, 0, 0.08), rgba(255, 215, 0, 0.03))'; this.style.boxShadow='0 15px 45px rgba(255, 215, 0, 0.2)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.borderColor='rgba(255, 215, 0, 0.2)'; this.style.background='linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02))'; this.style.boxShadow='0 8px 32px rgba(0, 0, 0, 0.2)'">
-                                       <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/v1757700514/ynrf4mw7elrthmmn6w8r.png" alt="Partner Brand" style="max-width: 100%; height: auto; filter: brightness(0.95) contrast(1.1); transition: all 0.4s ease;" onmouseover="this.style.filter='brightness(1.1) contrast(1.2) saturate(1.1)'" onmouseout="this.style.filter='brightness(0.95) contrast(1.1)'">
+                                       <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/v1757700514/ynrf4mw7elrthmmn6w8r.png" alt="Partner Brand" style="max-width: 100%; height: auto; filter: brightness(0.95) contrast(1.1); transition: all 0.4s ease;" onmouseover="this.style.filter='brightness(1.1) contrast(1.2) saturate(1.1)'" onmouseout="this.style.filter='brightness(0.95) contrast(1.1)'" onload="this.style.opacity='1'" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                       <div style="display: none; align-items: center; justify-content: center; height: 100%; background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05)); color: #FFD700; font-size: 14px; font-weight: 600; border-radius: 10px;">Brand Logo</div>
+                               </div>
+                           </div>
+                                 <div class="swiper-slide">
+                                    <div class="tp-brand-item" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02)); border: 2px solid rgba(255, 215, 0, 0.2); border-radius: 20px; padding: 35px 25px; transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); backdrop-filter: blur(15px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.borderColor='rgba(255, 215, 0, 0.5)'; this.style.background='linear-gradient(135deg, rgba(255, 215, 0, 0.08), rgba(255, 215, 0, 0.03))'; this.style.boxShadow='0 15px 45px rgba(255, 215, 0, 0.2)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.borderColor='rgba(255, 215, 0, 0.2)'; this.style.background='linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02))'; this.style.boxShadow='0 8px 32px rgba(0, 0, 0, 0.2)'">
+                                       <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/v1757700514/hdb3hrgkql2p9jto3psd.png" alt="Partner Brand" style="max-width: 100%; height: auto; filter: brightness(0.95) contrast(1.1); transition: all 0.4s ease;" onmouseover="this.style.filter='brightness(1.1) contrast(1.2) saturate(1.1)'" onmouseout="this.style.filter='brightness(0.95) contrast(1.1)'" onload="this.style.opacity='1'" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                       <div style="display: none; align-items: center; justify-content: center; height: 100%; background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05)); color: #FFD700; font-size: 14px; font-weight: 600; border-radius: 10px;">Brand Logo</div>
+                        </div>
+                     </div>
+                                 <div class="swiper-slide">
+                                    <div class="tp-brand-item" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02)); border: 2px solid rgba(255, 215, 0, 0.2); border-radius: 20px; padding: 35px 25px; transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); backdrop-filter: blur(15px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.borderColor='rgba(255, 215, 0, 0.5)'; this.style.background='linear-gradient(135deg, rgba(255, 215, 0, 0.08), rgba(255, 215, 0, 0.03))'; this.style.boxShadow='0 15px 45px rgba(255, 215, 0, 0.2)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.borderColor='rgba(255, 215, 0, 0.2)'; this.style.background='linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02))'; this.style.boxShadow='0 8px 32px rgba(0, 0, 0, 0.2)'">
+                                       <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/v1757700514/ssdrftcqjuqwvbozgpiw.png" alt="Partner Brand" style="max-width: 100%; height: auto; filter: brightness(0.95) contrast(1.1); transition: all 0.4s ease;" onmouseover="this.style.filter='brightness(1.1) contrast(1.2) saturate(1.1)'" onmouseout="this.style.filter='brightness(0.95) contrast(1.1)'" onload="this.style.opacity='1'" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                       <div style="display: none; align-items: center; justify-content: center; height: 100%; background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05)); color: #FFD700; font-size: 14px; font-weight: 600; border-radius: 10px;">Brand Logo</div>
                                     </div>
                                  </div>
                                  <div class="swiper-slide">
                                     <div class="tp-brand-item" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02)); border: 2px solid rgba(255, 215, 0, 0.2); border-radius: 20px; padding: 35px 25px; transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); backdrop-filter: blur(15px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.borderColor='rgba(255, 215, 0, 0.5)'; this.style.background='linear-gradient(135deg, rgba(255, 215, 0, 0.08), rgba(255, 215, 0, 0.03))'; this.style.boxShadow='0 15px 45px rgba(255, 215, 0, 0.2)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.borderColor='rgba(255, 215, 0, 0.2)'; this.style.background='linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02))'; this.style.boxShadow='0 8px 32px rgba(0, 0, 0, 0.2)'">
-                                       <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/v1757700514/hdb3hrgkql2p9jto3psd.png" alt="Partner Brand" style="max-width: 100%; height: auto; filter: brightness(0.95) contrast(1.1); transition: all 0.4s ease;" onmouseover="this.style.filter='brightness(1.1) contrast(1.2) saturate(1.1)'" onmouseout="this.style.filter='brightness(0.95) contrast(1.1)'">
+                                       <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/v1757700514/dwatahfdeitrcyrvunlh.png" alt="Partner Brand" style="max-width: 100%; height: auto; filter: brightness(0.95) contrast(1.1); transition: all 0.4s ease;" onmouseover="this.style.filter='brightness(1.1) contrast(1.2) saturate(1.1)'" onmouseout="this.style.filter='brightness(0.95) contrast(1.1)'" onload="this.style.opacity='1'" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                       <div style="display: none; align-items: center; justify-content: center; height: 100%; background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05)); color: #FFD700; font-size: 14px; font-weight: 600; border-radius: 10px;">Brand Logo</div>
                                     </div>
                                  </div>
                                  <div class="swiper-slide">
                                     <div class="tp-brand-item" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02)); border: 2px solid rgba(255, 215, 0, 0.2); border-radius: 20px; padding: 35px 25px; transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); backdrop-filter: blur(15px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.borderColor='rgba(255, 215, 0, 0.5)'; this.style.background='linear-gradient(135deg, rgba(255, 215, 0, 0.08), rgba(255, 215, 0, 0.03))'; this.style.boxShadow='0 15px 45px rgba(255, 215, 0, 0.2)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.borderColor='rgba(255, 215, 0, 0.2)'; this.style.background='linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02))'; this.style.boxShadow='0 8px 32px rgba(0, 0, 0, 0.2)'">
-                                       <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/v1757700514/ssdrftcqjuqwvbozgpiw.png" alt="Partner Brand" style="max-width: 100%; height: auto; filter: brightness(0.95) contrast(1.1); transition: all 0.4s ease;" onmouseover="this.style.filter='brightness(1.1) contrast(1.2) saturate(1.1)'" onmouseout="this.style.filter='brightness(0.95) contrast(1.1)'">
-                                    </div>
-                                 </div>
-                                 <div class="swiper-slide">
-                                    <div class="tp-brand-item" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02)); border: 2px solid rgba(255, 215, 0, 0.2); border-radius: 20px; padding: 35px 25px; transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); backdrop-filter: blur(15px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.borderColor='rgba(255, 215, 0, 0.5)'; this.style.background='linear-gradient(135deg, rgba(255, 215, 0, 0.08), rgba(255, 215, 0, 0.03))'; this.style.boxShadow='0 15px 45px rgba(255, 215, 0, 0.2)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.borderColor='rgba(255, 215, 0, 0.2)'; this.style.background='linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02))'; this.style.boxShadow='0 8px 32px rgba(0, 0, 0, 0.2)'">
-                                       <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/v1757700514/dwatahfdeitrcyrvunlh.png" alt="Partner Brand" style="max-width: 100%; height: auto; filter: brightness(0.95) contrast(1.1); transition: all 0.4s ease;" onmouseover="this.style.filter='brightness(1.1) contrast(1.2) saturate(1.1)'" onmouseout="this.style.filter='brightness(0.95) contrast(1.1)'">
-                                    </div>
-                                 </div>
-                                 <div class="swiper-slide">
-                                    <div class="tp-brand-item" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02)); border: 2px solid rgba(255, 215, 0, 0.2); border-radius: 20px; padding: 35px 25px; transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); backdrop-filter: blur(15px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.borderColor='rgba(255, 215, 0, 0.5)'; this.style.background='linear-gradient(135deg, rgba(255, 215, 0, 0.08), rgba(255, 215, 0, 0.03))'; this.style.boxShadow='0 15px 45px rgba(255, 215, 0, 0.2)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.borderColor='rgba(255, 215, 0, 0.2)'; this.style.background='linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02))'; this.style.boxShadow='0 8px 32px rgba(0, 0, 0, 0.2)'">
-                                       <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/v1757700514/a650zsyjryjarkamvj2q.png" alt="Partner Brand" style="max-width: 100%; height: auto; filter: brightness(0.95) contrast(1.1); transition: all 0.4s ease;" onmouseover="this.style.filter='brightness(1.1) contrast(1.2) saturate(1.1)'" onmouseout="this.style.filter='brightness(0.95) contrast(1.1)'">
+                                       <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/v1757700514/a650zsyjryjarkamvj2q.png" alt="Partner Brand" style="max-width: 100%; height: auto; filter: brightness(0.95) contrast(1.1); transition: all 0.4s ease;" onmouseover="this.style.filter='brightness(1.1) contrast(1.2) saturate(1.1)'" onmouseout="this.style.filter='brightness(0.95) contrast(1.1)'" onload="this.style.opacity='1'" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                       <div style="display: none; align-items: center; justify-content: center; height: 100%; background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05)); color: #FFD700; font-size: 14px; font-weight: 600; border-radius: 10px;">Brand Logo</div>
                                     </div>
                                  </div>
                                </div>
@@ -1748,6 +1772,60 @@
        const brandItems = document.querySelectorAll('.tp-brand-item');
        brandItems.forEach((item, index) => {
            item.style.animationDelay = `${0.4 + (index * 0.08)}s`;
+       });
+
+       // ضمان تحميل صور البارتنرز
+       const brandImages = document.querySelectorAll('.tp-brand-item img');
+       brandImages.forEach((img, index) => {
+           // إزالة loading animation من البداية
+           img.style.background = 'none';
+           img.style.animation = 'none';
+           
+           // ضمان ظهور الصورة
+           img.style.opacity = '1';
+           img.style.visibility = 'visible';
+           img.style.display = 'block';
+           
+           // إضافة event listener لضمان تحميل الصورة
+           img.addEventListener('load', function() {
+               console.log(`Brand image ${index + 1} loaded successfully`);
+               this.style.opacity = '1';
+               this.style.visibility = 'visible';
+               this.style.display = 'block';
+           });
+           
+           img.addEventListener('error', function() {
+               console.error(`Brand image ${index + 1} failed to load`);
+               // إخفاء الصورة وإظهار placeholder
+               this.style.display = 'none';
+               
+               // إنشاء placeholder
+               const placeholder = document.createElement('div');
+               placeholder.style.cssText = `
+                   display: flex;
+                   align-items: center;
+                   justify-content: center;
+                   height: 100%;
+                   background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05));
+                   color: #FFD700;
+                   font-size: 14px;
+                   font-weight: 600;
+                   border-radius: 10px;
+               `;
+               placeholder.textContent = 'Brand Logo';
+               
+               this.parentNode.appendChild(placeholder);
+           });
+           
+           // إضافة opacity transition
+           img.style.transition = 'opacity 0.3s ease';
+           
+           // تحقق من حالة الصورة
+           if (img.complete) {
+               img.style.opacity = '1';
+               img.style.visibility = 'visible';
+               img.style.display = 'block';
+           }
        });
        
        // سكريبت تحميل الفيديوهات
