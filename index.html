@@ -40,6 +40,190 @@
       overflow-x: hidden; /* Prevent horizontal scroll from animations */
    }
 
+
+   /* إصلاح مشكلة الـ scroll bars المزدوجة */
+   body {
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+   }
+
+   html {
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+   }
+
+   * {
+      box-sizing: border-box;
+   }
+
+   /* إخفاء الـ scroll bar مؤقتاً أثناء التحميل */
+   .preloader-wrap {
+      overflow: hidden;
+   }
+
+   /* Modern Loader Styles */
+   .preloader-wrap {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      overflow: hidden;
+   }
+
+   .modern-loader {
+      text-align: center;
+      position: relative;
+   }
+
+   .logo-container {
+      margin-bottom: 40px;
+      animation: logoFloat 3s ease-in-out infinite;
+   }
+
+   .loader-logo {
+      width: 80px;
+      height: auto;
+      filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5));
+      animation: logoGlow 2s ease-in-out infinite alternate;
+   }
+
+   @keyframes logoFloat {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+   }
+
+   @keyframes logoGlow {
+      0% { filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5)); }
+      100% { filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.8)); }
+   }
+
+   .rings-container {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 40px;
+   }
+
+   .ring {
+      position: absolute;
+      border: 3px solid transparent;
+      border-radius: 50%;
+      animation: ringRotate 2s linear infinite;
+   }
+
+   .ring-1 {
+      width: 120px;
+      height: 120px;
+      border-top: 3px solid #FFD700;
+      animation-duration: 1.5s;
+   }
+
+   .ring-2 {
+      width: 90px;
+      height: 90px;
+      top: 15px;
+      left: 15px;
+      border-right: 3px solid #FFA500;
+      animation-duration: 2s;
+      animation-direction: reverse;
+   }
+
+   .ring-3 {
+      width: 60px;
+      height: 60px;
+      top: 30px;
+      left: 30px;
+      border-bottom: 3px solid #FFD700;
+      animation-duration: 1s;
+   }
+
+   @keyframes ringRotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+   }
+
+   .loader-text {
+      font-family: 'Poppins', sans-serif;
+      font-size: 24px;
+      font-weight: 600;
+      color: #FFD700;
+      margin-bottom: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2px;
+   }
+
+   .text-char {
+      display: inline-block;
+      animation: textBounce 1.5s ease-in-out infinite;
+      animation-fill-mode: both;
+   }
+
+   .text-char:nth-child(1) { animation-delay: 0.1s; }
+   .text-char:nth-child(2) { animation-delay: 0.2s; }
+   .text-char:nth-child(3) { animation-delay: 0.3s; }
+   .text-char:nth-child(4) { animation-delay: 0.4s; }
+   .text-char:nth-child(5) { animation-delay: 0.5s; }
+   .text-char:nth-child(6) { animation-delay: 0.6s; }
+   .text-char:nth-child(7) { animation-delay: 0.7s; }
+
+   .dots {
+      animation: dotsBlink 1s ease-in-out infinite;
+   }
+
+   @keyframes textBounce {
+      0%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-10px); }
+   }
+
+   @keyframes dotsBlink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0.3; }
+   }
+
+   .progress-container {
+      width: 200px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 2px;
+      overflow: hidden;
+      margin: 0 auto;
+   }
+
+   .progress-bar {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #FFD700, #FFA500);
+      border-radius: 2px;
+      animation: progressFill 3s ease-in-out forwards;
+      box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+   }
+
+   @keyframes progressFill {
+      0% { width: 0%; }
+      50% { width: 70%; }
+      100% { width: 100%; }
+   }
+
+   /* Fade out animation */
+   .preloader-wrap.fade-out {
+      animation: fadeOut 0.5s ease-out forwards;
+   }
+
+   @keyframes fadeOut {
+      0% { opacity: 1; }
+      100% { opacity: 0; visibility: hidden; }
+   }
+
    .page-bg::before {
       content: '';
       position: absolute;
@@ -287,6 +471,9 @@
    /* Brand Section Enhancement */
    .tp-brand-3-area {
       position: relative;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 1s ease-out forwards;
    }
 
    .tp-brand-3-area::before {
@@ -310,8 +497,12 @@
       min-height: 100px;
       cursor: pointer;
       margin: 0 15px;
-      transition: all 0.4s ease;
-      animation: fadeInScale 0.8s ease-out forwards;
+      transition: all 0.3s ease;
+      opacity: 0;
+      transform: scale(0.95) translateX(50px);
+      animation: fadeInScale 0.6s ease-out forwards;
+      animation-fill-mode: both;
+      will-change: transform, opacity;
    }
    
    /* تأثيرات حركية للأزرار والروابط */
@@ -361,13 +552,14 @@
    }
    
    @keyframes fadeInScale {
-      0% { opacity: 0; transform: scale(0.9); }
-      100% { opacity: 1; transform: scale(1); }
+      0% { opacity: 0; transform: scale(0.95) translateX(50px); }
+      100% { opacity: 1; transform: scale(1) translateX(0); }
    }
 
    .swiper-slide {
       padding: 10px;
    }
+
 
    .tp-brand-3-slider-active .swiper-wrapper {
       display: flex;
@@ -376,6 +568,9 @@
 
    .tp-brand-3-slider-active {
       padding: 20px 0;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s ease-out 0.3s forwards;
    }
 
    .tp-brand-item::before {
@@ -438,8 +633,9 @@
    /* تأثيرات الانتقال بين الأقسام */
    .tp-gallery-area, .tp-service-3-area, .tp-project-3-area, .tp-brand-3-area, .tp-cta-area {
       opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s ease-out;
+      transform: translateY(20px);
+      transition: all 0.5s ease-out;
+      will-change: transform, opacity;
    }
    
    .tp-gallery-area.animate-section, 
@@ -671,12 +867,35 @@
       </div>
    </div> -->
    <div id="loading" class="preloader-wrap">
-      <div class="preloader-2 text-center">
-        <!-- Logo instead of the shape image -->
-        <img class="line line-5"src="assets/img/home-03/about/ab-shape-img.png" alt="Logo" style="width: 120px; height: auto; margin-bottom: 20px;" />
-   
-    
-        <div class="loader-text">Loading ...</div>
+      <div class="modern-loader">
+         <!-- Logo Container -->
+         <div class="logo-container">
+            <img src="assets/img/home-03/about/ab-shape-img.png" alt="Helal Logo" class="loader-logo">
+         </div>
+         
+         <!-- Animated Rings -->
+         <div class="rings-container">
+            <div class="ring ring-1"></div>
+            <div class="ring ring-2"></div>
+            <div class="ring ring-3"></div>
+         </div>
+         
+         <!-- Loading Text -->
+         <div class="loader-text">
+            <span class="text-char">L</span>
+            <span class="text-char">o</span>
+            <span class="text-char">a</span>
+            <span class="text-char">d</span>
+            <span class="text-char">i</span>
+            <span class="text-char">n</span>
+            <span class="text-char">g</span>
+            <span class="dots">...</span>
+         </div>
+         
+         <!-- Progress Bar -->
+         <div class="progress-container">
+            <div class="progress-bar"></div>
+         </div>
       </div>
     </div>
     
@@ -696,9 +915,7 @@
    <!-- Navbar Placeholder -->
    <div id="navbar-placeholder"></div>
 
-   <div id="smooth-wrapper">
-      <div id="smooth-content">
-         <div class="page-bg">
+   <div class="page-bg">
          <main>
 
             <!-- hero area start -->
@@ -750,7 +967,7 @@
                                  <div class="swiper-slide">
                                     <div class="tp-gallery-item">
                                        <div class="gallery-video-container" data-video-id="RxjUwY-X4Rs">
-                                          <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/RxjUwY-X4Rs/maxresdefault.jpg');">
+                                          <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/RxjUwY-X4Rs/hqdefault.jpg');">
                                              <div class="gallery-video-play-btn"></div>
                                              <div class="gallery-video-loading">Loading...</div>
                                           </div>
@@ -761,7 +978,7 @@
                                  <div class="swiper-slide">
                                     <div class="tp-gallery-item">
                                        <div class="gallery-video-container" data-video-id="wTAInzwUL18">
-                                          <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/wTAInzwUL18/maxresdefault.jpg');">
+                                          <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/wTAInzwUL18/hqdefault.jpg');">
                                              <div class="gallery-video-play-btn"></div>
                                              <div class="gallery-video-loading">Loading...</div>
                                           </div>
@@ -772,7 +989,7 @@
                                  <div class="swiper-slide">
                                     <div class="tp-gallery-item">
                                        <div class="gallery-video-container" data-video-id="qmUtOpno6UA">
-                                          <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/qmUtOpno6UA/maxresdefault.jpg');">
+                                          <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/qmUtOpno6UA/hqdefault.jpg');">
                                              <div class="gallery-video-play-btn"></div>
                                              <div class="gallery-video-loading">Loading...</div>
                                           </div>
@@ -783,7 +1000,7 @@
                                  <div class="swiper-slide">
                                     <div class="tp-gallery-item">
                                        <div class="gallery-video-container" data-video-id="CwZ4WRhsgBo">
-                                          <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/CwZ4WRhsgBo/maxresdefault.jpg');">
+                                          <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/CwZ4WRhsgBo/hqdefault.jpg');">
                                              <div class="gallery-video-play-btn"></div>
                                              <div class="gallery-video-loading">Loading...</div>
                                           </div>
@@ -794,7 +1011,7 @@
                                  <div class="swiper-slide">
                                     <div class="tp-gallery-item">
                                        <div class="gallery-video-container" data-video-id="RxjUwY-X4Rs">
-                                          <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/RxjUwY-X4Rs/maxresdefault.jpg');">
+                                          <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/RxjUwY-X4Rs/hqdefault.jpg');">
                                              <div class="gallery-video-play-btn"></div>
                                              <div class="gallery-video-loading">Loading...</div>
                                           </div>
@@ -805,7 +1022,7 @@
                                  <div class="swiper-slide">
                                     <div class="tp-gallery-item">
                                        <div class="gallery-video-container" data-video-id="wTAInzwUL18">
-                                          <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/wTAInzwUL18/maxresdefault.jpg');">
+                                          <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/wTAInzwUL18/hqdefault.jpg');">
                                              <div class="gallery-video-play-btn"></div>
                                              <div class="gallery-video-loading">Loading...</div>
                                           </div>
@@ -816,7 +1033,7 @@
                                  <div class="swiper-slide">
                                     <div class="tp-gallery-item">
                                        <div class="gallery-video-container" data-video-id="qmUtOpno6UA">
-                                          <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/qmUtOpno6UA/maxresdefault.jpg');">
+                                          <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/qmUtOpno6UA/hqdefault.jpg');">
                                              <div class="gallery-video-play-btn"></div>
                                              <div class="gallery-video-loading">Loading...</div>
                                           </div>
@@ -827,7 +1044,7 @@
                                  <div class="swiper-slide">
                                     <div class="tp-gallery-item">
                                        <div class="gallery-video-container" data-video-id="CwZ4WRhsgBo">
-                                          <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/CwZ4WRhsgBo/maxresdefault.jpg');">
+                                          <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/CwZ4WRhsgBo/hqdefault.jpg');">
                                              <div class="gallery-video-play-btn"></div>
                                              <div class="gallery-video-loading">Loading...</div>
                                           </div>
@@ -838,7 +1055,7 @@
                                  <div class="swiper-slide">
                                     <div class="tp-gallery-item">
                                        <div class="gallery-video-container" data-video-id="RxjUwY-X4Rs">
-                                          <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/RxjUwY-X4Rs/maxresdefault.jpg');">
+                                          <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/RxjUwY-X4Rs/hqdefault.jpg');">
                                              <div class="gallery-video-play-btn"></div>
                                              <div class="gallery-video-loading">Loading...</div>
                                           </div>
@@ -849,7 +1066,7 @@
                                  <div class="swiper-slide">
                                     <div class="tp-gallery-item">
                                        <div class="gallery-video-container" data-video-id="wTAInzwUL18">
-                                          <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/wTAInzwUL18/maxresdefault.jpg');">
+                                          <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/wTAInzwUL18/hqdefault.jpg');">
                                              <div class="gallery-video-play-btn"></div>
                                              <div class="gallery-video-loading">Loading...</div>
                                           </div>
@@ -860,7 +1077,7 @@
                                  <div class="swiper-slide">
                                     <div class="tp-gallery-item">
                                        <div class="gallery-video-container" data-video-id="qmUtOpno6UA">
-                                          <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/qmUtOpno6UA/maxresdefault.jpg');">
+                                          <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/qmUtOpno6UA/hqdefault.jpg');">
                                              <div class="gallery-video-play-btn"></div>
                                              <div class="gallery-video-loading">Loading...</div>
                                           </div>
@@ -871,7 +1088,7 @@
                                  <div class="swiper-slide">
                                     <div class="tp-gallery-item">
                                        <div class="gallery-video-container" data-video-id="CwZ4WRhsgBo">
-                                          <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/CwZ4WRhsgBo/maxresdefault.jpg');">
+                                          <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/CwZ4WRhsgBo/hqdefault.jpg');">
                                              <div class="gallery-video-play-btn"></div>
                                              <div class="gallery-video-loading">Loading...</div>
                                           </div>
@@ -882,7 +1099,7 @@
                                  <div class="swiper-slide">
                                     <div class="tp-gallery-item">
                                        <div class="gallery-video-container" data-video-id="3951tS1OmZY">
-                                          <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/3951tS1OmZY/maxresdefault.jpg');">
+                                          <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/3951tS1OmZY/hqdefault.jpg');">
                                              <div class="gallery-video-play-btn"></div>
                                              <div class="gallery-video-loading">Loading...</div>
                                           </div>
@@ -989,31 +1206,55 @@
                                  
                                   <div class="swiper-slide">
                                      <div class="tp-brand-item" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02)); border: 2px solid rgba(255, 215, 0, 0.2); border-radius: 20px; padding: 35px 25px; transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); backdrop-filter: blur(15px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.borderColor='rgba(255, 215, 0, 0.5)'; this.style.background='linear-gradient(135deg, rgba(255, 215, 0, 0.08), rgba(255, 215, 0, 0.03))'; this.style.boxShadow='0 15px 45px rgba(255, 215, 0, 0.2)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.borderColor='rgba(255, 215, 0, 0.2)'; this.style.background='linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02))'; this.style.boxShadow='0 8px 32px rgba(0, 0, 0, 0.2)'">
-                                        <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/v1757700514/ynrf4mw7elrthmmn6w8r.png" alt="Partner Brand" style="max-width: 100%; height: auto; filter: brightness(0.95) contrast(1.1); transition: all 0.4s ease;" onmouseover="this.style.filter='brightness(1.1) contrast(1.2) saturate(1.1)'" onmouseout="this.style.filter='brightness(0.95) contrast(1.1)'">
+                                        <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/w_300,h_auto,f_auto,q_auto/v1757700514/ynrf4mw7elrthmmn6w8r.png" alt="Partner Brand" loading="lazy" style="max-width: 100%; height: auto; filter: brightness(0.95) contrast(1.1); transition: all 0.4s ease;" onmouseover="this.style.filter='brightness(1.1) contrast(1.2) saturate(1.1)'" onmouseout="this.style.filter='brightness(0.95) contrast(1.1)'">
                                      </div>
                                   </div>
                                   <div class="swiper-slide">
                                      <div class="tp-brand-item" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02)); border: 2px solid rgba(255, 215, 0, 0.2); border-radius: 20px; padding: 35px 25px; transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); backdrop-filter: blur(15px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.borderColor='rgba(255, 215, 0, 0.5)'; this.style.background='linear-gradient(135deg, rgba(255, 215, 0, 0.08), rgba(255, 215, 0, 0.03))'; this.style.boxShadow='0 15px 45px rgba(255, 215, 0, 0.2)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.borderColor='rgba(255, 215, 0, 0.2)'; this.style.background='linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02))'; this.style.boxShadow='0 8px 32px rgba(0, 0, 0, 0.2)'">
-                                        <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/v1757700514/hdb3hrgkql2p9jto3psd.png" alt="Partner Brand" style="max-width: 100%; height: auto; filter: brightness(0.95) contrast(1.1); transition: all 0.4s ease;" onmouseover="this.style.filter='brightness(1.1) contrast(1.2) saturate(1.1)'" onmouseout="this.style.filter='brightness(0.95) contrast(1.1)'">
+                                        <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/w_300,h_auto,f_auto,q_auto/v1757700514/hdb3hrgkql2p9jto3psd.png" alt="Partner Brand" loading="lazy" style="max-width: 100%; height: auto; filter: brightness(0.95) contrast(1.1); transition: all 0.4s ease;" onmouseover="this.style.filter='brightness(1.1) contrast(1.2) saturate(1.1)'" onmouseout="this.style.filter='brightness(0.95) contrast(1.1)'">
                                      </div>
                                   </div>
                                   <div class="swiper-slide">
                                      <div class="tp-brand-item" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02)); border: 2px solid rgba(255, 215, 0, 0.2); border-radius: 20px; padding: 35px 25px; transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); backdrop-filter: blur(15px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.borderColor='rgba(255, 215, 0, 0.5)'; this.style.background='linear-gradient(135deg, rgba(255, 215, 0, 0.08), rgba(255, 215, 0, 0.03))'; this.style.boxShadow='0 15px 45px rgba(255, 215, 0, 0.2)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.borderColor='rgba(255, 215, 0, 0.2)'; this.style.background='linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02))'; this.style.boxShadow='0 8px 32px rgba(0, 0, 0, 0.2)'">
-                                        <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/v1757700514/ssdrftcqjuqwvbozgpiw.png" alt="Partner Brand" style="max-width: 100%; height: auto; filter: brightness(0.95) contrast(1.1); transition: all 0.4s ease;" onmouseover="this.style.filter='brightness(1.1) contrast(1.2) saturate(1.1)'" onmouseout="this.style.filter='brightness(0.95) contrast(1.1)'">
+                                        <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/w_300,h_auto,f_auto,q_auto/v1757700514/ssdrftcqjuqwvbozgpiw.png" alt="Partner Brand" loading="lazy" style="max-width: 100%; height: auto; filter: brightness(0.95) contrast(1.1); transition: all 0.4s ease;" onmouseover="this.style.filter='brightness(1.1) contrast(1.2) saturate(1.1)'" onmouseout="this.style.filter='brightness(0.95) contrast(1.1)'">
                                      </div>
                                   </div>
                                   <div class="swiper-slide">
                                      <div class="tp-brand-item" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02)); border: 2px solid rgba(255, 215, 0, 0.2); border-radius: 20px; padding: 35px 25px; transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); backdrop-filter: blur(15px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.borderColor='rgba(255, 215, 0, 0.5)'; this.style.background='linear-gradient(135deg, rgba(255, 215, 0, 0.08), rgba(255, 215, 0, 0.03))'; this.style.boxShadow='0 15px 45px rgba(255, 215, 0, 0.2)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.borderColor='rgba(255, 215, 0, 0.2)'; this.style.background='linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02))'; this.style.boxShadow='0 8px 32px rgba(0, 0, 0, 0.2)'">
-                                        <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/v1757700514/dwatahfdeitrcyrvunlh.png" alt="Partner Brand" style="max-width: 100%; height: auto; filter: brightness(0.95) contrast(1.1); transition: all 0.4s ease;" onmouseover="this.style.filter='brightness(1.1) contrast(1.2) saturate(1.1)'" onmouseout="this.style.filter='brightness(0.95) contrast(1.1)'">
+                                        <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/w_300,h_auto,f_auto,q_auto/v1757700514/dwatahfdeitrcyrvunlh.png" alt="Partner Brand" loading="lazy" style="max-width: 100%; height: auto; filter: brightness(0.95) contrast(1.1); transition: all 0.4s ease;" onmouseover="this.style.filter='brightness(1.1) contrast(1.2) saturate(1.1)'" onmouseout="this.style.filter='brightness(0.95) contrast(1.1)'">
                                      </div>
                                   </div>
                                   <div class="swiper-slide">
                                      <div class="tp-brand-item" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02)); border: 2px solid rgba(255, 215, 0, 0.2); border-radius: 20px; padding: 35px 25px; transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); backdrop-filter: blur(15px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.borderColor='rgba(255, 215, 0, 0.5)'; this.style.background='linear-gradient(135deg, rgba(255, 215, 0, 0.08), rgba(255, 215, 0, 0.03))'; this.style.boxShadow='0 15px 45px rgba(255, 215, 0, 0.2)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.borderColor='rgba(255, 215, 0, 0.2)'; this.style.background='linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02))'; this.style.boxShadow='0 8px 32px rgba(0, 0, 0, 0.2)'">
-                                        <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/v1757700514/a650zsyjryjarkamvj2q.png" alt="Partner Brand" style="max-width: 100%; height: auto; filter: brightness(0.95) contrast(1.1); transition: all 0.4s ease;" onmouseover="this.style.filter='brightness(1.1) contrast(1.2) saturate(1.1)'" onmouseout="this.style.filter='brightness(0.95) contrast(1.1)'">
+                                        <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/w_300,h_auto,f_auto,q_auto/v1757700514/a650zsyjryjarkamvj2q.png" alt="Partner Brand" loading="lazy" style="max-width: 100%; height: auto; filter: brightness(0.95) contrast(1.1); transition: all 0.4s ease;" onmouseover="this.style.filter='brightness(1.1) contrast(1.2) saturate(1.1)'" onmouseout="this.style.filter='brightness(0.95) contrast(1.1)'">
                                      </div>
                                   </div>
                                 
-                               
+                                  <div class="swiper-slide">
+                                    <div class="tp-brand-item" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02)); border: 2px solid rgba(255, 215, 0, 0.2); border-radius: 20px; padding: 35px 25px; transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); backdrop-filter: blur(15px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.borderColor='rgba(255, 215, 0, 0.5)'; this.style.background='linear-gradient(135deg, rgba(255, 215, 0, 0.08), rgba(255, 215, 0, 0.03))'; this.style.boxShadow='0 15px 45px rgba(255, 215, 0, 0.2)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.borderColor='rgba(255, 215, 0, 0.2)'; this.style.background='linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02))'; this.style.boxShadow='0 8px 32px rgba(0, 0, 0, 0.2)'">
+                                       <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/v1757700514/ynrf4mw7elrthmmn6w8r.png" alt="Partner Brand" style="max-width: 100%; height: auto; filter: brightness(0.95) contrast(1.1); transition: all 0.4s ease;" onmouseover="this.style.filter='brightness(1.1) contrast(1.2) saturate(1.1)'" onmouseout="this.style.filter='brightness(0.95) contrast(1.1)'">
+                                    </div>
+                                 </div>
+                                 <div class="swiper-slide">
+                                    <div class="tp-brand-item" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02)); border: 2px solid rgba(255, 215, 0, 0.2); border-radius: 20px; padding: 35px 25px; transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); backdrop-filter: blur(15px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.borderColor='rgba(255, 215, 0, 0.5)'; this.style.background='linear-gradient(135deg, rgba(255, 215, 0, 0.08), rgba(255, 215, 0, 0.03))'; this.style.boxShadow='0 15px 45px rgba(255, 215, 0, 0.2)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.borderColor='rgba(255, 215, 0, 0.2)'; this.style.background='linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02))'; this.style.boxShadow='0 8px 32px rgba(0, 0, 0, 0.2)'">
+                                       <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/v1757700514/hdb3hrgkql2p9jto3psd.png" alt="Partner Brand" style="max-width: 100%; height: auto; filter: brightness(0.95) contrast(1.1); transition: all 0.4s ease;" onmouseover="this.style.filter='brightness(1.1) contrast(1.2) saturate(1.1)'" onmouseout="this.style.filter='brightness(0.95) contrast(1.1)'">
+                                    </div>
+                                 </div>
+                                 <div class="swiper-slide">
+                                    <div class="tp-brand-item" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02)); border: 2px solid rgba(255, 215, 0, 0.2); border-radius: 20px; padding: 35px 25px; transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); backdrop-filter: blur(15px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.borderColor='rgba(255, 215, 0, 0.5)'; this.style.background='linear-gradient(135deg, rgba(255, 215, 0, 0.08), rgba(255, 215, 0, 0.03))'; this.style.boxShadow='0 15px 45px rgba(255, 215, 0, 0.2)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.borderColor='rgba(255, 215, 0, 0.2)'; this.style.background='linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02))'; this.style.boxShadow='0 8px 32px rgba(0, 0, 0, 0.2)'">
+                                       <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/v1757700514/ssdrftcqjuqwvbozgpiw.png" alt="Partner Brand" style="max-width: 100%; height: auto; filter: brightness(0.95) contrast(1.1); transition: all 0.4s ease;" onmouseover="this.style.filter='brightness(1.1) contrast(1.2) saturate(1.1)'" onmouseout="this.style.filter='brightness(0.95) contrast(1.1)'">
+                                    </div>
+                                 </div>
+                                 <div class="swiper-slide">
+                                    <div class="tp-brand-item" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02)); border: 2px solid rgba(255, 215, 0, 0.2); border-radius: 20px; padding: 35px 25px; transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); backdrop-filter: blur(15px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.borderColor='rgba(255, 215, 0, 0.5)'; this.style.background='linear-gradient(135deg, rgba(255, 215, 0, 0.08), rgba(255, 215, 0, 0.03))'; this.style.boxShadow='0 15px 45px rgba(255, 215, 0, 0.2)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.borderColor='rgba(255, 215, 0, 0.2)'; this.style.background='linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02))'; this.style.boxShadow='0 8px 32px rgba(0, 0, 0, 0.2)'">
+                                       <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/v1757700514/dwatahfdeitrcyrvunlh.png" alt="Partner Brand" style="max-width: 100%; height: auto; filter: brightness(0.95) contrast(1.1); transition: all 0.4s ease;" onmouseover="this.style.filter='brightness(1.1) contrast(1.2) saturate(1.1)'" onmouseout="this.style.filter='brightness(0.95) contrast(1.1)'">
+                                    </div>
+                                 </div>
+                                 <div class="swiper-slide">
+                                    <div class="tp-brand-item" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02)); border: 2px solid rgba(255, 215, 0, 0.2); border-radius: 20px; padding: 35px 25px; transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); backdrop-filter: blur(15px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.borderColor='rgba(255, 215, 0, 0.5)'; this.style.background='linear-gradient(135deg, rgba(255, 215, 0, 0.08), rgba(255, 215, 0, 0.03))'; this.style.boxShadow='0 15px 45px rgba(255, 215, 0, 0.2)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.borderColor='rgba(255, 215, 0, 0.2)'; this.style.background='linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 215, 0, 0.02))'; this.style.boxShadow='0 8px 32px rgba(0, 0, 0, 0.2)'">
+                                       <img src="https://res.cloudinary.com/dtd8dx59o/image/upload/v1757700514/a650zsyjryjarkamvj2q.png" alt="Partner Brand" style="max-width: 100%; height: auto; filter: brightness(0.95) contrast(1.1); transition: all 0.4s ease;" onmouseover="this.style.filter='brightness(1.1) contrast(1.2) saturate(1.1)'" onmouseout="this.style.filter='brightness(0.95) contrast(1.1)'">
+                                    </div>
+                                 </div>
                                </div>
                            </div>
                         </div>
@@ -1072,7 +1313,7 @@
                               <div class="col-xl-4 col-lg-4 col-md-6 mb-30">
                                  <div class="project-video-card" style="position: relative; border-radius: 20px; overflow: hidden; background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(255, 215, 0, 0.2); backdrop-filter: blur(10px); transition: all 0.4s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='#FFD700'; this.style.background='rgba(255, 215, 0, 0.1)'" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(255, 215, 0, 0.2)'; this.style.background='rgba(255, 255, 255, 0.05)'">
                                    <div class="gallery-video-container" data-video-id="3951tS1OmZY" style="height: 300px;">
-                                      <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/3951tS1OmZY/maxresdefault.jpg'); height: 100%; border-radius: 20px;">
+                                      <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/3951tS1OmZY/hqdefault.jpg'); height: 100%; border-radius: 20px;">
                                          <div class="gallery-video-play-btn"></div>
                                          <div class="gallery-video-loading">Loading...</div>
                                       </div>
@@ -1100,7 +1341,7 @@
                               <div class="col-xl-4 col-lg-4 col-md-6 mb-30 order-0 order-lg-0">
                                  <div class="project-video-card" style="position: relative; border-radius: 20px; overflow: hidden; background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(255, 215, 0, 0.2); backdrop-filter: blur(10px); transition: all 0.4s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='#FFD700'; this.style.background='rgba(255, 215, 0, 0.1)'" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(255, 215, 0, 0.2)'; this.style.background='rgba(255, 255, 255, 0.05)'">
                                    <div class="gallery-video-container" data-video-id="DRhzFPIER6U" style="height: 300px;">
-                                      <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/DRhzFPIER6U/maxresdefault.jpg'); height: 100%; border-radius: 20px;">
+                                      <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/DRhzFPIER6U/hqdefault.jpg'); height: 100%; border-radius: 20px;">
                                          <div class="gallery-video-play-btn"></div>
                                          <div class="gallery-video-loading">Loading...</div>
                                       </div>
@@ -1116,7 +1357,7 @@
                               <div class="col-xl-4 col-lg-4 col-md-6 mb-30">
                                  <div class="project-video-card" style="position: relative; border-radius: 20px; overflow: hidden; background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(255, 215, 0, 0.2); backdrop-filter: blur(10px); transition: all 0.4s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='#FFD700'; this.style.background='rgba(255, 215, 0, 0.1)'" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(255, 215, 0, 0.2)'; this.style.background='rgba(255, 255, 255, 0.05)'">
                                    <div class="gallery-video-container" data-video-id="7RqDY1Z9kBc" style="height: 300px;">
-                                      <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/7RqDY1Z9kBc/maxresdefault.jpg'); height: 100%; border-radius: 20px;">
+                                      <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/7RqDY1Z9kBc/hqdefault.jpg'); height: 100%; border-radius: 20px;">
                                          <div class="gallery-video-play-btn"></div>
                                          <div class="gallery-video-loading">Loading...</div>
                                       </div>
@@ -1146,7 +1387,7 @@
                               <div class="col-xl-4 col-lg-4 col-md-6 mb-30 order-0 order-lg-0">
                                  <div class="project-video-card" style="position: relative; border-radius: 20px; overflow: hidden; background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(255, 215, 0, 0.2); backdrop-filter: blur(10px); transition: all 0.4s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='#FFD700'; this.style.background='rgba(255, 215, 0, 0.1)'" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(255, 215, 0, 0.2)'; this.style.background='rgba(255, 255, 255, 0.05)'">
                                    <div class="gallery-video-container" data-video-id="BU0MZMGDzWw" style="height: 300px;">
-                                      <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/BU0MZMGDzWw/maxresdefault.jpg'); height: 100%; border-radius: 20px;">
+                                      <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/BU0MZMGDzWw/hqdefault.jpg'); height: 100%; border-radius: 20px;">
                                          <div class="gallery-video-play-btn"></div>
                                          <div class="gallery-video-loading">Loading...</div>
                                       </div>
@@ -1168,7 +1409,7 @@
                               <div class="col-xl-4 col-lg-4 col-md-6 mb-30">
                                  <div class="project-video-card" style="position: relative; border-radius: 20px; overflow: hidden; background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(255, 215, 0, 0.2); backdrop-filter: blur(10px); transition: all 0.4s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='#FFD700'; this.style.background='rgba(255, 215, 0, 0.1)'" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(255, 215, 0, 0.2)'; this.style.background='rgba(255, 255, 255, 0.05)'">
                                    <div class="gallery-video-container" data-video-id="ZMJqmKrkAEE" style="height: 300px;">
-                                      <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/ZMJqmKrkAEE/maxresdefault.jpg'); height: 100%; border-radius: 20px;">
+                                      <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/ZMJqmKrkAEE/hqdefault.jpg'); height: 100%; border-radius: 20px;">
                                        <div class="gallery-video-play-btn"></div>
                                        <div class="gallery-video-loading">Loading...</div>
                                     </div>
@@ -1197,7 +1438,7 @@
                               <div class="col-xl-4 col-lg-4 col-md-6 mb-30 order-0 order-lg-0">
                                  <div class="project-video-card" style="position: relative; border-radius: 20px; overflow: hidden; background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(255, 215, 0, 0.2); backdrop-filter: blur(10px); transition: all 0.4s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='#FFD700'; this.style.background='rgba(255, 215, 0, 0.1)'" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(255, 215, 0, 0.2)'; this.style.background='rgba(255, 255, 255, 0.05)'">
                                    <div class="gallery-video-container" data-video-id="MDN-0rEV4jc" style="height: 300px;">
-                                      <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/MDN-0rEV4jc/maxresdefault.jpg'); height: 100%; border-radius: 20px;">
+                                      <div class="gallery-video-thumbnail" style="background-image: url('https://img.youtube.com/vi/MDN-0rEV4jc/hqdefault.jpg'); height: 100%; border-radius: 20px;">
                                        <div class="gallery-video-play-btn"></div>
                                        <div class="gallery-video-loading">Loading...</div>
                                     </div>
@@ -1416,11 +1657,9 @@
             <!-- contact area end -->
 
          </main>
-         </div>
 
          <!-- Footer Placeholder -->
          <div id="footer-placeholder"></div>
-      </div>
    </div>
 
 
@@ -1458,6 +1697,25 @@
    <!-- Gallery Video Lazy Loading Script -->
    <script>
    document.addEventListener('DOMContentLoaded', function() {
+       // إصلاح مشكلة الـ scroll bars المزدوجة
+       setTimeout(function() {
+           document.body.style.overflowX = 'hidden';
+           document.documentElement.style.overflowX = 'hidden';
+       }, 100);
+
+       // إخفاء الـ loader بعد التحميل
+       window.addEventListener('load', function() {
+           setTimeout(function() {
+               const loader = document.getElementById('loading');
+               if (loader) {
+                   loader.classList.add('fade-out');
+                   setTimeout(function() {
+                       loader.style.display = 'none';
+                   }, 500);
+               }
+           }, 2000); // 2 ثانية للعرض
+       });
+
        // تفعيل التأثيرات الانتقالية بين الأقسام
        const sections = document.querySelectorAll('.tp-gallery-area, .tp-service-3-area, .tp-project-3-area, .tp-brand-3-area, .tp-cta-area');
        
@@ -1484,6 +1742,12 @@
        const videoContainers = document.querySelectorAll('.gallery-video-container');
        videoContainers.forEach((container, index) => {
            container.style.setProperty('--item-index', index);
+       });
+       
+       // تعيين تأخير متدرج لعناصر البارتنرز
+       const brandItems = document.querySelectorAll('.tp-brand-item');
+       brandItems.forEach((item, index) => {
+           item.style.animationDelay = `${0.4 + (index * 0.08)}s`;
        });
        
        // سكريبت تحميل الفيديوهات
