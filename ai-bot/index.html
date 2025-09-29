@@ -57,8 +57,31 @@
             backdrop-filter: blur(15px);
         }
         
+        /* Improve readability: disable blur on main container and input */
+        .chat-fixed-container.helal-card {
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+        }
+        #message-input.helal-card {
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Fully disable any remaining blur globally */
+        .backdrop-blur-sm {
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+        }
+        .helal-card {
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+        }
+        
         .helal-glow {
             box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+            /* Override global glow blur from unified-style.css */
+            filter: none !important;
         }
         
         /* Background Pattern */
@@ -265,10 +288,10 @@
                     <p class="text-xs sm:text-sm opacity-90">مساعد التسويق الذكي</p>
                 </div>
             </div>
-            <div class="text-center sm:text-right text-xs powered-by mt-2 sm:mt-0">
+            <!-- <div class="text-center sm:text-right text-xs powered-by mt-2 sm:mt-0">
                 <p class="text-xs">Powered by</p>
                 <p class="font-bold text-xs sm:text-sm">Helal Content Marketing</p>
-            </div>
+            </div> -->
         </header>
 
         <!-- Chat Container -->
@@ -344,8 +367,9 @@
         </footer>
         <div class="text-center text-xs text-yellow-400/80 px-3 sm:px-6 pb-3 sm:pb-4 rounded-b-2xl sm:rounded-b-3xl flex-shrink-0 relative" style="background: rgba(0, 0, 0, 0.6);">
             <p class="flex items-center justify-center gap-1 sm:gap-2 flex-wrap text-xs">
-                <span>Powered by</span>
                 <span class="font-bold text-yellow-400">Helal Content Marketing</span>
+                <span>Powered by</span>
+              
                 <span class="hidden sm:inline">|</span>
                 <span class="text-xs">Alexandria, Egypt</span>
             </p>
@@ -491,6 +515,59 @@ Your goal is to help businesses and individuals with their marketing challenges 
                 setTimeout(scrollToBottom, 100);
             }
             
+            // Streaming bot message (typewriter effect)
+            let botMessageIdCounter = 0;
+            function displayBotMessageStreaming(message) {
+                if (placeholder) placeholder.style.display = 'none';
+                const messageId = `bot-msg-${Date.now()}-${++botMessageIdCounter}`;
+                const messageHtml = `
+                    <div class="flex items-start gap-2 sm:gap-3 mb-4 sm:mb-6">
+                        <div class="helal-gradient text-black p-2 sm:p-3 rounded-full flex-shrink-0 shadow-lg avatar-mobile">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sm:w-6 sm:h-6">
+                               <path d="M21 15V6"/>
+                               <path d="M18.5 18a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
+                               <path d="M12 12H3"/>
+                               <path d="M16 6H3"/>
+                               <path d="M12 18H3"/>
+                           </svg>
+                        </div>
+                        <div class="helal-card border border-yellow-400/20 p-3 sm:p-4 rounded-xl sm:rounded-2xl shadow-lg mobile-message backdrop-blur-sm">
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="text-yellow-400 text-xs font-semibold">Helal Marketing AI</span>
+                            </div>
+                            <p id="${messageId}" class="text-white leading-relaxed text-mobile-readable"></p>
+                        </div>
+                    </div>`;
+                typingIndicator.insertAdjacentHTML('beforebegin', messageHtml);
+                const contentEl = document.getElementById(messageId);
+                typeOutText(contentEl, message);
+                
+                const lastMessage = typingIndicator.previousElementSibling;
+                if (lastMessage) lastMessage.style.marginBottom = '2rem';
+                setTimeout(scrollToBottom, 50);
+            }
+
+            function typeOutText(element, text, speed = 12) {
+                const safeText = (str) => str
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/\n/g, '<br>');
+                let index = 0;
+                function step() {
+                    if (index >= text.length) {
+                        scrollToBottom();
+                        return;
+                    }
+                    const nextChunk = text.slice(index, index + 2);
+                    element.innerHTML += safeText(nextChunk);
+                    index += 2;
+                    if (index % 30 === 0) scrollToBottom();
+                    setTimeout(step, speed);
+                }
+                step();
+            }
+            
             async function getBotResponse(prompt, file = null) {
                 let userParts = [];
                 let fullPrompt = prompt;
@@ -632,7 +709,7 @@ Your goal is to help businesses and individuals with their marketing challenges 
 
                 // Hide typing indicator and display response
                 typingIndicator.classList.add('hidden');
-                displayMessage('bot', botResponse);
+                displayBotMessageStreaming(botResponse);
                 
                 // Re-enable form
                 submitButton.disabled = false;
