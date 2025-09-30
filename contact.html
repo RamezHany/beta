@@ -284,6 +284,101 @@
       @keyframes spin {
          to { transform: rotate(360deg); }
       }
+
+      /* Modern Loader Styles (matched to index.html) */
+      .preloader-wrap {
+         position: fixed;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         z-index: 9999;
+         overflow: hidden;
+      }
+
+      .modern-loader {
+         text-align: center;
+         position: relative;
+      }
+
+      .logo-container {
+         margin-bottom: 40px;
+         animation: logoFloat 3s ease-in-out infinite;
+      }
+
+      .loader-logo {
+         width: 80px;
+         height: auto;
+         filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5));
+         animation: logoGlow 2s ease-in-out infinite alternate;
+      }
+
+      @keyframes logoFloat {
+         0%, 100% { transform: translateY(0px); }
+         50% { transform: translateY(-10px); }
+      }
+
+      @keyframes logoGlow {
+         0% { filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5)); }
+         100% { filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.8)); }
+      }
+
+      .rings-container {
+         position: relative;
+         width: 120px;
+         height: 120px;
+         margin: 0 auto 40px;
+      }
+
+      .ring {
+         position: absolute;
+         border: 3px solid transparent;
+         border-radius: 50%;
+         animation: ringRotate 2s linear infinite;
+      }
+
+      .ring-1 { width: 120px; height: 120px; border-top: 3px solid #FFD700; animation-duration: 1.5s; }
+      .ring-2 { width: 90px; height: 90px; top: 15px; left: 15px; border-right: 3px solid #FFA500; animation-duration: 2s; animation-direction: reverse; }
+      .ring-3 { width: 60px; height: 60px; top: 30px; left: 30px; border-bottom: 3px solid #FFD700; animation-duration: 1s; }
+
+      @keyframes ringRotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+      .loader-text {
+         font-family: 'Poppins', sans-serif;
+         font-size: 24px;
+         font-weight: 600;
+         color: #FFD700;
+         margin-bottom: 30px;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         gap: 2px;
+      }
+
+      .text-char { display: inline-block; animation: textBounce 1.5s ease-in-out infinite; animation-fill-mode: both; }
+      .text-char:nth-child(1) { animation-delay: 0.1s; }
+      .text-char:nth-child(2) { animation-delay: 0.2s; }
+      .text-char:nth-child(3) { animation-delay: 0.3s; }
+      .text-char:nth-child(4) { animation-delay: 0.4s; }
+      .text-char:nth-child(5) { animation-delay: 0.5s; }
+      .text-char:nth-child(6) { animation-delay: 0.6s; }
+      .text-char:nth-child(7) { animation-delay: 0.7s; }
+      .dots { animation: dotsBlink 1s ease-in-out infinite; }
+
+      @keyframes textBounce { 0%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-10px); } }
+      @keyframes dotsBlink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0.3; } }
+
+      .progress-container { width: 200px; height: 4px; background: rgba(255, 255, 255, 0.1); border-radius: 2px; overflow: hidden; margin: 0 auto; }
+      .progress-bar { width: 0%; height: 100%; background: linear-gradient(90deg, #FFD700, #FFA500); border-radius: 2px; animation: progressFill 3s ease-in-out forwards; box-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
+      @keyframes progressFill { 0% { width: 0%; } 50% { width: 70%; } 100% { width: 100%; } }
+
+      /* Fade out animation */
+      .preloader-wrap.fade-out { animation: fadeOut 0.5s ease-out forwards; }
+      @keyframes fadeOut { 0% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
    </style>
 </head>
 
@@ -293,10 +388,46 @@
       <![endif]-->
 
    <!-- pre loader area start -->
-   <div id="loading" class="preloader-wrap">
+   <!-- <div id="loading" class="preloader-wrap">
       <div class="preloader-2 text-center">
         <img class="line line-5"src="assets/img/home-03/about/ab-shape-img.png" alt="Logo" style="width: 120px; height: auto; margin-bottom: 20px;" />
         <div class="loader-text">Loading ...</div>
+      </div>
+    </div> -->
+
+
+
+
+    <div id="loading" class="preloader-wrap">
+      <div class="modern-loader">
+         <!-- Logo Container -->
+         <div class="logo-container">
+            <img src="assets/img/home-03/about/ab-shape-img.png" alt="Helal Logo" class="loader-logo">
+         </div>
+         
+         <!-- Animated Rings -->
+         <div class="rings-container">
+            <div class="ring ring-1"></div>
+            <div class="ring ring-2"></div>
+            <div class="ring ring-3"></div>
+         </div>
+         
+         <!-- Loading Text -->
+         <div class="loader-text">
+            <span class="text-char">L</span>
+            <span class="text-char">o</span>
+            <span class="text-char">a</span>
+            <span class="text-char">d</span>
+            <span class="text-char">i</span>
+            <span class="text-char">n</span>
+            <span class="text-char">g</span>
+            <span class="dots">...</span>
+         </div>
+         
+         <!-- Progress Bar -->
+         <div class="progress-container">
+            <div class="progress-bar"></div>
+         </div>
       </div>
     </div>
    <!-- pre loader area end -->
@@ -403,6 +534,17 @@
    <script src="assets/js/main.js"></script>
    <script src="assets/js/tp-cursor.js"></script>
    <script src="assets/js/component-loader.js"></script>
+
+   <script>
+      // Fade out and hide the loader on window load (match homepage behavior)
+      window.addEventListener('load', function() {
+         var preloader = document.getElementById('loading');
+         if (preloader) {
+            preloader.classList.add('fade-out');
+            setTimeout(function(){ preloader.style.display = 'none'; }, 600);
+         }
+      });
+   </script>
 
    <script>
       // Contact Form Handler
