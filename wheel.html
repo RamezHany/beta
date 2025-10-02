@@ -52,6 +52,18 @@
     .spin-btn:hover { transform: translateY(-2px); }
     .result { color:#fff; min-height:28px; font-weight:700; }
 
+    /* Celebration modal */
+    .prize-modal { position: fixed; inset: 0; display:none; align-items:center; justify-content:center; z-index: 10050; }
+    .prize-modal.open { display:flex; }
+    .prize-backdrop { position:absolute; inset:0; background:rgba(0,0,0,.6); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); }
+    .prize-card { position:relative; z-index:1; background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,215,0,0.08)); border:1px solid rgba(255,215,0,0.25); border-radius:20px; padding:28px 24px; box-shadow:0 20px 60px rgba(0,0,0,.5); text-align:center; width:min(520px, 92vw); }
+    .prize-title { color: var(--gold); font-weight:800; font-size:28px; margin-bottom:10px; }
+    .prize-name { color:#fff; font-weight:900; font-size:42px; letter-spacing:.5px; text-shadow:0 6px 20px rgba(0,0,0,.5); }
+    .prize-close { margin-top:18px; background: linear-gradient(135deg, var(--gold), var(--gold-2)); color:#000; border:none; border-radius:10px; padding:10px 18px; font-weight:700; box-shadow:0 10px 24px rgba(255,215,0,.35); }
+
+    /* Confetti canvas */
+    #confettiCanvas { position: fixed; inset:0; pointer-events:none; z-index: 10040; display:none; }
+
     @media (max-width: 576px) {
       .wheel-hero { padding: 90px 0 40px; }
       .wheel .center-cap { width:90px; height:90px; font-size:14px; }
@@ -87,6 +99,17 @@
     </section>
   </main>
 
+  <!-- Celebration UI -->
+  <canvas id="confettiCanvas"></canvas>
+  <div id="prizeModal" class="prize-modal" aria-hidden="true">
+    <div class="prize-backdrop"></div>
+    <div class="prize-card">
+      <div class="prize-title">Congratulations!</div>
+      <div id="prizeName" class="prize-name">Prize</div>
+      <button id="prizeClose" class="prize-close">Close</button>
+    </div>
+  </div>
+
   <!-- Footer placeholder -->
   <div id="footer-placeholder"></div>
 
@@ -113,6 +136,10 @@
       const svg = document.getElementById('wheelSvg');
       const spinBtn = document.getElementById('spinBtn');
       const resultEl = document.getElementById('result');
+      const confettiCanvas = document.getElementById('confettiCanvas');
+      const prizeModal = document.getElementById('prizeModal');
+      const prizeNameEl = document.getElementById('prizeName');
+      const prizeClose = document.getElementById('prizeClose');
 
       // draw wedges as triangular slices via SVG
       const segmentAngle = 360 / prizes.length; // 60
@@ -156,6 +183,56 @@
       let spinning = false;
       let currentRotation = 0;
 
+      // Simple confetti
+      let confettiTimer = null;
+      function launchConfetti(durationMs = 1500){
+        const ctx = confettiCanvas.getContext('2d');
+        const { innerWidth:w, innerHeight:h } = window;
+        confettiCanvas.width = w; confettiCanvas.height = h; confettiCanvas.style.display = 'block';
+        const colors = ['#FFD700','#FFA500','#ffffff','#ff4d4d','#4caf50'];
+        const pieces = Array.from({length: 120}, () => ({
+          x: Math.random()*w,
+          y: -20 - Math.random()*h*0.3,
+          r: 4 + Math.random()*6,
+          c: colors[Math.floor(Math.random()*colors.length)],
+          vy: 3 + Math.random()*4,
+          vx: -2 + Math.random()*4,
+          rot: Math.random()*360,
+          vr: -6 + Math.random()*12
+        }));
+        const start = performance.now();
+        function draw(now){
+          const t = now - start;
+          ctx.clearRect(0,0,w,h);
+          pieces.forEach(p=>{
+            p.x += p.vx; p.y += p.vy; p.rot += p.vr;
+            if(p.y > h+40) { p.y = -20; p.x = Math.random()*w; }
+            ctx.save();
+            ctx.translate(p.x, p.y);
+            ctx.rotate(p.rot*Math.PI/180);
+            ctx.fillStyle = p.c;
+            ctx.fillRect(-p.r/2, -p.r/2, p.r, p.r*1.6);
+            ctx.restore();
+          });
+          if (t < durationMs){ confettiTimer = requestAnimationFrame(draw); }
+          else { confettiCanvas.style.display = 'none'; }
+        }
+        confettiTimer && cancelAnimationFrame(confettiTimer);
+        confettiTimer = requestAnimationFrame(draw);
+      }
+
+      function openPrizeModal(prize){
+        prizeNameEl.textContent = prize;
+        prizeModal.classList.add('open');
+        prizeModal.setAttribute('aria-hidden','false');
+      }
+      function closePrizeModal(){
+        prizeModal.classList.remove('open');
+        prizeModal.setAttribute('aria-hidden','true');
+      }
+      prizeClose.addEventListener('click', closePrizeModal);
+      prizeModal.addEventListener('click', (e)=>{ if(e.target === prizeModal || e.target.classList.contains('prize-backdrop')) closePrizeModal(); });
+
       function spin() {
         if (spinning) return;
         spinning = true;
@@ -192,6 +269,11 @@
             resultEl.textContent = `Result: ${prize}`;
             // subtle pulse
             resultEl.animate([{transform:'scale(1)'},{transform:'scale(1.06)'},{transform:'scale(1)'}],{duration:600});
+            // celebrate if not Good Luck
+            if (prize.toLowerCase() !== 'good luck'){
+              launchConfetti(1800);
+              openPrizeModal(prize);
+            }
             spinning = false;
             spinBtn.disabled = false;
           }
