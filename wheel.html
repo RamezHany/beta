@@ -1,0 +1,208 @@
+<!doctype html>
+<html class="no-js Helal-dark-active" lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Spin The Wheel | Helal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="assets/css/bootstrap.css">
+  <link rel="stylesheet" href="assets/css/animate.css">
+  <link rel="stylesheet" href="assets/css/swiper-bundle.css">
+  <link rel="stylesheet" href="assets/css/slick.css">
+  <link rel="stylesheet" href="assets/css/magnific-popup.css">
+  <link rel="stylesheet" href="assets/css/font-awesome-pro.css">
+  <link rel="stylesheet" href="assets/css/spacing.css">
+  <link rel="stylesheet" href="assets/css/custom-animation.css">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/unified-style.css">
+
+  <style>
+    :root { --gold:#FFD700; --gold-2:#FFA500; --dark:#0f0f10; --panel:#151515; --border:rgba(255,255,255,0.1); }
+    body { background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); }
+
+    .page-wrap { min-height: 100vh; display: flex; flex-direction: column; }
+    .wheel-hero { padding: 120px 0 60px; position: relative; }
+    .wheel-hero::before { content:''; position:absolute; inset:0; background:url('assets/v3.svg') center/cover; opacity:.08; pointer-events:none; }
+
+    .wheel-card { background: linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,215,0,.06)); border:1px solid rgba(255,215,0,.18); border-radius:24px; box-shadow:0 20px 60px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.06); padding:24px; }
+    .wheel-title { color: var(--gold); font-weight:800; letter-spacing:.5px; margin-bottom:6px; text-align:center; }
+    .wheel-sub { color:#ddd; text-align:center; margin-bottom:24px; }
+
+    .wheel-stage { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; }
+    .wheel { width:min(460px, 86vw); aspect-ratio:1/1; border-radius:50%; position:relative; display:grid; place-items:center; background: radial-gradient(ellipse at center, #2d2d2d 0%, #161616 65%, #101010 100%); border:4px solid rgba(255,215,0,.35); box-shadow: 0 12px 35px rgba(0,0,0,.45), inset 0 0 0 1px rgba(255,255,255,.06); overflow:hidden; }
+    .rotor { position:absolute; inset:0; transform-origin:50% 50%; }
+    .pointer { width:0; height:0; border-left:16px solid transparent; border-right:16px solid transparent; border-bottom:28px solid var(--gold); position:absolute; top:-2px; z-index:6; filter: drop-shadow(0 6px 12px rgba(0,0,0,.55)) drop-shadow(0 0 10px rgba(255,215,0,.35)); }
+.pointer::after { content:""; position:absolute; left:-20px; top:-2px; width:0; height:0; border-left:20px solid transparent; border-right:20px solid transparent; border-bottom:34px solid rgba(0,0,0,0.85); z-index:-1; filter: blur(0.2px); }
+
+    /* SVG slices */
+    .wheel svg { position:absolute; inset:0; z-index:1; }
+    .slice { stroke: rgba(255,215,0,.22); stroke-width:0.6; }
+    .slice text { font-family: 'Poppins', sans-serif; fill:#fff; font-weight:700; font-size:2.2px; letter-spacing:.08px; paint-order: stroke fill; stroke: rgba(0,0,0,0.6); stroke-width:0.45; }
+
+    /* center logo */
+    .center-cap { position:absolute; left:50%; top:50%; transform:translate(-50%, -50%); z-index:3; width:120px; height:120px; border-radius:50%; background: linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,215,0,.08)); border:1px solid rgba(255,215,0,.25); box-shadow:0 10px 30px rgba(0,0,0,.4); display:grid; place-items:center; overflow:hidden; }
+    .center-cap img { width:50px; height:auto; filter: drop-shadow(0 4px 10px rgba(0,0,0,.6)); opacity:.95; }
+
+    .controls { display:flex; flex-direction:column; gap:10px; align-items:center; }
+    .spin-btn { background: linear-gradient(135deg, var(--gold), var(--gold-2)); color:#000; border:none; border-radius:12px; padding:14px 26px; font-weight:700; box-shadow:0 12px 26px rgba(255,215,0,.35); transition:.2s; }
+    .spin-btn:disabled { opacity:.6; cursor:not-allowed; }
+    .spin-btn:hover { transform: translateY(-2px); }
+    .result { color:#fff; min-height:28px; font-weight:700; }
+
+    @media (max-width: 576px) {
+      .wheel-hero { padding: 90px 0 40px; }
+      .wheel .center-cap { width:90px; height:90px; font-size:14px; }
+      .label { font-size:14px; }
+    }
+  </style>
+</head>
+<body class="Helal-dark-active">
+  <!-- Navbar placeholder -->
+  <div id="navbar-placeholder"></div>
+
+  <main class="page-wrap">
+    <section class="wheel-hero">
+      <div class="container container-1480">
+        <div class="wheel-card">
+          <h2 class="wheel-title">Spin The Wheel</h2>
+          <p class="wheel-sub">Press "Spin" and try your luck!</p>
+          <div class="wheel-stage">
+            <div class="wheel" id="wheel">
+              <div class="pointer"></div>
+              <div class="rotor" id="rotor">
+                <svg id="wheelSvg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet"></svg>
+                <div class="center-cap"><img src="assets/img/logo/logo-white.png" alt="logo"></div>
+              </div>
+            </div>
+            <div class="controls">
+              <button id="spinBtn" class="spin-btn">Start</button>
+              <div id="result" class="result"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer placeholder -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="assets/js/vendor/jquery.js"></script>
+  <script src="assets/js/bootstrap-bundle.js"></script>
+  <script src="assets/js/gsap.js"></script>
+  <script src="assets/js/gsap-scroll-trigger.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/component-loader.js"></script>
+  <script>
+    (function(){
+      const prizes = [
+        'Pen',
+        'Keychain',
+        'Notebook',
+        'Good Luck',
+        'Pen',
+        'Keychain'
+      ];
+
+      const wheel = document.getElementById('wheel');
+      const rotor = document.getElementById('rotor');
+      const svg = document.getElementById('wheelSvg');
+      const spinBtn = document.getElementById('spinBtn');
+      const resultEl = document.getElementById('result');
+
+      // draw wedges as triangular slices via SVG
+      const segmentAngle = 360 / prizes.length; // 60
+      const r = 48; // radius
+      const center = { x: 50, y: 50 };
+      svg.innerHTML = '';
+      prizes.forEach((label, i) => {
+        const start = (-90 + i * segmentAngle) * Math.PI / 180;
+        const end = (-90 + (i + 1) * segmentAngle) * Math.PI / 180;
+        const x1 = center.x + r * Math.cos(start);
+        const y1 = center.y + r * Math.sin(start);
+        const x2 = center.x + r * Math.cos(end);
+        const y2 = center.y + r * Math.sin(end);
+
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        const d = `M ${center.x},${center.y} L ${x1},${y1} A ${r},${r} 0 0,1 ${x2},${y2} Z`;
+        path.setAttribute('d', d);
+        const fill = i % 2 === 0 ? 'rgba(255,215,0,0.22)' : 'rgba(255,255,255,0.08)';
+        path.setAttribute('fill', fill);
+        path.setAttribute('class', 'slice');
+        svg.appendChild(path);
+
+        const mid = (-90 + i * segmentAngle + segmentAngle / 2);
+        const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        g.setAttribute('transform', `rotate(${mid} 50 50)`);
+        const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        text.setAttribute('x', '50');
+        // place text inside the colored part of the wedge (not on the rim)
+        const rText = Math.round(r * 0.72); // ~72% of radius from center
+        text.setAttribute('y', String(50 - rText));
+        text.setAttribute('text-anchor', 'middle');
+        text.setAttribute('dominant-baseline', 'middle');
+        // keep text within slice width by gentle squeeze if needed
+        text.setAttribute('textLength', '26');
+        text.setAttribute('lengthAdjust', 'spacingAndGlyphs');
+        text.textContent = label;
+        g.appendChild(text);
+        svg.appendChild(g);
+      });
+
+      let spinning = false;
+      let currentRotation = 0;
+
+      function spin() {
+        if (spinning) return;
+        spinning = true;
+        spinBtn.disabled = true;
+        resultEl.textContent = '';
+
+        // choose a random segment index for a fair result
+        const targetIndex = Math.floor(Math.random() * prizes.length);
+
+        // pointer at 12 o'clock, segments start at -90deg on the disc paint
+        // To land targetIndex at pointer, we rotate so that segment center is at 0deg relative to pointer.
+        const segmentCenter = -90 + targetIndex * segmentAngle + segmentAngle / 2; // degrees
+
+        // total rotation = spins + alignment offset - currentRotation
+        const spins = 6 + Math.floor(Math.random()*3); // 6-8 full spins
+        const targetRotation = spins * 360 - segmentCenter; // align so pointer hits desired center
+        const delta = targetRotation - currentRotation;
+
+        const duration = 4500; // ms
+        const start = performance.now();
+
+        function easeOutCubic(t){ return 1 - Math.pow(1 - t, 3); }
+
+        function animate(now){
+          const p = Math.min(1, (now - start) / duration);
+          const eased = easeOutCubic(p);
+          const angle = currentRotation + delta * eased;
+          rotor.style.transform = `rotate(${angle}deg)`;
+          if (p < 1) {
+            requestAnimationFrame(animate);
+          } else {
+            currentRotation = angle % 360;
+            const prize = prizes[targetIndex];
+            resultEl.textContent = `Result: ${prize}`;
+            // subtle pulse
+            resultEl.animate([{transform:'scale(1)'},{transform:'scale(1.06)'},{transform:'scale(1)'}],{duration:600});
+            spinning = false;
+            spinBtn.disabled = false;
+          }
+        }
+        requestAnimationFrame(animate);
+      }
+
+      spinBtn.addEventListener('click', spin);
+    })();
+  </script>
+</body>
+</html>
+
+
