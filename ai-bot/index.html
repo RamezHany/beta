@@ -322,15 +322,22 @@
     <div class="flex flex-col w-full max-w-2xl helal-card rounded-2xl sm:rounded-3xl helal-glow relative z-10 container-mobile chat-fixed-container">
         <!-- Header -->
         <header class="helal-gradient text-black p-4 sm:p-6 rounded-t-2xl sm:rounded-t-3xl shadow-lg flex-shrink-0 relative mobile-header">
-            <div class="flex items-center gap-3 sm:gap-4 logo-section">
-                <!-- Helal Logo -->
-                <div class="logo-animate">
-                    <img src="../assets/img/logo/logo-white.png" alt="Helal Logo" class="w-8 h-10 sm:w-10 sm:h-12 object-contain filter brightness-0">
+            <div class="flex items-center justify-between gap-3 sm:gap-4">
+                <div class="flex items-center gap-3 sm:gap-4 logo-section">
+                    <!-- Helal Logo -->
+                    <div class="logo-animate">
+                        <img src="../assets/img/logo/logo-white.png" alt="Helal Logo" class="w-8 h-10 sm:w-10 sm:h-12 object-contain filter brightness-0">
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h1 class="text-lg sm:text-xl md:text-2xl font-bold truncate">Helal Marketing AI</h1>
+                        <p class="text-xs sm:text-sm opacity-90">مساعد التسويق الذكي</p>
+                    </div>
                 </div>
-                <div class="flex-1 min-w-0">
-                    <h1 class="text-lg sm:text-xl md:text-2xl font-bold truncate">Helal Marketing AI</h1>
-                    <p class="text-xs sm:text-sm opacity-90">مساعد التسويق الذكي</p>
-                </div>
+                <!-- New Chat Button -->
+                <button id="new-chat-btn" class="bg-black/20 hover:bg-black/30 text-black px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all flex items-center gap-1 sm:gap-2" title="بداية جديدة">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                    <span class="hidden sm:inline">جديد</span>
+                </button>
             </div>
             <!-- <div class="text-center sm:text-right text-xs powered-by mt-2 sm:mt-0">
                 <p class="text-xs">Powered by</p>
@@ -446,6 +453,7 @@
             const typingIndicator = document.getElementById('typing-indicator');
             const submitButton = chatForm.querySelector('button[type="submit"]');
             const placeholder = document.getElementById('placeholder');
+            const newChatBtn = document.getElementById('new-chat-btn');
             
             // Mobile viewport height fix for iOS Safari
             function setViewportHeight() {
@@ -473,7 +481,15 @@
                 name: null
             };
 
-            let chatHistory = [{
+            // LocalStorage keys
+            const STORAGE_KEYS = {
+                CHAT_HISTORY: 'helal_ai_chat_history',
+                MESSAGES: 'helal_ai_messages',
+                LAST_UPDATED: 'helal_ai_last_updated'
+            };
+            
+            // Load chat history from LocalStorage or use default
+            let chatHistory = loadChatHistory() || [{
                 role: "user",
                 parts: [{ text: `You are 'Helal Marketing AI' from Helal Content Marketing agency in Alexandria, Egypt.
 
@@ -530,12 +546,80 @@ Your goal: Have a consultative dialogue, then deliver REAL, USABLE content immed
                 parts: [{ text: "أهلاً! 😊 أنا Helal Marketing AI من وكالة هلال بالإسكندرية.\n\nمتخصص في التسويق بالمحتوى والبراند الشخصي.\n\nمحتاج مساعدة في إيه؟ 🚀" }]
             }];
 
+            // LocalStorage functions
+            function saveChatHistory() {
+                try {
+                    localStorage.setItem(STORAGE_KEYS.CHAT_HISTORY, JSON.stringify(chatHistory));
+                    localStorage.setItem(STORAGE_KEYS.LAST_UPDATED, Date.now().toString());
+                } catch (e) {
+                    console.error('Failed to save chat history:', e);
+                }
+            }
+            
+            function loadChatHistory() {
+                try {
+                    const saved = localStorage.getItem(STORAGE_KEYS.CHAT_HISTORY);
+                    if (saved) {
+                        return JSON.parse(saved);
+                    }
+                } catch (e) {
+                    console.error('Failed to load chat history:', e);
+                }
+                return null;
+            }
+            
+            function saveMessages(messages) {
+                try {
+                    localStorage.setItem(STORAGE_KEYS.MESSAGES, JSON.stringify(messages));
+                } catch (e) {
+                    console.error('Failed to save messages:', e);
+                }
+            }
+            
+            function loadMessages() {
+                try {
+                    const saved = localStorage.getItem(STORAGE_KEYS.MESSAGES);
+                    if (saved) {
+                        return JSON.parse(saved);
+                    }
+                } catch (e) {
+                    console.error('Failed to load messages:', e);
+                }
+                return [];
+            }
+            
+            function clearAllData() {
+                try {
+                    localStorage.removeItem(STORAGE_KEYS.CHAT_HISTORY);
+                    localStorage.removeItem(STORAGE_KEYS.MESSAGES);
+                    localStorage.removeItem(STORAGE_KEYS.LAST_UPDATED);
+                } catch (e) {
+                    console.error('Failed to clear data:', e);
+                }
+            }
+            
             function scrollToBottom() {
                 // Smooth scroll to bottom of chat container
                 chatContainer.scrollTo({
                     top: chatContainer.scrollHeight,
                     behavior: 'smooth'
                 });
+            }
+            
+            // Restore previous messages from LocalStorage
+            function restorePreviousMessages() {
+                const messages = loadMessages();
+                if (messages.length > 0) {
+                    placeholder.style.display = 'none';
+                    messages.forEach(msg => {
+                        if (msg.sender === 'bot') {
+                            displayBotMessageInstant(msg.text);
+                        } else {
+                            displayMessage(msg.sender, msg.text, msg.file);
+                        }
+                    });
+                    setTimeout(scrollToBottom, 100);
+                }
             }
 
             function displayMessage(sender, message, fileInfo = null) {
@@ -601,6 +685,8 @@ Your goal: Have a consultative dialogue, then deliver REAL, USABLE content immed
             
             // Streaming bot message (typewriter effect)
             let botMessageIdCounter = 0;
+            let currentMessages = loadMessages(); // Track messages for saving
+            
             function displayBotMessageStreaming(message) {
                 if (placeholder) placeholder.style.display = 'none';
                 const messageId = `bot-msg-${Date.now()}-${++botMessageIdCounter}`;
@@ -636,9 +722,48 @@ Your goal: Have a consultative dialogue, then deliver REAL, USABLE content immed
                 const contentEl = document.getElementById(messageId);
                 typeOutText(contentEl, message);
                 
+                // Save bot message to storage
+                currentMessages.push({ sender: 'bot', text: message });
+                saveMessages(currentMessages);
+                
                 const lastMessage = typingIndicator.previousElementSibling;
                 if (lastMessage) lastMessage.style.marginBottom = '2rem';
                 setTimeout(scrollToBottom, 50);
+            }
+            
+            // Display bot message instantly (for restoring from storage)
+            function displayBotMessageInstant(message) {
+                if (placeholder) placeholder.style.display = 'none';
+                const messageId = `bot-msg-${Date.now()}-${++botMessageIdCounter}`;
+                const messageHtml = `
+                    <div class="flex items-start gap-2 sm:gap-3 mb-4 sm:mb-6 message-container">
+                        <div class="helal-gradient text-black p-2 sm:p-3 rounded-full flex-shrink-0 shadow-lg avatar-mobile">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sm:w-6 sm:h-6">
+                               <path d="M21 15V6"/>
+                               <path d="M18.5 18a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
+                               <path d="M12 12H3"/>
+                               <path d="M16 6H3"/>
+                               <path d="M12 18H3"/>
+                           </svg>
+                        </div>
+                        <div class="flex-1">
+                            <div class="helal-card border border-yellow-400/20 p-3 sm:p-4 rounded-xl sm:rounded-2xl shadow-lg mobile-message backdrop-blur-sm">
+                                <div class="flex items-center justify-between gap-2 mb-2">
+                                    <span class="text-yellow-400 text-xs font-semibold">Helal Marketing AI</span>
+                                    <div class="flex gap-1">
+                                        <button onclick="copyMessage('${messageId}')" class="copy-btn text-gray-400 hover:text-yellow-400 transition-colors p-1 rounded" title="نسخ">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                                        </button>
+                                        <button onclick="shareMessage('${messageId}')" class="share-btn text-gray-400 hover:text-yellow-400 transition-colors p-1 rounded" title="مشاركة">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <p id="${messageId}" class="text-white leading-relaxed text-mobile-readable">${message.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, '<br>')}</p>
+                            </div>
+                        </div>
+                    </div>`;
+                typingIndicator.insertAdjacentHTML('beforebegin', messageHtml);
             }
 
             function typeOutText(element, text, speed = 12) {
@@ -712,6 +837,8 @@ Your goal: Have a consultative dialogue, then deliver REAL, USABLE content immed
                 }
 
                 chatHistory.push({ role: "user", parts: userParts });
+                saveChatHistory(); // Save after adding user message
+                
                 const apiKey = "AIzaSyDVk30nhdS-gMsMne1ywNTELmllkBTPKCA"; 
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
                 const payload = { contents: chatHistory };
@@ -728,6 +855,7 @@ Your goal: Have a consultative dialogue, then deliver REAL, USABLE content immed
                         let botResponseText = result.candidates[0].content.parts[0].text;
                         botResponseText = sanitizeMarkdown(botResponseText);
                         chatHistory.push({ role: "model", parts: [{ text: botResponseText }] });
+                        saveChatHistory(); // Save after bot response
                         return botResponseText;
                     }
                     // Detect language for error messages
@@ -855,6 +983,11 @@ Your goal: Have a consultative dialogue, then deliver REAL, USABLE content immed
                 
                 // Display user message and clear inputs
                 displayMessage('user', message, uploadedFile.name ? uploadedFile : null);
+                
+                // Save user message
+                currentMessages.push({ sender: 'user', text: message, file: uploadedFile.name ? uploadedFile : null });
+                saveMessages(currentMessages);
+                
                 messageInput.value = '';
                 charCounter.classList.add('hidden');
                 
@@ -880,6 +1013,96 @@ Your goal: Have a consultative dialogue, then deliver REAL, USABLE content immed
                 messageInput.disabled = false;
                 messageInput.focus();
             });
+            
+            // New chat button - Clear everything and start fresh
+            newChatBtn.addEventListener('click', () => {
+                if (confirm('هل تريد بدء محادثة جديدة؟ سيتم مسح المحادثة الحالية.')) {
+                    // Clear UI
+                    const messages = chatContainer.querySelectorAll('.message-container, .flex.items-start');
+                    messages.forEach(msg => {
+                        if (!msg.id || msg.id !== 'placeholder' && msg.id !== 'typing-indicator') {
+                            msg.remove();
+                        }
+                    });
+                    
+                    // Clear storage
+                    clearAllData();
+                    
+                    // Reset chat history to default
+                    chatHistory = [{
+                        role: "user",
+                        parts: [{ text: `You are 'Helal Marketing AI' from Helal Content Marketing agency in Alexandria, Egypt.
+
+YOUR CORE EXPERTISE:
+- Content Marketing Strategy
+- Personal Branding & Brand Building
+- Social Media Content Creation (captions, posts)
+- Digital Marketing Strategy
+- Marketing Consulting
+
+LANGUAGE RULE:
+- Arabic messages → Respond in Egyptian Arabic (عامية مصرية)
+- English messages → Respond in friendly professional English
+- NEVER mix languages
+
+CONVERSATION STYLE:
+- Build DIALOGUE step by step
+- Ask 1-2 questions at a time to gather info
+- DON'T give everything at once
+- Keep responses SHORT and focused
+- After gathering enough details (3-5 questions), DELIVER ACTUAL RESULTS
+
+DELIVERING RESULTS:
+When you have enough information, provide CONCRETE DELIVERABLES immediately:
+- Content calendars (actual dates and post ideas)
+- Caption examples (ready to use)
+- Strategy breakdowns with specific steps
+- Budget allocations with numbers
+
+DON'T say "I'll send it in 2 days" - CREATE IT NOW in your response!
+
+Example Flow (Arabic):
+User: "عايز استراتيجية محتوى لصفحتي"
+You: "تمام! 👍 عشان أساعدك، قولي:\n- صفحتك عن إيه؟\n- بتستهدف مين؟"
+
+User: "مطعم برجر، شباب من 18-30"
+You: "حلو! وإيه هدفك الأساسي؟ زيادة الطلبات ولا الوعي بالبراند؟"
+
+User: "زيادة الطلبات"
+You: "عظمة! وعايز تنزل كام بوست في الأسبوع؟"
+
+User: "5 بوستات"
+You: [DELIVER actual content calendar with 5 post ideas, captions, and posting schedule]
+
+IMPORTANT:
+- You create CAPTIONS for images, you DON'T analyze or work with actual images
+- You're a content strategist, not a visual designer
+- Focus on the MESSAGE and COPY, not visuals
+- When users ask for posts, give them the TEXT/CAPTIONS they need
+
+Your goal: Have a consultative dialogue, then deliver REAL, USABLE content immediately.` }]
+                    }, {
+                        role: "model",
+                        parts: [{ text: "أهلاً! 😊 أنا Helal Marketing AI من وكالة هلال بالإسكندرية.\n\nمتخصص في التسويق بالمحتوى والبراند الشخصي.\n\nمحتاج مساعدة في إيه؟ 🚀" }]
+                    }];
+                    
+                    currentMessages = [];
+                    saveChatHistory();
+                    saveMessages(currentMessages);
+                    
+                    // Show placeholder
+                    placeholder.style.display = 'flex';
+                    
+                    // Reset quick questions visibility
+                    const quickQuestionsDiv = document.getElementById('quick-questions');
+                    if (quickQuestionsDiv) {
+                        quickQuestionsDiv.style.display = 'flex';
+                    }
+                }
+            });
+            
+            // Restore previous messages on page load
+            restorePreviousMessages();
         });
         
         // Copy message function
