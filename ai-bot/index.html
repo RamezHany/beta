@@ -268,7 +268,51 @@
         @media (max-width: 768px) {
             .text-mobile-readable {
                 line-height: 1.6;
-                font-size: 15px;
+                font-size: 16px;
+            }
+            
+            /* Better font sizes for mobile */
+            body {
+                font-size: 16px;
+            }
+            
+            /* Prevent zoom on input focus iOS */
+            input[type="text"],
+            input[type="email"],
+            textarea {
+                font-size: 16px !important;
+            }
+        }
+        
+        /* Copy button styles */
+        .copy-btn {
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        
+        .message-container:hover .copy-btn {
+            opacity: 1;
+        }
+        
+        @media (max-width: 768px) {
+            .copy-btn {
+                opacity: 0.7;
+            }
+        }
+        
+        /* Share button styles */
+        .share-btn {
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        
+        .message-container:hover .share-btn {
+            opacity: 1;
+        }
+        
+        @media (max-width: 768px) {
+            .share-btn {
+                opacity: 0.7;
             }
         }
     </style>
@@ -308,8 +352,21 @@
                         </svg>
                     </div>
                     <h3 class="text-lg sm:text-xl font-bold text-yellow-400 mb-2 text-mobile-readable">مرحباً بك في Helal Marketing AI</h3>
-                    <p class="text-gray-400 text-sm sm:text-base text-mobile-readable">مساعدك الذكي المتخصص في التسويق الرقمي</p>
-                    <p class="text-xs sm:text-sm text-gray-500 mt-2 text-mobile-readable leading-relaxed">ابدأ بطرح أسئلتك حول التسويق، الإعلانات، أو استراتيجيات الأعمال</p>
+                    <p class="text-gray-400 text-sm sm:text-base text-mobile-readable">مساعدك الذكي المتخصص في التسويق بالمحتوى</p>
+                    <p class="text-xs sm:text-sm text-gray-500 mt-2 mb-4 text-mobile-readable leading-relaxed">جرب الأسئلة السريعة:</p>
+                    
+                    <!-- Quick Question Buttons -->
+                    <div id="quick-questions" class="flex flex-col gap-2 mt-3">
+                        <button class="quick-question-btn helal-card border border-yellow-400/30 text-yellow-400 px-4 py-2 rounded-lg text-xs sm:text-sm hover:bg-yellow-400/10 transition-all">
+                            عايز استراتيجية محتوى
+                        </button>
+                        <button class="quick-question-btn helal-card border border-yellow-400/30 text-yellow-400 px-4 py-2 rounded-lg text-xs sm:text-sm hover:bg-yellow-400/10 transition-all">
+                            محتاج كابشنز لبوستات
+                        </button>
+                        <button class="quick-question-btn helal-card border border-yellow-400/30 text-yellow-400 px-4 py-2 rounded-lg text-xs sm:text-sm hover:bg-yellow-400/10 transition-all">
+                            ازاي أبني براند شخصي؟
+                        </button>
+                    </div>
                 </div>
             </div>
              <!-- Typing Indicator -->
@@ -354,12 +411,17 @@
                     </button>
                 </div>
             </div>
+            <!-- Character Counter -->
+            <div id="char-counter" class="hidden text-xs text-gray-400 mb-2 text-left">
+                <span id="char-count">0</span> / 500 حرف
+            </div>
+            
             <form id="chat-form" class="flex items-center gap-2 sm:gap-4">
                 <button type="button" id="upload-file-btn" class="helal-gradient text-black p-2 sm:p-3 rounded-full transition-all duration-200 hover:scale-110 shadow-lg touch-target btn-mobile">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sm:w-6 sm:h-6"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.59a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
                 </button>
                 <input type="file" id="file-upload-input" class="hidden" accept="image/*,application/pdf,.doc,.docx">
-                <input type="text" id="message-input" placeholder="اسأل مساعد التسويق الذكي..." autocomplete="off" class="flex-1 p-3 sm:p-4 border border-yellow-400/30 helal-card text-white rounded-xl sm:rounded-2xl focus:ring-2 focus:ring-yellow-400 focus:outline-none focus:border-yellow-400 transition-all duration-200 placeholder-gray-400 mobile-input text-mobile-readable">
+                <input type="text" id="message-input" placeholder="اسأل مساعد التسويق الذكي..." autocomplete="off" maxlength="500" class="flex-1 p-3 sm:p-4 border border-yellow-400/30 helal-card text-white rounded-xl sm:rounded-2xl focus:ring-2 focus:ring-yellow-400 focus:outline-none focus:border-yellow-400 transition-all duration-200 placeholder-gray-400 mobile-input text-mobile-readable" style="font-size: 16px;">
                 <button type="submit" class="helal-gradient text-black p-3 sm:p-4 rounded-xl sm:rounded-2xl hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 focus:ring-offset-transparent transition-all duration-200 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center shadow-lg touch-target btn-mobile">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sm:w-6 sm:h-6"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
                 </button>
@@ -543,7 +605,7 @@ Your goal: Have a consultative dialogue, then deliver REAL, USABLE content immed
                 if (placeholder) placeholder.style.display = 'none';
                 const messageId = `bot-msg-${Date.now()}-${++botMessageIdCounter}`;
                 const messageHtml = `
-                    <div class="flex items-start gap-2 sm:gap-3 mb-4 sm:mb-6">
+                    <div class="flex items-start gap-2 sm:gap-3 mb-4 sm:mb-6 message-container">
                         <div class="helal-gradient text-black p-2 sm:p-3 rounded-full flex-shrink-0 shadow-lg avatar-mobile">
                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sm:w-6 sm:h-6">
                                <path d="M21 15V6"/>
@@ -553,11 +615,21 @@ Your goal: Have a consultative dialogue, then deliver REAL, USABLE content immed
                                <path d="M12 18H3"/>
                            </svg>
                         </div>
-                        <div class="helal-card border border-yellow-400/20 p-3 sm:p-4 rounded-xl sm:rounded-2xl shadow-lg mobile-message backdrop-blur-sm">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-yellow-400 text-xs font-semibold">Helal Marketing AI</span>
+                        <div class="flex-1">
+                            <div class="helal-card border border-yellow-400/20 p-3 sm:p-4 rounded-xl sm:rounded-2xl shadow-lg mobile-message backdrop-blur-sm">
+                                <div class="flex items-center justify-between gap-2 mb-2">
+                                    <span class="text-yellow-400 text-xs font-semibold">Helal Marketing AI</span>
+                                    <div class="flex gap-1">
+                                        <button onclick="copyMessage('${messageId}')" class="copy-btn text-gray-400 hover:text-yellow-400 transition-colors p-1 rounded" title="نسخ">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                                        </button>
+                                        <button onclick="shareMessage('${messageId}')" class="share-btn text-gray-400 hover:text-yellow-400 transition-colors p-1 rounded" title="مشاركة">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <p id="${messageId}" class="text-white leading-relaxed text-mobile-readable"></p>
                             </div>
-                            <p id="${messageId}" class="text-white leading-relaxed text-mobile-readable"></p>
                         </div>
                     </div>`;
                 typingIndicator.insertAdjacentHTML('beforebegin', messageHtml);
@@ -737,6 +809,38 @@ Your goal: Have a consultative dialogue, then deliver REAL, USABLE content immed
                 filePreviewContainer.classList.add('hidden');
             });
 
+            // Character counter
+            const charCounter = document.getElementById('char-counter');
+            const charCount = document.getElementById('char-count');
+            
+            messageInput.addEventListener('input', () => {
+                const length = messageInput.value.length;
+                charCount.textContent = length;
+                
+                if (length > 0) {
+                    charCounter.classList.remove('hidden');
+                } else {
+                    charCounter.classList.add('hidden');
+                }
+                
+                // Change color when approaching limit
+                if (length > 450) {
+                    charCount.classList.add('text-yellow-400');
+                } else {
+                    charCount.classList.remove('text-yellow-400');
+                }
+            });
+            
+            // Quick question buttons
+            const quickQuestions = document.querySelectorAll('.quick-question-btn');
+            quickQuestions.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    messageInput.value = btn.textContent.trim();
+                    messageInput.focus();
+                    chatForm.dispatchEvent(new Event('submit'));
+                });
+            });
+            
             chatForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 const message = messageInput.value.trim();
@@ -746,9 +850,13 @@ Your goal: Have a consultative dialogue, then deliver REAL, USABLE content immed
                 submitButton.disabled = true;
                 messageInput.disabled = true;
                 
+                // Hide keyboard on mobile after submit
+                messageInput.blur();
+                
                 // Display user message and clear inputs
                 displayMessage('user', message, uploadedFile.name ? uploadedFile : null);
                 messageInput.value = '';
+                charCounter.classList.add('hidden');
                 
                 // Scroll to show user message
                 setTimeout(scrollToBottom, 50);
@@ -773,6 +881,47 @@ Your goal: Have a consultative dialogue, then deliver REAL, USABLE content immed
                 messageInput.focus();
             });
         });
+        
+        // Copy message function
+        function copyMessage(messageId) {
+            const messageElement = document.getElementById(messageId);
+            const text = messageElement.innerText || messageElement.textContent;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                // Show temporary success message
+                const btn = event.target.closest('button');
+                const originalHTML = btn.innerHTML;
+                btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+                btn.classList.add('text-green-400');
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalHTML;
+                    btn.classList.remove('text-green-400');
+                }, 1500);
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+                alert('فشل النسخ. حاول مرة أخرى.');
+            });
+        }
+        
+        // Share message function
+        function shareMessage(messageId) {
+            const messageElement = document.getElementById(messageId);
+            const text = messageElement.innerText || messageElement.textContent;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Helal Marketing AI',
+                    text: text,
+                    url: window.location.href
+                }).catch(err => {
+                    console.log('Share cancelled or failed:', err);
+                });
+            } else {
+                // Fallback: Copy to clipboard
+                copyMessage(messageId);
+            }
+        }
     </script>
 </body>
 </html>
