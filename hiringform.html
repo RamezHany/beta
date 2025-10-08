@@ -561,6 +561,11 @@
                      </div>
 
                      <div class="form-group">
+                        <label for="portfolio-url">Portfolio / Behance URL</label>
+                        <input type="url" id="portfolio-url" name="portfolioUrl" class="form-control" placeholder="Link to your Portfolio or Behance profile" required>
+                     </div>
+
+                     <div class="form-group">
                         <label for="notes">Notes (optional)</label>
                         <textarea id="notes" name="notes" class="form-control" placeholder="Anything else we should know?"></textarea>
                      </div>
@@ -642,11 +647,12 @@
 
          const positionsByType = {
             Job: [
-               'Video editor (Mid-level)',
+              'Video editor (Senior)',
                'Social media specialist (Entry level)',
                'Graphic designer (Entry level)',
                'Videographer (Mid-level)',
-               'Content creator (Entry level)'
+              'Content creator (Entry level)',
+              'Media buyer'
             ],
             Internship: [
                'Script writer',
@@ -675,6 +681,12 @@
             refreshPositions(type);
          });
 
+         // Populate positions on initial load if an employment type is already selected
+         const initialType = $('#employment-type').val();
+         if (initialType) {
+            refreshPositions(initialType);
+         }
+
          $('#hiring-form').on('submit', async function(e) {
             e.preventDefault();
             console.log('Hiring form submission via AJAX');
@@ -687,6 +699,7 @@
                phone: $('#applicant-phone').val().trim(),
                linkedinUrl: $('#linkedin-url').val().trim(),
                cvUrl: $('#cv-url').val().trim(),
+                  portfolioUrl: $('#portfolio-url').val().trim(),
                notes: $('#notes').val().trim()
             };
 
@@ -694,7 +707,7 @@
             const btnText = $('#btn-text');
 
             // Validate required fields
-            if (!formData.employmentType || !formData.position || !formData.name || !formData.email || !formData.phone || !formData.linkedinUrl || !formData.cvUrl) {
+            if (!formData.employmentType || !formData.position || !formData.name || !formData.email || !formData.phone || !formData.linkedinUrl || !formData.cvUrl || !formData.portfolioUrl) {
                showMessage('Please fill in all required fields.', 'error');
                return;
             }
@@ -714,6 +727,10 @@
             }
             if (!urlRegex.test(formData.cvUrl)) {
                showMessage('Please enter a valid CV URL (starts with https://).', 'error');
+               return;
+            }
+            if (!urlRegex.test(formData.portfolioUrl)) {
+               showMessage('Please enter a valid Portfolio/Behance URL (starts with https://).', 'error');
                return;
             }
 
