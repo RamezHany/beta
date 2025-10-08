@@ -413,37 +413,70 @@
 
             let chatHistory = [{
                 role: "user",
-                parts: [{ text: `You are 'Helal Marketing AI', a specialized AI marketing assistant created by Helal Content Marketing in Alexandria, Egypt. 
+                parts: [{ text: `You are 'Helal Marketing AI', a specialized marketing assistant from Helal Content Marketing agency in Alexandria, Egypt.
 
-Your expertise includes:
+Your Expertise:
 - Digital Marketing Strategy
 - Social Media Marketing
 - Content Marketing & Creation
 - Google Ads & Facebook Ads
-- SEO & SEM
+- SEO & Search Engine Optimization
 - Email Marketing
-- Brand Strategy & Personal Branding
+- Brand Building & Personal Branding
 - Marketing Analytics
 - E-commerce Marketing
 - Influencer Marketing
 - Marketing Automation
 - Conversion Rate Optimization
 
-Guidelines:
-- Always respond in Arabic unless specifically asked to respond in English
-- Be professional yet friendly and approachable
-- Focus specifically on marketing topics and business growth
-- Provide actionable, practical marketing advice
-- Reference current marketing trends and best practices
-- If asked about non-marketing topics, politely redirect to marketing-related discussions
-- Mention Helal Content Marketing's services when relevant (without being pushy)
-- You can analyze marketing materials, campaign documents, and images
-- Always aim to provide value and demonstrate marketing expertise
+CRITICAL LANGUAGE RULE:
+- If the user writes in Arabic, respond in Egyptian Arabic dialect (عامية مصرية) - NOT formal Arabic
+- If the user writes in English, respond in friendly professional English
+- Mirror the user's language choice throughout the conversation
+- NEVER mix languages in a single response
 
-Your goal is to help businesses and individuals with their marketing challenges and growth strategies.` }]
+Conversation Style (VERY IMPORTANT):
+- Make it a DIALOGUE, not a monologue
+- DON'T give all information at once
+- Ask ONE or TWO questions at a time to gather details
+- Build the conversation step by step
+- Show engagement and enthusiasm
+- Use emojis naturally but don't overdo it
+
+Example Conversation Flow (Arabic):
+User: "عايز اعمل اعلان احذية"
+You: "تمام! 👟 ده مجال حلو أوي. عشان أقدر أساعدك، قولي:\n- هتبيع احذية رجالي ولا حريمي ولا أطفال؟\n- وإيه السعر المتوسط للجوز الواحد تقريباً؟"
+
+User: "حريمي، السعر من 300 لـ 800 جنيه"
+You: "ممتاز! شريحة سعرية كويسة جداً. 💰\n\nطب قولي:\n- عايز تستهدف بنات في سن كام؟\n- وعندك محل على الأرض ولا بتبيع أونلاين بس؟"
+
+User: "من 20 لـ 35 سنة، وعندي محل في الإسكندرية"
+You: "عظمة! كده بقى عندي صورة واضحة. 🎯\n\nآخر حاجة: إيه الميزانية اللي بتفكر فيها للإعلانات شهرياً؟"
+
+[After gathering all info, THEN provide a complete marketing plan]
+
+Example Conversation Flow (English):
+User: "I want to run ads for shoes"
+You: "Great choice! 👟 The footwear market is really promising. To help you better, tell me:\n- Men's, women's, or kids' shoes?\n- What's the average price range per pair?"
+
+User: "Women's shoes, 300-800 EGP"
+You: "Perfect! That's a solid price range. 💰\n\nNow:\n- What age group are you targeting?\n- Do you have a physical store or online only?"
+
+[Continue the dialogue step by step]
+
+Key Principles:
+- NEVER provide a full strategy until you've asked at least 3-5 relevant questions
+- Each response should include 1-2 questions maximum
+- Keep responses concise and conversational
+- Show that you're listening and building on previous answers
+- Only give the final recommendation after gathering: product type, target audience, budget, location, goals, etc.
+- Be genuinely helpful and friendly
+- Mention Helal agency services naturally when relevant (no hard selling)
+
+Your goal is to help businesses through an engaging, consultative conversation that makes them feel heard and understood.` }]
             }, {
                 role: "model",
-                parts: [{ text: "مرحباً! أنا Helal Marketing AI، مساعدك الذكي المتخصص في التسويق الرقمي من وكالة هلال بالإسكندرية. سأساعدك في جميع احتياجاتك التسويقية، من استراتيجيات التسويق الرقمي إلى إدارة وسائل التواصل الاجتماعي وتحسين الحملات الإعلانية. كيف يمكنني مساعدتك اليوم في تطوير أعمالك؟" }]
+                parts: [{ text: "أهلاً وسهلاً! 😊 أنا Helal Marketing AI، مساعدك في التسويق من وكالة هلال بالإسكندرية.\n\nقولي بقى، إنت محتاج مساعدة في إيه بالظبط؟ عندك بيزنس وعايز تسوق ليه؟ ولا عندك مشكلة معينة في الإعلانات أو السوشيال ميديا؟\n\nكلمني براحتك وأنا هنا عشان أساعدك! 🚀" }]
             }];
 
             function scrollToBottom() {
@@ -567,26 +600,47 @@ Your goal is to help businesses and individuals with their marketing challenges 
                 }
                 step();
             }
+
+            // Remove Markdown asterisks and underscores from bot responses
+            function sanitizeMarkdown(text) {
+                if (!text) return text;
+                return text
+                    .replace(/\*\*(.*?)\*\*/g, '$1')   // **bold** → bold
+                    .replace(/__(.*?)__/g, '$1')          // __bold__ → bold
+                    .replace(/\*(.*?)\*/g, '$1')        // *italic* or *list* → italic/list text only
+                    .replace(/_(.*?)_/g, '$1');           // _italic_ → italic
+            }
             
             async function getBotResponse(prompt, file = null) {
                 let userParts = [];
                 let fullPrompt = prompt;
 
+                // Detect if user is writing in English or Arabic
+                const isEnglish = /^[a-zA-Z0-9\s\.,!?;:()\-'"@#$%&*\/]+$/.test(prompt.trim());
+                
                 if (file && file.type.startsWith('image/')) {
                     userParts.push({ text: prompt });
                     userParts.push({ inlineData: { mimeType: file.type, data: file.content } });
                 } else if (file && file.type === 'application/pdf') {
                     if (file.content === 'PDF_PARSING_ERROR') {
-                        fullPrompt = `لقد حاول المستخدم رفع ملف PDF اسمه "${file.name}" ولكن حدث خطأ فني أثناء محاولة قراءة محتواه. كمساعد تسويق من وكالة هلال، أعتذر عن هذا الخلل وأنصح المستخدم بتجربة ملف آخر أو التأكد من أن الملف غير تالف. اقترح عليه إرسال مواد تسويقية أخرى يمكنني مساعدته بتحليلها.`;
+                        fullPrompt = isEnglish 
+                            ? `The user tried to upload a PDF file named "${file.name}" but there was a technical error reading it. Respond in friendly professional English, apologize for the issue, suggest trying another file or sharing content differently. Ask them about what they need help with in marketing.`
+                            : `المستخدم حاول يرفع ملف PDF اسمه "${file.name}" بس حصل مشكلة تقنية في قراءة الملف. رد عليه بالعامية المصرية بشكل ودود واعتذر عن المشكلة، واقترح عليه يجرب ملف تاني أو يبعت المحتوى بطريقة تانية. واسأله عن تفاصيل أكتر عن اللي محتاج مساعدة فيه في التسويق.`;
                     } else if (file.content === 'PDF_IS_IMAGE') {
-                        fullPrompt = `لقد قام المستخدم برفع ملف PDF اسمه "${file.name}" ولكن يبدو أنه يحتوي على صور فقط بدون نصوص يمكن قراءتها. كمساعد تسويق ذكي، أعتذر وأخبر المستخدم أنني حاليًا لا أستطيع قراءة النصوص من الصور داخل ملفات PDF، لكن يمكنه إرسال الصور منفصلة أو مشاركة المحتوى النصي ليتمكن من تقديم استشارة تسويقية مفيدة.`;
+                        fullPrompt = isEnglish
+                            ? `The user uploaded a PDF file named "${file.name}" but it contains only images without readable text. Respond in friendly professional English, apologize, tell them they can send images separately or share text content, and ask what marketing help they need.`
+                            : `المستخدم رفع ملف PDF اسمه "${file.name}" لكن الملف ده فيه صور بس من غير نصوص أقدر أقراها. رد عليه بالعامية المصرية بشكل ودود واعتذر، وقوله إنه يقدر يبعت الصور منفصلة أو يكتب المحتوى نص، واسأله عن إيه اللي محتاج مساعدة فيه في التسويق.`;
                     } else if (file.content) {
                         const truncatedContent = file.content.substring(0, 15000);
-                        fullPrompt = `كمساعد تسويق ذكي من وكالة هلال، لقد تم إرفاق ملف PDF تسويقي/تجاري بعنوان "${file.name}" وهذا محتواه:\n\n---\n${truncatedContent}\n---\n\nيرجى تحليل هذا المحتوى من منظور تسويقي والإجابة على سؤال المستخدم: "${prompt}"`;
+                        fullPrompt = isEnglish
+                            ? `The user sent a PDF file named "${file.name}" with marketing/business content. Here's the content:\n\n---\n${truncatedContent}\n---\n\nAnalyze this content from a marketing perspective and respond to the user's question in friendly professional English in a conversational way. Ask questions to understand their needs better. Their question: "${prompt}"`
+                            : `المستخدم بعت ملف PDF اسمه "${file.name}" فيه محتوى تسويقي/تجاري، وده المحتوى:\n\n---\n${truncatedContent}\n---\n\nحلل المحتوى ده من منظور تسويقي، ورد على سؤال المستخدم بالعامية المصرية بشكل تفاعلي واسأله أسئلة عشان تفهم احتياجاته أكتر. سؤاله: "${prompt}"`;
                     }
                      userParts.push({ text: fullPrompt });
                 } else if (file) {
-                    fullPrompt = `لقد قام المستخدم بإرفاق ملف اسمه "${file.name}" من نوع ${file.type}. كمساعد تسويق من وكالة هلال، أخبر المستخدم أنني متخصص في تحليل المحتوى التسويقي والمرئيات، وأنصحه بإرسال صور، ملفات PDF للمواد التسويقية، أو طرح أسئلة تسويقية مباشرة. سؤاله هو: "${prompt}"`;
+                    fullPrompt = isEnglish
+                        ? `The user sent a file named "${file.name}" of type ${file.type}. Respond in friendly professional English, tell them you specialize in analyzing marketing content, images, and PDFs. Suggest they send images, PDF files, or ask direct marketing questions. Their question: "${prompt}"`
+                        : `المستخدم بعت ملف اسمه "${file.name}" من نوع ${file.type}. رد عليه بالعامية المصرية بشكل ودود وقوله إنك متخصص في تحليل المحتوى التسويقي والصور وملفات PDF، واقترح عليه يبعت صور أو ملفات PDF أو يسأل أسئلة تسويقية مباشرة. سؤاله: "${prompt}"`;
                     userParts.push({ text: fullPrompt });
                 } else {
                     userParts.push({ text: prompt });
@@ -606,14 +660,23 @@ Your goal is to help businesses and individuals with their marketing challenges 
                     if (!response.ok) throw new Error(`API Error: ${response.status}`);
                     const result = await response.json();
                     if (result.candidates && result.candidates[0]?.content?.parts[0]?.text) {
-                        const botResponseText = result.candidates[0].content.parts[0].text;
+                        let botResponseText = result.candidates[0].content.parts[0].text;
+                        botResponseText = sanitizeMarkdown(botResponseText);
                         chatHistory.push({ role: "model", parts: [{ text: botResponseText }] });
                         return botResponseText;
                     }
-                    return "عذراً، حدث خطأ تقني مؤقت. كمساعد تسويق من وكالة هلال، أنصحك بإعادة المحاولة أو طرح سؤالك بطريقة مختلفة.";
+                    // Detect language for error messages
+                    const isEnglish = /^[a-zA-Z0-9\s\.,!?;:()\-'"@#$%&*\/]+$/.test(prompt.trim());
+                    return isEnglish 
+                        ? "Sorry, a small technical issue occurred. Please try again or rephrase your question, and I'm here to help! 😊"
+                        : "آسف، حصلت مشكلة تقنية بسيطة دلوقتي. جرب تاني أو اسألني السؤال بطريقة تانية وأنا هنا عشان أساعدك! 😊";
                 } catch (error) {
                     console.error("Error fetching bot response:", error);
-                    return "عذراً، واجهنا مشكلة تقنية مؤقتة. فريق هلال التقني يعمل على حل هذه المشاكل. يرجى المحاولة مرة أخرى خلال دقائق قليلة.";
+                    // Detect language for error messages
+                    const isEnglish = /^[a-zA-Z0-9\s\.,!?;:()\-'"@#$%&*\/]+$/.test(prompt.trim());
+                    return isEnglish
+                        ? "Sorry, a small technical issue happened. Our technical team is working on it. Can you try again in a bit? 🙏"
+                        : "عذراً يا فندم، في مشكلة تقنية صغيرة حصلت. الفريق التقني بتاعنا شغال على حلها. ممكن تجرب تاني بعد شوية؟ 🙏";
                 }
             }
             
