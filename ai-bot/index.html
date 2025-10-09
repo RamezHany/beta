@@ -8,6 +8,7 @@
     <link rel="icon" type="image/x-icon" href="../assets/img/favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
         // Set the workerSrc for pdf.js
         pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js`;
@@ -315,11 +316,45 @@
                 opacity: 0.7;
             }
         }
+        
+        /* Content Calendar Canvas Styles */
+        .calendar-canvas {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+        }
+        
+        .calendar-cell {
+            min-height: 80px;
+            transition: all 0.3s ease;
+        }
+        
+        .calendar-cell:hover {
+            background: rgba(255, 215, 0, 0.1);
+            border-color: var(--helal-gold);
+        }
+        
+        .editable-cell {
+            outline: none;
+            cursor: text;
+        }
+        
+        .editable-cell:focus {
+            background: rgba(255, 215, 0, 0.15);
+            border-color: var(--helal-gold);
+        }
+        
+        .canvas-toolbar {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+        }
     </style>
 </head>
 <body class="bg-pattern relative min-h-screen flex items-center justify-center p-2 sm:p-4">
 
-    <div class="flex flex-col w-full max-w-2xl helal-card rounded-2xl sm:rounded-3xl helal-glow relative z-10 container-mobile chat-fixed-container">
+    <div class="flex flex-col w-full  helal-card rounded-2xl sm:rounded-3xl helal-glow relative z-10 container-mobile chat-fixed-container">
         <!-- Header -->
         <header class="helal-gradient text-black p-4 sm:p-6 rounded-t-2xl sm:rounded-t-3xl shadow-lg flex-shrink-0 relative mobile-header">
             <div class="flex items-center justify-between gap-3 sm:gap-4">
@@ -333,11 +368,17 @@
                         <p class="text-xs sm:text-sm opacity-90">مساعد التسويق الذكي</p>
                     </div>
                 </div>
-                <!-- New Chat Button -->
-                <button id="new-chat-btn" class="bg-black/20 hover:bg-black/30 text-black px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all flex items-center gap-1 sm:gap-2" title="بداية جديدة">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                    <span class="hidden sm:inline">جديد</span>
-                </button>
+                <!-- Action Buttons -->
+                <div class="flex gap-2">
+                    <button id="canvas-btn" class="bg-black/20 hover:bg-black/30 text-black px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all flex items-center gap-1 sm:gap-2" title="كانفس المحتوى">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                        <span class="hidden sm:inline">كانفس</span>
+                    </button>
+                    <button id="new-chat-btn" class="bg-black/20 hover:bg-black/30 text-black px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all flex items-center gap-1 sm:gap-2" title="بداية جديدة">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        <span class="hidden sm:inline">جديد</span>
+                    </button>
+                </div>
             </div>
             <!-- <div class="text-center sm:text-right text-xs powered-by mt-2 sm:mt-0">
                 <p class="text-xs">Powered by</p>
@@ -442,6 +483,100 @@
                 <span class="hidden sm:inline">|</span>
                 <span class="text-xs">Alexandria, Egypt</span>
             </p>
+        </div>
+    </div>
+
+    <!-- Canvas Modal -->
+    <div id="canvas-modal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="w-full max-w-6xl max-h-[95vh] bg-gradient-to-br from-gray-900 to-black rounded-2xl shadow-2xl border-2 border-yellow-400/30 flex flex-col overflow-hidden">
+            <!-- Canvas Header -->
+            <div class="canvas-toolbar p-4 border-b border-yellow-400/30">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center gap-3">
+                        <div class="helal-gradient p-2 rounded-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-black"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-bold text-yellow-400">كانفس الجداول الذكي</h2>
+                            <p class="text-xs text-gray-400">أنشئ وعدل جداولك واحفظها بصيغة PDF أو CSV</p>
+                        </div>
+                    </div>
+                    <button id="close-canvas-btn" class="text-gray-400 hover:text-yellow-400 transition-colors p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+                
+                <!-- Toolbar Controls -->
+                <div class="flex flex-wrap gap-2 items-center">
+                    <input type="text" id="table-title" placeholder="عنوان الجدول..." class="flex-1 min-w-[200px] bg-black/50 border border-yellow-400/30 text-white px-3 py-2 rounded-lg text-sm focus:outline-none focus:border-yellow-400" value="جدول المحتوى">
+                    
+                    <div class="flex gap-2">
+                        <button id="add-row-btn" class="bg-yellow-400/20 hover:bg-yellow-400/30 text-yellow-400 px-3 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 border border-yellow-400/30" title="إضافة صف">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                            صف
+                        </button>
+                        <button id="add-col-btn" class="bg-yellow-400/20 hover:bg-yellow-400/30 text-yellow-400 px-3 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 border border-yellow-400/30" title="إضافة عمود">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                            عمود
+                        </button>
+                        <button id="remove-row-btn" class="bg-red-500/20 hover:bg-red-500/30 text-red-400 px-3 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 border border-red-400/30" title="حذف آخر صف">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                            صف
+                        </button>
+                        <button id="remove-col-btn" class="bg-red-500/20 hover:bg-red-500/30 text-red-400 px-3 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 border border-red-400/30" title="حذف آخر عمود">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                            عمود
+                        </button>
+                    </div>
+                    
+                    <div class="flex gap-2">
+                        <button id="download-pdf-btn" class="helal-gradient text-black px-4 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 hover:scale-105">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                            PDF
+                        </button>
+                        <button id="download-csv-btn" class="helal-gradient text-black px-4 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 hover:scale-105">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                            CSV
+                        </button>
+                        <button id="clear-canvas-btn" class="bg-gray-600/50 hover:bg-gray-600/70 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                            مسح
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Canvas Content Area -->
+            <div class="flex-1 overflow-auto p-6 calendar-canvas">
+                <div id="canvas-table-container" class="w-full">
+                    <table id="canvas-table" class="w-full border-collapse">
+                        <thead>
+                            <tr class="bg-yellow-400/20">
+                                <th class="border border-yellow-400/30 p-3 text-yellow-400 editable-cell" contenteditable="true">التاريخ</th>
+                                <th class="border border-yellow-400/30 p-3 text-yellow-400 editable-cell" contenteditable="true">الموضوع</th>
+                                <th class="border border-yellow-400/30 p-3 text-yellow-400 editable-cell" contenteditable="true">التفاصيل</th>
+                            </tr>
+                        </thead>
+                        <tbody id="canvas-tbody">
+                            <tr class="calendar-cell">
+                                <td class="border border-yellow-400/30 p-3 text-white editable-cell" contenteditable="true">السبت</td>
+                                <td class="border border-yellow-400/30 p-3 text-white editable-cell" contenteditable="true">محتوى 1</td>
+                                <td class="border border-yellow-400/30 p-3 text-white editable-cell" contenteditable="true">تفاصيل...</td>
+                            </tr>
+                            <tr class="calendar-cell">
+                                <td class="border border-yellow-400/30 p-3 text-white editable-cell" contenteditable="true">الأحد</td>
+                                <td class="border border-yellow-400/30 p-3 text-white editable-cell" contenteditable="true">محتوى 2</td>
+                                <td class="border border-yellow-400/30 p-3 text-white editable-cell" contenteditable="true">تفاصيل...</td>
+                            </tr>
+                            <tr class="calendar-cell">
+                                <td class="border border-yellow-400/30 p-3 text-white editable-cell" contenteditable="true">الإثنين</td>
+                                <td class="border border-yellow-400/30 p-3 text-white editable-cell" contenteditable="true">محتوى 3</td>
+                                <td class="border border-yellow-400/30 p-3 text-white editable-cell" contenteditable="true">تفاصيل...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -1221,6 +1356,337 @@ Your goal: Be a knowledgeable Egyptian marketing consultant who delivers REAL, A
             
             // Restore previous messages on page load
             restorePreviousMessages();
+            
+            // ==================== CANVAS FUNCTIONALITY ====================
+            const canvasBtn = document.getElementById('canvas-btn');
+            const canvasModal = document.getElementById('canvas-modal');
+            const closeCanvasBtn = document.getElementById('close-canvas-btn');
+            const canvasTable = document.getElementById('canvas-table');
+            const canvasTbody = document.getElementById('canvas-tbody');
+            const addRowBtn = document.getElementById('add-row-btn');
+            const addColBtn = document.getElementById('add-col-btn');
+            const removeRowBtn = document.getElementById('remove-row-btn');
+            const removeColBtn = document.getElementById('remove-col-btn');
+            const downloadPdfBtn = document.getElementById('download-pdf-btn');
+            const downloadCsvBtn = document.getElementById('download-csv-btn');
+            const clearCanvasBtn = document.getElementById('clear-canvas-btn');
+            const tableTitle = document.getElementById('table-title');
+            
+            // Open Canvas Modal
+            canvasBtn.addEventListener('click', () => {
+                canvasModal.classList.remove('hidden');
+                loadCanvasData();
+            });
+            
+            // Close Canvas Modal
+            closeCanvasBtn.addEventListener('click', () => {
+                canvasModal.classList.add('hidden');
+                saveCanvasData();
+            });
+            
+            // Close on outside click
+            canvasModal.addEventListener('click', (e) => {
+                if (e.target === canvasModal) {
+                    canvasModal.classList.add('hidden');
+                    saveCanvasData();
+                }
+            });
+            
+            // Add Row
+            addRowBtn.addEventListener('click', () => {
+                const colCount = canvasTable.querySelector('thead tr').children.length;
+                const newRow = document.createElement('tr');
+                newRow.className = 'calendar-cell';
+                
+                for (let i = 0; i < colCount; i++) {
+                    const td = document.createElement('td');
+                    td.className = 'border border-yellow-400/30 p-3 text-white editable-cell';
+                    td.contentEditable = 'true';
+                    td.textContent = 'نص جديد...';
+                    newRow.appendChild(td);
+                }
+                
+                canvasTbody.appendChild(newRow);
+                saveCanvasData();
+            });
+            
+            // Add Column
+            addColBtn.addEventListener('click', () => {
+                // Add header cell
+                const thead = canvasTable.querySelector('thead tr');
+                const th = document.createElement('th');
+                th.className = 'border border-yellow-400/30 p-3 text-yellow-400 editable-cell';
+                th.contentEditable = 'true';
+                th.textContent = 'عمود جديد';
+                thead.appendChild(th);
+                
+                // Add cell to each row
+                const rows = canvasTbody.querySelectorAll('tr');
+                rows.forEach(row => {
+                    const td = document.createElement('td');
+                    td.className = 'border border-yellow-400/30 p-3 text-white editable-cell';
+                    td.contentEditable = 'true';
+                    td.textContent = 'نص جديد...';
+                    row.appendChild(td);
+                });
+                
+                saveCanvasData();
+            });
+            
+            // Remove Row
+            removeRowBtn.addEventListener('click', () => {
+                const rows = canvasTbody.querySelectorAll('tr');
+                if (rows.length > 1) {
+                    rows[rows.length - 1].remove();
+                    saveCanvasData();
+                } else {
+                    alert('لا يمكن حذف آخر صف!');
+                }
+            });
+            
+            // Remove Column
+            removeColBtn.addEventListener('click', () => {
+                const thead = canvasTable.querySelector('thead tr');
+                const colCount = thead.children.length;
+                
+                if (colCount > 1) {
+                    // Remove last header cell
+                    thead.removeChild(thead.lastChild);
+                    
+                    // Remove last cell from each row
+                    const rows = canvasTbody.querySelectorAll('tr');
+                    rows.forEach(row => {
+                        row.removeChild(row.lastChild);
+                    });
+                    
+                    saveCanvasData();
+                } else {
+                    alert('لا يمكن حذف آخر عمود!');
+                }
+            });
+            
+            // Clear Canvas
+            clearCanvasBtn.addEventListener('click', () => {
+                if (confirm('هل تريد مسح كل البيانات في الجدول؟')) {
+                    // Reset to default
+                    canvasTable.querySelector('thead tr').innerHTML = `
+                        <th class="border border-yellow-400/30 p-3 text-yellow-400 editable-cell" contenteditable="true">التاريخ</th>
+                        <th class="border border-yellow-400/30 p-3 text-yellow-400 editable-cell" contenteditable="true">الموضوع</th>
+                        <th class="border border-yellow-400/30 p-3 text-yellow-400 editable-cell" contenteditable="true">التفاصيل</th>
+                    `;
+                    
+                    canvasTbody.innerHTML = `
+                        <tr class="calendar-cell">
+                            <td class="border border-yellow-400/30 p-3 text-white editable-cell" contenteditable="true">السبت</td>
+                            <td class="border border-yellow-400/30 p-3 text-white editable-cell" contenteditable="true">محتوى 1</td>
+                            <td class="border border-yellow-400/30 p-3 text-white editable-cell" contenteditable="true">تفاصيل...</td>
+                        </tr>
+                        <tr class="calendar-cell">
+                            <td class="border border-yellow-400/30 p-3 text-white editable-cell" contenteditable="true">الأحد</td>
+                            <td class="border border-yellow-400/30 p-3 text-white editable-cell" contenteditable="true">محتوى 2</td>
+                            <td class="border border-yellow-400/30 p-3 text-white editable-cell" contenteditable="true">تفاصيل...</td>
+                        </tr>
+                        <tr class="calendar-cell">
+                            <td class="border border-yellow-400/30 p-3 text-white editable-cell" contenteditable="true">الإثنين</td>
+                            <td class="border border-yellow-400/30 p-3 text-white editable-cell" contenteditable="true">محتوى 3</td>
+                            <td class="border border-yellow-400/30 p-3 text-white editable-cell" contenteditable="true">تفاصيل...</td>
+                        </tr>
+                    `;
+                    
+                    tableTitle.value = 'جدول المحتوى';
+                    saveCanvasData();
+                }
+            });
+            
+            // Save canvas data to localStorage
+            function saveCanvasData() {
+                const data = {
+                    title: tableTitle.value,
+                    headers: [],
+                    rows: []
+                };
+                
+                // Save headers
+                const headers = canvasTable.querySelectorAll('thead th');
+                headers.forEach(th => {
+                    data.headers.push(th.textContent);
+                });
+                
+                // Save rows
+                const rows = canvasTbody.querySelectorAll('tr');
+                rows.forEach(row => {
+                    const rowData = [];
+                    const cells = row.querySelectorAll('td');
+                    cells.forEach(cell => {
+                        rowData.push(cell.textContent);
+                    });
+                    data.rows.push(rowData);
+                });
+                
+                localStorage.setItem('helal_canvas_data', JSON.stringify(data));
+            }
+            
+            // Load canvas data from localStorage
+            function loadCanvasData() {
+                const saved = localStorage.getItem('helal_canvas_data');
+                if (!saved) return;
+                
+                try {
+                    const data = JSON.parse(saved);
+                    
+                    // Set title
+                    tableTitle.value = data.title || 'جدول المحتوى';
+                    
+                    // Set headers
+                    if (data.headers && data.headers.length > 0) {
+                        const thead = canvasTable.querySelector('thead tr');
+                        thead.innerHTML = '';
+                        data.headers.forEach(headerText => {
+                            const th = document.createElement('th');
+                            th.className = 'border border-yellow-400/30 p-3 text-yellow-400 editable-cell';
+                            th.contentEditable = 'true';
+                            th.textContent = headerText;
+                            thead.appendChild(th);
+                        });
+                    }
+                    
+                    // Set rows
+                    if (data.rows && data.rows.length > 0) {
+                        canvasTbody.innerHTML = '';
+                        data.rows.forEach(rowData => {
+                            const tr = document.createElement('tr');
+                            tr.className = 'calendar-cell';
+                            rowData.forEach(cellText => {
+                                const td = document.createElement('td');
+                                td.className = 'border border-yellow-400/30 p-3 text-white editable-cell';
+                                td.contentEditable = 'true';
+                                td.textContent = cellText;
+                                tr.appendChild(td);
+                            });
+                            canvasTbody.appendChild(tr);
+                        });
+                    }
+                } catch (e) {
+                    console.error('Error loading canvas data:', e);
+                }
+            }
+            
+            // Auto-save on content change
+            canvasTable.addEventListener('input', () => {
+                saveCanvasData();
+            });
+            
+            tableTitle.addEventListener('input', () => {
+                saveCanvasData();
+            });
+            
+            // Download as CSV
+            downloadCsvBtn.addEventListener('click', () => {
+                const title = tableTitle.value || 'جدول';
+                let csv = '\uFEFF'; // UTF-8 BOM for Excel Arabic support
+                
+                // Add headers
+                const headers = canvasTable.querySelectorAll('thead th');
+                const headerTexts = Array.from(headers).map(th => `"${th.textContent.trim()}"`);
+                csv += headerTexts.join(',') + '\n';
+                
+                // Add rows
+                const rows = canvasTbody.querySelectorAll('tr');
+                rows.forEach(row => {
+                    const cells = row.querySelectorAll('td');
+                    const cellTexts = Array.from(cells).map(td => `"${td.textContent.trim()}"`);
+                    csv += cellTexts.join(',') + '\n';
+                });
+                
+                // Download
+                const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = `${title}.csv`;
+                link.click();
+            });
+            
+            // Download as PDF
+            downloadPdfBtn.addEventListener('click', () => {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF('p', 'mm', 'a4');
+                
+                // Add Arabic font support (using default font but RTL)
+                const title = tableTitle.value || 'جدول المحتوى';
+                
+                // Title
+                doc.setFontSize(18);
+                doc.text(title, 105, 20, { align: 'center' });
+                
+                // Prepare table data
+                const headers = [];
+                const thead = canvasTable.querySelectorAll('thead th');
+                thead.forEach(th => {
+                    headers.push(th.textContent.trim());
+                });
+                
+                const rows = [];
+                const tbody = canvasTbody.querySelectorAll('tr');
+                tbody.forEach(tr => {
+                    const row = [];
+                    const cells = tr.querySelectorAll('td');
+                    cells.forEach(td => {
+                        row.push(td.textContent.trim());
+                    });
+                    rows.push(row);
+                });
+                
+                // Draw table manually
+                let yPosition = 35;
+                const cellWidth = 190 / headers.length;
+                const cellHeight = 10;
+                const startX = 10;
+                
+                // Draw headers
+                doc.setFillColor(255, 215, 0);
+                doc.setTextColor(0, 0, 0);
+                doc.setFontSize(12);
+                
+                headers.forEach((header, i) => {
+                    doc.rect(startX + (i * cellWidth), yPosition, cellWidth, cellHeight, 'F');
+                    doc.text(header, startX + (i * cellWidth) + cellWidth/2, yPosition + 7, { align: 'center' });
+                });
+                
+                yPosition += cellHeight;
+                
+                // Draw rows
+                doc.setTextColor(0, 0, 0);
+                doc.setFontSize(10);
+                
+                rows.forEach((row, rowIndex) => {
+                    row.forEach((cell, cellIndex) => {
+                        // Alternate row colors
+                        if (rowIndex % 2 === 0) {
+                            doc.setFillColor(245, 245, 245);
+                            doc.rect(startX + (cellIndex * cellWidth), yPosition, cellWidth, cellHeight, 'F');
+                        }
+                        
+                        doc.rect(startX + (cellIndex * cellWidth), yPosition, cellWidth, cellHeight, 'S');
+                        doc.text(cell, startX + (cellIndex * cellWidth) + cellWidth/2, yPosition + 7, { align: 'center' });
+                    });
+                    
+                    yPosition += cellHeight;
+                    
+                    // New page if needed
+                    if (yPosition > 270) {
+                        doc.addPage();
+                        yPosition = 20;
+                    }
+                });
+                
+                // Add footer
+                doc.setFontSize(8);
+                doc.setTextColor(100, 100, 100);
+                doc.text('Generated by Helal AI - Content Calendar', 105, 285, { align: 'center' });
+                
+                // Save
+                doc.save(`${title}.pdf`);
+            });
         });
         
         // Copy message function
