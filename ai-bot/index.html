@@ -1005,12 +1005,6 @@ Your goal: Be a knowledgeable Egyptian marketing consultant who delivers REAL, A
                     .replace(/\n/g, '<br>');
                 let index = 0;
                 let tableDetected = false;
-                let inTable = false;
-                let currentTableRows = [];
-                let tableHeaders = null;
-                let tableContainer = null;
-                let tableElement = null;
-                let tableBody = null;
                 
                 function step() {
                     if (index >= text.length) {
@@ -1028,128 +1022,19 @@ Your goal: Be a knowledgeable Egyptian marketing consultant who delivers REAL, A
                     const lines = currentText.split('\n');
                     const currentLine = lines[lines.length - 1];
                     
-                    // Check if current line has table pattern
-                    if (currentLine.includes('|') && currentLine.trim().startsWith('|')) {
-                        if (!inTable) {
-                            inTable = true;
-                            tableDetected = true;
-                            currentTableRows = [];
-                            tableHeaders = null;
-                        }
-                        
-                        // Check if we completed a full table row
-                        if (currentLine.trim().endsWith('|')) {
-                            const rowData = currentLine.split('|').map(cell => cell.trim()).filter(cell => cell);
-                            
-                            // Skip separator rows (containing only dashes, colons, and spaces)
-                            if (!rowData.every(cell => /^[\-:\s]+$/.test(cell))) {
-                                if (!tableHeaders) {
-                                    // This is the header row
-                                    tableHeaders = rowData;
-                                    createTableStructure(element, tableHeaders);
-                                } else {
-                                    // This is a data row
-                                    addTableRow(rowData);
-                                }
-                            }
-                        }
-                    } else if (inTable && !currentLine.includes('|')) {
-                        // We've exited the table
-                        inTable = false;
+                    // Check if current line has table pattern and we completed a row
+                    if (currentLine.includes('|') && currentLine.trim().endsWith('|')) {
+                        tableDetected = true;
+                    }
+                    
+                    // If we detected a table and completed a row, or if we're at the end
+                    if (tableDetected && (!currentLine.includes('|') || index >= text.length)) {
+                        parseMarkdownTables(element);
                         tableDetected = false;
-                        currentTableRows = [];
-                        tableHeaders = null;
-                        tableContainer = null;
-                        tableElement = null;
-                        tableBody = null;
                     }
                     
                     if (index % 30 === 0) scrollToBottom();
                     setTimeout(step, speed);
-                }
-                
-                function createTableStructure(parentElement, headers) {
-                    // Remove any existing table markdown from the HTML
-                    let html = parentElement.innerHTML;
-                    const lines = html.split('<br>');
-                    
-                    // Find and remove the header line that was just typed
-                    for (let i = lines.length - 1; i >= 0; i--) {
-                        if (lines[i].includes('|') && headers.some(h => lines[i].includes(h))) {
-                            lines.splice(i, 1);
-                            break;
-                        }
-                    }
-                    
-                    parentElement.innerHTML = lines.join('<br>');
-                    
-                    // Create table structure
-                    tableContainer = document.createElement('div');
-                    tableContainer.className = 'my-4 overflow-x-auto table-parsed';
-                    
-                    tableElement = document.createElement('table');
-                    tableElement.className = 'w-full border-collapse table-auto markdown-table';
-                    tableElement.style.cssText = 'background: rgba(0,0,0,0.3); border-radius: 8px; overflow: hidden;';
-                    
-                    const thead = document.createElement('thead');
-                    const headerRow = document.createElement('tr');
-                    
-                    headers.forEach(header => {
-                        const th = document.createElement('th');
-                        th.className = 'border border-yellow-400/50 bg-yellow-400/10 px-3 py-2 text-yellow-400';
-                        th.textContent = header;
-                        headerRow.appendChild(th);
-                    });
-                    
-                    thead.appendChild(headerRow);
-                    tableElement.appendChild(thead);
-                    
-                    tableBody = document.createElement('tbody');
-                    tableElement.appendChild(tableBody);
-                    
-                    tableContainer.appendChild(tableElement);
-                    parentElement.appendChild(tableContainer);
-                    
-                    scrollToBottom();
-                }
-                
-                function addTableRow(rowData) {
-                    if (!tableBody || !tableHeaders) return;
-                    
-                    // Remove the row markdown from HTML
-                    let html = element.innerHTML;
-                    const lines = html.split('<br>');
-                    
-                    // Find and remove the row line that was just typed
-                    for (let i = lines.length - 1; i >= 0; i--) {
-                        if (lines[i].includes('|') && rowData.some(cell => lines[i].includes(cell))) {
-                            lines.splice(i, 1);
-                            break;
-                        }
-                    }
-                    
-                    // Update element HTML without the markdown row
-                    const tableContainerHTML = element.querySelector('.table-parsed').outerHTML;
-                    element.innerHTML = lines.join('<br>') + tableContainerHTML;
-                    
-                    // Re-get table references after HTML update
-                    tableContainer = element.querySelector('.table-parsed');
-                    tableElement = tableContainer.querySelector('.markdown-table');
-                    tableBody = tableElement.querySelector('tbody');
-                    
-                    // Add new row to table
-                    const tr = document.createElement('tr');
-                    
-                    // Ensure we have the right number of cells
-                    for (let i = 0; i < tableHeaders.length; i++) {
-                        const td = document.createElement('td');
-                        td.className = 'border border-yellow-400/30 px-3 py-2 text-white';
-                        td.textContent = rowData[i] || '';
-                        tr.appendChild(td);
-                    }
-                    
-                    tableBody.appendChild(tr);
-                    scrollToBottom();
                 }
                 
                 step();
@@ -1170,10 +1055,6 @@ Your goal: Be a knowledgeable Egyptian marketing consultant who delivers REAL, A
                 }
                 
                 let html = element.innerHTML;
-                
-                // Convert [📊 افتح في الكانفس للتعديل والتحميل] to actual button
-                html = html.replace(/\[📊 افتح في الكانفس للتعديل والتحميل\]/g, 
-                    '<button onclick="openCanvasFromTable(this)" class="mt-3 helal-gradient text-black px-4 py-2 rounded-lg text-sm font-semibold transition-all inline-flex items-center gap-2 hover:scale-105"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>📊 افتح في الكانفس للتعديل والتحميل</button>');
                 
                 // Convert markdown tables to HTML tables - match complete tables only
                 // This regex ensures we have header, separator, and at least one row
@@ -1205,6 +1086,10 @@ Your goal: Be a knowledgeable Egyptian marketing consultant who delivers REAL, A
                         return match; // Return original text if parsing fails
                     }
                 });
+                
+                // Convert [📊 افتح في الكانفس للتعديل والتحميل] to actual button after all table processing
+                html = html.replace(/\[📊 افتح في الكانفس للتعديل والتحميل\]/g, 
+                    '<button onclick="openCanvasFromTable(this)" class="mt-3 helal-gradient text-black px-4 py-2 rounded-lg text-sm font-semibold transition-all inline-flex items-center gap-2 hover:scale-105"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>📊 افتح في الكانفس للتعديل والتحميل</button>');
                 
                 element.innerHTML = html;
             }
@@ -1933,12 +1818,28 @@ Your goal: Be a knowledgeable Egyptian marketing consultant who delivers REAL, A
                 if (element.tagName === 'DIV' && element.querySelector('table.markdown-table')) {
                     table = element.querySelector('table.markdown-table');
                     break;
+                } else if (element.tagName === 'TABLE' && element.classList.contains('markdown-table')) {
+                    table = element;
+                    break;
                 }
                 element = element.previousElementSibling;
             }
             
+            // If not found, search in the parent element
+            if (!table) {
+                let parent = button.parentElement;
+                while (parent && !table) {
+                    table = parent.querySelector('table.markdown-table');
+                    if (!table) {
+                        parent = parent.previousElementSibling;
+                    }
+                }
+            }
+            
             if (!table) {
                 alert('لم يتم العثور على الجدول!');
+                console.log('Button element:', button);
+                console.log('Parent element:', button.parentElement);
                 return;
             }
             
