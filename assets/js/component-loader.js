@@ -881,7 +881,7 @@ class ComponentLoader {
             messageDiv.text('Subscribing...').css('color', '#FFD700');
             
             try {
-               const response = await fetch('https://wpp.helal-marketing.com/api/newsletter', {
+               const response = await fetch('https://helal-back.vercel.app/api/newsletter', {
                   method: 'POST',
                   headers: {
                      'Content-Type': 'application/json',
